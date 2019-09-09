@@ -1,10 +1,10 @@
 %%
-%% This is file `dagrep.cls'.
+%% This is file `dagrep-v2018.cls'.
 %% 
 %% -----------------------------------------------------------------
 %% Author:     Dagstuhl Publishing & le-tex publishing services
 %% 
-%% This file is part of the dagrep package for preparing
+%% This file is part of the dagrep-v2018 package for preparing
 %% reports for the "Dagstuhl Reports" journal.
 %% 
 %% Copyright (C) 2011 Schloss Dagstuhl
@@ -23,8 +23,8 @@
 %% Schloss Dagstuhl (publishing@dagstuhl.de).
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
-\ProvidesClass{dagrep}
-    [2011/03/03 v1.0 Dagstuhl Reports articles]
+\ProvidesClass{dagrep-v2018}
+    [2018/02/01 v1.1 Dagstuhl Reports articles]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -195,7 +195,7 @@
   \let\@evenfoot\copyrightline
   \let\@oddfoot\copyrightline}
 \def\dagrep@opterrshort{Option  "\CurrentOption" not supported}
-\def\dagrep@opterrlong{The option "\CurrentOption" from article.cls is not supported by dagrep.cls.}
+\def\dagrep@opterrlong{The option "\CurrentOption" from article.cls is not supported by dagrep-v2018.cls.}
 \DeclareOption{a5paper}{\@latexerr{\dagrep@opterrshort}{\dagrep@opterrlong}}
 \DeclareOption{b5paper}{\@latexerr{\dagrep@opterrshort}{\dagrep@opterrlong}}
 \DeclareOption{legalpaper}{\@latexerr{\dagrep@opterrshort}{\dagrep@opterrlong}}
@@ -719,6 +719,8 @@
       \AB@affillist
     \endlist
     \else  \AB@authors\fi\fi}
+\usepackage{xstring}
+\newcommand\ccsdesc[2][100]{\StrSubstitute{#2}{~}{ $\rightarrow$ }}
 \def\keywords#1{\def\@keywords{#1}}
 \let\@keywords\@empty
 \def\keywordsHeading{%
@@ -728,7 +730,7 @@
 \let\@subjclass\@empty
 \def\subjclassHeading{%
   \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
-                       1998 ACM Subject Classification\enskip}}
+                       2012 ACM Subject Classification\enskip}}
 \def\doiHeading{%
   \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
                        Digital Object Identifier\enskip}}
@@ -820,4 +822,4 @@
   \labelitemi\hskip\labelsep}
 \endinput
 %%
-%% End of file `dagrep.cls'.
+%% End of file `dagrep-v2018.cls'.
