@@ -1,36 +1,40 @@
-
-%This is a template for producing oasics conference volumes.
-%The usage of this file together with oasicsmaster.cls should be
+%This is a template for producing OASIcs conference volumes.
+%The usage of this file together with oasicsmaster-v2016.cls should be
 %straightforward. There is no separate documentation.
-%Feel free to adapt this file or oasicsmaster.cls if required.
 
-\documentclass[a4paper,UKenglish]{oasicsmaster}
-  %for A4 paper format use option "a4paper", for US-letter use option "letterpaper"
-  %for british hyphenation rules use option "UKenglish", for american hyphenation rules use option "USenglish"
+\documentclass[a4paper,UKenglish]{oasicsmaster-v2016}
+ %for A4 paper format use option "a4paper", for US-letter use option "letterpaper"
+ %for british hyphenation rules use option "UKenglish", for american hyphenation rules use option "USenglish"
 
 \usepackage{microtype}%if unwanted, comment out or use option "draft"
 
+
+\newcommand{\VolumeISBN}{424-2-424242-424-2}
+
 %\graphicspath{{./graphics/}}%helpful if your graphic files are in another directory
 
-\bibliographystyle{plain}% the recommended bibstyle
+\bibliographystyle{plainurl}% the recommnded bibstyle
 
 
-\title{\huge 1st Symposium on Very Important Topics}
+\title{\huge 1st Conference on Very Important Topics}
 
-\subtitle{SVIT'10, December 24--27, 2010, Somewherecity, Somewherecountry}
+\subtitle{CVIT 2016, December 24--27, 2016, Little Whinging, United Kingdom}
 
 \editor{Billy Editor\\ Bill Editors}
 
-\volumeinfo %(easychair interface)
-  {B. Editor, B. Editors}% editors
-  {2}% number of editors
-  {1st Symposium on Very Important Topics (SVIT'10)}% event
-  {1}% volume
-  {1}% issue
-  {1}% starting page number
+\EventEditors{John Q. Open and Joan R. Acces}
+\EventNoEds{2}
+\EventLongTitle{42nd Conference on Very Important Topics (CVIT 2016)}
+\EventShortTitle{CVIT 2016}
+\EventAcronym{CVIT}
+\EventYear{2016}
+\EventDate{December 24--27, 2016}
+\EventLocation{Little Whinging, United Kingdom}
+\EventLogo{}
+\SeriesVolume{42}
+\ArticleNo{23}
 
-\EventShortName{SVIT 2010}%for the label in the margin
-\titlepagebottomline{OASIcs -- Vol. ??? -- SVIT'10 \qquad \qquad \qquad \qquad  www.dagstuhl.de/oasics}%some text line for the yellow box on the titlepage
+\titlepagebottomline{OASIcs -- Vol.~42 -- CVIT'10 \qquad \qquad \qquad www.dagstuhl.de/oasics}%some text line for the yellow box on the titlepage
 
 \serieslogo{}%please provide filename (without suffix)
 
@@ -39,7 +43,15 @@
 
 \frontmatter
 
+%%
+%% PAGE 1: Cover page
+%%%
+
 \maketitle
+
+%%
+%% PAGE 2: Bibliographic data (editors, ACM classification, ISBN, license, DOI, ...)
+%% 
 
 \begin{publicationinfo}%for page ii, please fill as required
 \sffamily
@@ -58,22 +70,22 @@ University City & College City \\
 \bigskip
 \bigskip
 \emph{ACM Classification 1998}\\
-\textbf{To be completed}
+\textcolor{red}{(To be completed)}
 
 \bigskip
 \bigskip
 
-{\Large\bf\sffamily \href{http://www.dagstuhl.de/dagpub/978-3-939897-???-?}{ISBN 978-3-939897-???-?}}
+{\Large\bf\sffamily \href{http://www.dagstuhl.de/dagpub/\VolumeISBN}{ISBN \VolumeISBN}}
 
 \bigskip
 \bigskip
 
 \emph{Published online and open access by}\newline
-Schloss Dagstuhl -- Leibniz-Zentrum f\"ur Informatik GmbH, Dagstuhl Publishing, Saarbr\"ucken/Wadern, Germany. Online available at \href{http://www.dagstuhl.de/dagpub/978-3-939897-???-?}{http://www.dagstuhl.de/dagpub/978-3-939897-???-?}.
+Schloss Dagstuhl -- Leibniz-Zentrum f\"ur Informatik GmbH, Dagstuhl Publishing, Saarbr\"ucken/Wadern, Germany. Online available at \href{http://www.dagstuhl.de/dagpub/\VolumeISBN}{http://www.dagstuhl.de/dagpub/\VolumeISBN}.
 
 \bigskip
 \emph{Publication date}\newline
-\textbf{To be completed: Month, Year}
+\textcolor{red}{(To be completed: Month, Year)}
 
 \bigskip
 \bigskip
@@ -87,7 +99,6 @@ The Deutsche Nationalbibliothek lists this publication in the Deutsche Nationalb
 This work is licensed under a Creative Commons Attribution 3.0 Unported license (CC-BY~3.0): \texttt{http://creativecommons.org/licenses/by/3.0/legalcode}.\\
 In brief, this license authorizes each and everybody to share (to copy, distribute and transmit) the work under the following conditions, without impairing or restricting the authors' moral rights:
 \marginpar{\hspace*{0.2\marginparwidth}\includegraphics[width=0.75\marginparwidth]{cc-by.pdf}}
-
 \begin{itemize}
 \item Attribution: The work must be attributed to its authors.
 \end{itemize}
@@ -101,16 +112,16 @@ The copyright is retained by the corresponding authors.
 \bigskip
 \bigskip
 
-Digital Object Identifier: \href{http://dx.doi.org/10.4230/OASIcs.CCCC.YYYY.i}{10.4230/OASIcs.CCCC.YYYY.i}
+Digital Object Identifier: \href{http://dx.doi.org/10.4230/OASIcs.CVIT.2016.0}{10.4230/OASIcs.CVIT.2016.0}
 
 \vfill
-\textbf{\href{http://www.dagstuhl.de/dagpub//978-3-939897-???-?}{ISBN /978-3-939897-???-?}}\qquad \qquad \textbf{\href{http://drops.dagstuhl.de/oasics}{ISSN 2190-6807}}  \hfill \textbf{\href{http://www.dagstuhl.de/oasics}{http://www.dagstuhl.de/oasics}}
+\textbf{\href{http://www.dagstuhl.de/dagpub/\VolumeISBN}{ISBN \VolumeISBN}}\qquad \qquad \textbf{\href{http://drops.dagstuhl.de/oasics}{ISSN 1868-8969}}  \hfill \textbf{\href{http://www.dagstuhl.de/oasics}{http://www.dagstuhl.de/oasics}}
 
-
- % Published by: ...\\
-  %ISBN: ...
+%%
+%% PAGE 3: OASIcs series information
+%% 
   
- \newpage
+\newpage
 
 \ \\
 \bigskip
@@ -119,15 +130,14 @@ Digital Object Identifier: \href{http://dx.doi.org/10.4230/OASIcs.CCCC.YYYY.i}{1
 
 {\Large OASIcs -- OpenAccess Series in Informatics}
  
- \bigskip
+\bigskip
+ 
 OASIcs aims at a suitable publication venue to publish peer-reviewed collections of papers emerging from a scientific event.
 OASIcs volumes are published according to the principle of Open Access, i.e., they are available online and free of charge. 
-
  
- \bigskip
- \bigskip
- \bigskip
- 
+\bigskip
+\bigskip
+\bigskip
  
 \emph{Editorial Board}
 
@@ -137,29 +147,36 @@ OASIcs volumes are published according to the principle of Open Access, i.e., th
 \item Marc Langheinrich (Universit\`a della Svizzera Italiana -- Lugano, Switzerland)
 \item Dorothea Wagner (\emph{Editor-in-Chief}, Karlsruher Institut f\"{u}r Technologie, Germany)
  \end{itemize}
-
-
- \bigskip
- \bigskip
- \bigskip
-
-
-{\large\bf\sffamily \href{http://drops.dagstuhl.de/oasics}{ISSN 2190-6807}}
-
- \bigskip
- \bigskip
- \bigskip
-
-{\Large\bf\sffamily \href{http://www.dagstuhl.de/oasics}{www.dagstuhl.de/oasics}}
  
- \vfill
+\bigskip
+\bigskip
+\bigskip
+
+{\large\bf\sffamily \href{http://www.dagstuhl.de/dagpub/2190-6807}{ISSN 2190-6807}}
+
+\bigskip
+\bigskip
+\bigskip
+
+{\Large\bf\sffamily \href{http://www.dagstuhl.de/oasics}{http://www.dagstuhl.de/oasics}}
  
- \newpage
+\vfill
+
+%%
+%% PAGE 4: (empty)
+%% 
  
- \thispagestyle{empty}
+\newpage
  
+\thispagestyle{empty}
+
+\ \\
+
 \end{publicationinfo}
 
+%%
+%% PAGE 5 and more: TOC etc.
+%% 
 
 \begin{dedication}%please fill or comment out
   Insert dedication here.
@@ -178,22 +195,22 @@ OASIcs volumes are published according to the principle of Open Access, i.e., th
 \contitem
 \title{Preface}
 \author{John Q. Open}
-\page{i}
+\page{0:vii}
 
 %\part{} %use if volume is divided in parts
 \part{Regular Papers}
 
 \contitem
-\title{Mmmmm...donuts}
+\title{Mmmmm $\ldots$ donuts}
 \author{Homer J. Simpson}
-\page{1}
+\page{1:1--1:23}
 
 
 \end{contentslist}
 
 
 
-\chapter{Preface}  %please fill or comment out
+\chapter{Preface} %please fill or comment out
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut mattis
 elementum fermentum. Pellentesque habitant morbi tristique senectus et
@@ -221,6 +238,7 @@ scelerisque dolor fringilla sit amet. Pellentesque habitant morbi
 tristique senectus et netus et malesuada fames ac turpis
 egestas. Quisque vitae accumsan risus. Sed molestie dictum
 venenatis. Sed odio justo, gravida et vulputate eu, congue et lorem. 
+
 
 \begin{participants}
 \chapter[Authors]{List of Authors}

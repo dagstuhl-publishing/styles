@@ -1,36 +1,40 @@
-
 %This is a template for producing LIPIcs conference volumes.
-%The usage of this file together with lipicsmaster.cls should be
+%The usage of this file together with lipicsmaster-v2016.cls should be
 %straightforward. There is no separate documentation.
-%Feel free to adapt this file or lipicsmaster.cls if required.
 
-\documentclass[a4paper,UKenglish]{lipicsmaster}
-  %for A4 paper format use option "a4paper", for US-letter use option "letterpaper"
-  %for british hyphenation rules use option "UKenglish", for american hyphenation rules use option "USenglish"
+\documentclass[a4paper,UKenglish]{lipicsmaster-v2016}
+ %for A4 paper format use option "a4paper", for US-letter use option "letterpaper"
+ %for british hyphenation rules use option "UKenglish", for american hyphenation rules use option "USenglish"
 
 \usepackage{microtype}%if unwanted, comment out or use option "draft"
 
+
+\newcommand{\VolumeISBN}{424-2-424242-424-2}
+
 %\graphicspath{{./graphics/}}%helpful if your graphic files are in another directory
 
-\bibliographystyle{plain}% the recommnded bibstyle
+\bibliographystyle{plainurl}% the recommnded bibstyle
 
 
 \title{\huge 1st Conference on Very Important Topics}
 
-\subtitle{CVIT'10, December 24--27, 2010, Somewherecity, Somewherecountry}
+\subtitle{CVIT 2016, December 24--27, 2016, Little Whinging, United Kingdom}
 
 \editor{Billy Editor\\ Bill Editors}
 
-\volumeinfo %(easychair interface)
-  {B. Editor, B. Editors}% editors
-  {2}% number of editors
-  {1st Conference on Very Important Topics (CVIT'10)}% event
-  {1}% volume
-  {1}% issue
-  {1}% starting page number
+\EventEditors{John Q. Open and Joan R. Acces}
+\EventNoEds{2}
+\EventLongTitle{42nd Conference on Very Important Topics (CVIT 2016)}
+\EventShortTitle{CVIT 2016}
+\EventAcronym{CVIT}
+\EventYear{2016}
+\EventDate{December 24--27, 2016}
+\EventLocation{Little Whinging, United Kingdom}
+\EventLogo{}
+\SeriesVolume{42}
+\ArticleNo{23}
 
-\EventShortName{CVIT 2010}%for the label in the margin
-\titlepagebottomline{LIPIcs -- Vol. ??? -- CVIT'10 \qquad \qquad \qquad \qquad  www.dagstuhl.de/lipics}%some text line for the yellow box on the titlepage
+\titlepagebottomline{LIPIcs -- Vol.~42 -- CVIT'10 \qquad \qquad \qquad www.dagstuhl.de/lipics}%some text line for the yellow box on the titlepage
 
 \serieslogo{}%please provide filename (without suffix)
 
@@ -39,7 +43,15 @@
 
 \frontmatter
 
+%%
+%% PAGE 1: Cover page
+%%%
+
 \maketitle
+
+%%
+%% PAGE 2: Bibliographic data (editors, ACM classification, ISBN, license, DOI, ...)
+%% 
 
 \begin{publicationinfo}%for page ii, please fill as required
 \sffamily
@@ -58,22 +70,22 @@ University City & College City \\
 \bigskip
 \bigskip
 \emph{ACM Classification 1998}\\
-\textbf{To be completed}
+\textcolor{red}{(To be completed)}
 
 \bigskip
 \bigskip
 
-{\Large\bf\sffamily \href{http://www.dagstuhl.de/dagpub/978-3-939897-???-?}{ISBN 978-3-939897-???-?}}
+{\Large\bf\sffamily \href{http://www.dagstuhl.de/dagpub/\VolumeISBN}{ISBN \VolumeISBN}}
 
 \bigskip
 \bigskip
 
 \emph{Published online and open access by}\newline
-Schloss Dagstuhl -- Leibniz-Zentrum f\"ur Informatik GmbH, Dagstuhl Publishing, Saarbr\"ucken/Wadern, Germany. Online available at \href{http://www.dagstuhl.de/dagpub/978-3-939897-???-?}{http://www.dagstuhl.de/dagpub/978-3-939897-???-?}.
+Schloss Dagstuhl -- Leibniz-Zentrum f\"ur Informatik GmbH, Dagstuhl Publishing, Saarbr\"ucken/Wadern, Germany. Online available at \href{http://www.dagstuhl.de/dagpub/\VolumeISBN}{http://www.dagstuhl.de/dagpub/\VolumeISBN}.
 
 \bigskip
 \emph{Publication date}\newline
-\textbf{To be completed: Month, Year}
+\textcolor{red}{(To be completed: Month, Year)}
 
 \bigskip
 \bigskip
@@ -87,7 +99,6 @@ The Deutsche Nationalbibliothek lists this publication in the Deutsche Nationalb
 This work is licensed under a Creative Commons Attribution 3.0 Unported license (CC-BY~3.0): \texttt{http://creativecommons.org/licenses/by/3.0/legalcode}.\\
 In brief, this license authorizes each and everybody to share (to copy, distribute and transmit) the work under the following conditions, without impairing or restricting the authors' moral rights:
 \marginpar{\hspace*{0.2\marginparwidth}\includegraphics[width=0.75\marginparwidth]{cc-by.pdf}}
-
 \begin{itemize}
 \item Attribution: The work must be attributed to its authors.
 \end{itemize}
@@ -101,15 +112,16 @@ The copyright is retained by the corresponding authors.
 \bigskip
 \bigskip
 
-Digital Object Identifier: \href{http://dx.doi.org/10.4230/LIPIcs.CCCC.YYYY.i}{10.4230/LIPIcs.CCCC.YYYY.i}
+Digital Object Identifier: \href{http://dx.doi.org/10.4230/LIPIcs.CVIT.2016.0}{10.4230/LIPIcs.CVIT.2016.0}
 
 \vfill
-\textbf{\href{http://www.dagstuhl.de/dagpub//978-3-939897-???-?}{ISBN /978-3-939897-???-?}}\qquad \qquad \textbf{\href{http://drops.dagstuhl.de/lipics}{ISSN 1868-8969}}  \hfill \textbf{\href{http://www.dagstuhl.de/lipics}{http://www.dagstuhl.de/lipics}}
+\textbf{\href{http://www.dagstuhl.de/dagpub/\VolumeISBN}{ISBN \VolumeISBN}}\qquad \qquad \textbf{\href{http://drops.dagstuhl.de/lipics}{ISSN 1868-8969}}  \hfill \textbf{\href{http://www.dagstuhl.de/lipics}{http://www.dagstuhl.de/lipics}}
 
- % Published by: ...\\
-  %ISBN: ...
+%%
+%% PAGE 3: LIPIcs series information
+%% 
   
- \newpage
+\newpage
 
 \ \\
 \bigskip
@@ -118,52 +130,60 @@ Digital Object Identifier: \href{http://dx.doi.org/10.4230/LIPIcs.CCCC.YYYY.i}{1
 
 {\Large LIPIcs -- Leibniz International Proceedings in Informatics}
  
- \bigskip
+\bigskip
  
 LIPIcs is a series of high-quality conference proceedings across all fields in informatics. 
 LIPIcs volumes are published according to the principle of Open Access, i.e., they are available online and free of charge. 
-
  
- \bigskip
- \bigskip
- \bigskip
- 
+\bigskip
+\bigskip
+\bigskip
  
 \emph{Editorial Board}
 
 \begin{itemize} 
-\item Susanne Albers (Humboldt University Berlin)
+\item Luca Aceto (\emph{Chair}, Gran Sasso Science Institute and Reykjavik University) 
+\item Susanne Albers (TU M\"unchen)
 \item Chris Hankin (Imperial College London)
 \item Deepak Kapur (University of New Mexico)
 \item Michael Mitzenmacher (Harvard University)
 \item Madhavan Mukund	(Chennai Mathematical Institute)
-\item Wolfgang Thomas (RWTH Aachen)
-\item Vinay V. (Chennai Mathematical Institute)
-\item Pascal Weil (\emph{Chair}, University Bordeaux)
-\item Reinhard Wilhelm (Saarland University, Schloss Dagstuhl)
- \end{itemize}
-
-
- \bigskip
- \bigskip
- \bigskip
-
-{\large\bf\sffamily \href{http://drops.dagstuhl.de/lipics}{ISSN 1868-8969}}
-
- \bigskip
- \bigskip
- \bigskip
-
-{\Large\bf\sffamily \href{http://www.dagstuhl.de/lipics}{www.dagstuhl.de/lipics}}
+\item Anca Muscholl (University Bordeaux)
+\item Catuscia Palamidessi (INRIA)
+\item Raimund Seidel (Saarland University and Schloss Dagstuhl -- Leibniz-Zentrum f\"ur Informatik)
+\item Thomas Schwentick (TU Dortmund)
+\item Reinhard Wilhelm (Saarland University)
+\end{itemize}
  
- \vfill
+\bigskip
+\bigskip
+\bigskip
+
+{\large\bf\sffamily \href{http://www.dagstuhl.de/dagpub/1868-8969}{ISSN 1868-8969}}
+
+\bigskip
+\bigskip
+\bigskip
+
+{\Large\bf\sffamily \href{http://www.dagstuhl.de/lipics}{http://www.dagstuhl.de/lipics}}
  
- \newpage
+\vfill
+
+%%
+%% PAGE 4: (empty)
+%% 
  
- \thispagestyle{empty}
+\newpage
  
+\thispagestyle{empty}
+
+\ \\
+
 \end{publicationinfo}
 
+%%
+%% PAGE 5 and more: TOC etc.
+%% 
 
 \begin{dedication}%please fill or comment out
   Insert dedication here.
@@ -182,15 +202,15 @@ LIPIcs volumes are published according to the principle of Open Access, i.e., th
 \contitem
 \title{Preface}
 \author{John Q. Open}
-\page{i}
+\page{0:vii}
 
 %\part{} %use if volume is divided in parts
 \part{Regular Papers}
 
 \contitem
-\title{Mmmmm...donuts}
+\title{Mmmmm $\ldots$ donuts}
 \author{Homer J. Simpson}
-\page{1}
+\page{1:1--1:23}
 
 
 \end{contentslist}

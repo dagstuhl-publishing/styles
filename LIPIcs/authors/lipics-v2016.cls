@@ -23,8 +23,8 @@
 %% Schloss Dagstuhl (publishing@dagstuhl.de).
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
-\ProvidesClass{lipics}
-    [2010/09/27 v1.1 LIPIcs articles]
+\ProvidesClass{lipics-v2016}
+    [2016/02/16 v1.1 LIPIcs articles]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -128,10 +128,38 @@
   \@xsect{#5}}
 \def\@seccntformat#1{\csname the#1\endcsname}
 \def\@biblabel#1{\textcolor{darkgray}{\sffamily\bfseries#1}}
+
+\def\EventLogo#1{\gdef\@EventLogo{#1}}
+\EventLogo{}
+\def\EventEditors#1{\gdef\@EventEditors{#1}}
+\EventEditors{}
+\def\EventNoEds#1{\gdef\@EventNoEds{#1}\ifnum #1>1 \gdef\@Eds{Editors}\fi }    
+\EventNoEds{1}
+\gdef\@Eds{Editor}
+\def\EventLongTitle#1{\gdef\@EventLongTitle{#1}}
+\EventLongTitle{}
+\def\EventShortTitle#1{\gdef\@EventShortTitle{#1}}
+\EventShortTitle{}
+\def\EventAcronym#1{\gdef\@EventAcronym{#1}}
+\EventAcronym{}
+\def\EventYear#1{\gdef\@EventYear{#1}}
+\EventYear{}
+\def\EventDate#1{\gdef\@EventDate{#1}}
+\EventDate{}
+\def\EventLocation#1{\gdef\@EventLocation{#1}}
+\EventLocation{}
+\def\SeriesVolume#1{\gdef\@SeriesVolume{#1}}
+\SeriesVolume{}
+\def\ArticleNo#1{\gdef\@ArticleNo{#1}}
+\ArticleNo{}
+\def\DOIPrefix#1{\gdef\@DOIPrefix{#1}}
+\DOIPrefix{10.4230/LIPIcs}
+
+
 \def\copyrightline{%
-  \ifx\@serieslogo\@empty
+  \ifx\@EventLogo\@empty
   \else
-    \setbox\@tempboxa\hbox{\includegraphics[height=42\p@]{\@serieslogo}}%
+    \setbox\@tempboxa\hbox{\includegraphics[height=42\p@]{\@EventLogo}}%
     \rlap{\hspace\textwidth\hspace{-\wd\@tempboxa}\hspace{\z@}%
           \vtop to\z@{\vskip-0mm\unhbox\@tempboxa\vss}}%
   \fi
@@ -139,10 +167,10 @@
   \vtop{\hsize\textwidth
     \nobreakspace\\
     \@Copyright
-    \ifx\@Event\@empty\else\@Event.\\\fi
-    \ifx\@Editors\@empty\else
-      \@Eds: \@Editors
-      ; pp. \thepage--\pageref{LastPage}%
+    \ifx\@EventLongTitle\@empty\else\@EventLongTitle.\\\fi
+    \ifx\@EventEditors\@empty\else
+      \@Eds: \@EventEditors
+      ; Article~No.\,\@ArticleNo; pp.\,\@ArticleNo:\thepage--\@ArticleNo:\pageref{LastPage}%
       \\
     \fi
     \setbox\@tempboxa\hbox{\includegraphics[height=14\p@,trim=0 15 0 0]{lipics-logo-bw}}%
@@ -246,9 +274,9 @@
               \itemsep   \z@ \@plus\p@}
 \def\ps@headings{%
     \def\@evenhead{\large\sffamily\bfseries
-                   \llap{\hbox to0.5\oddsidemargin{\thepage\hss}}\leftmark\hfil}%
+                   \llap{\hbox to0.5\oddsidemargin{\ifx\@ArticleNo\@empty\textcolor{blue}{XX}\else\@ArticleNo\fi:\thepage\hss}}\leftmark\hfil}%
     \def\@oddhead{\large\sffamily\bfseries\rightmark\hfil
-                  \rlap{\hbox to0.5\oddsidemargin{\hss\thepage}}}%
+                  \rlap{\hbox to0.5\oddsidemargin{\hss\ifx\@ArticleNo\@empty\textcolor{blue}{XX}\else\@ArticleNo\fi:\thepage}}}%
     \def\@oddfoot{\hfil
                   \rlap{%
                     \vtop{%
@@ -261,7 +289,7 @@
                                        \textcolor{darkgray}{\normalsize\sffamily
                                        \bfseries\quad
                                        \expandafter\textsolittle
-                                       \expandafter{\@EventShortName}}%
+                                       \expandafter{\@EventShortTitle}}%
                                      \strut\hss}}}}}
     \let\@evenfoot\@empty
     \let\@mkboth\markboth
@@ -321,7 +349,7 @@
         \string\contitem
         \string\title{\@title}%
         \string\author{\AB@authfortoc}%
-        \string\page{\thepage}}%
+        \string\page{\@ArticleNo:\thepage--\@ArticleNo:\number\numexpr\getpagerefnumber{LastPage}}}%
       \closeout\tocfile
     \egroup
   \par}
@@ -396,9 +424,9 @@
      \vskip\baselineskip\noindent
      \keywordsHeading\@keywords
    \fi
-   \ifx\@DOI\@empty\else
+   \ifx\@DOIPrefix\@empty\else
      \vskip\baselineskip\noindent
-     \doiHeading\doi{\@DOI}%
+     \doiHeading\doi{\@DOIPrefix.\@EventAcronym.\@EventYear.\@ArticleNo}
    \fi}
 \renewenvironment{thebibliography}[1]
   {\if@noskipsec \leavevmode \fi
@@ -527,19 +555,13 @@
 \captionsetup{labelformat=boxed}
 \captionsetup[table]{position=top}
 \RequirePackage[figuresright]{rotating}
-\RequirePackage{subfig}
+\RequirePackage{subcaption} % subfig
 \def\titlerunning#1{\gdef\@titlerunning{{\let\footnote\@gobble\markboth{#1}{#1}}}}
 \def\authorrunning#1{%
   \gdef\@authorrunning{\expandafter\def\expandafter\@tempa\expandafter{#1}%
                        \ifx\@tempa\@empty\else\markright{#1}\fi}}
 \titlerunning{\@title}
 \authorrunning{\AB@authrunning}
-\newcommand*\volumeinfo[6]{%
-  {\gdef\@Editors{#1}%
-   \gdef\@Eds{Editor}\ifnum #2>1 \gdef\@Eds{Editors}\fi
-   \gdef\@Event{#3}%
-   \setcounter{page}{#6}}}
-\volumeinfo{}{1}{}{}{}{1}
 \RequirePackage{authblk}
 \renewcommand*\Authand{{ and }}
 \renewcommand*\Authfont{\Large\bfseries\mathversion{bold}}
@@ -643,10 +665,9 @@
 \def\doiHeading{%
   \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
                        Digital Object Identifier\enskip}}
-\def\serieslogo#1{\gdef\@serieslogo{#1}}
-\serieslogo{}
-\def\EventShortName#1{\gdef\@EventShortName{#1}}
-\EventShortName{}
+\setcounter{page}{1}
+
+      
 \def\DOI#1{\gdef\@DOI{#1}}
 \DOI{}
 \endinput

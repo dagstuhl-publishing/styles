@@ -23,8 +23,8 @@
 %% Schloss Dagstuhl (publishing@dagstuhl.de).
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
-\ProvidesClass{lipicsmaster}
-[2010/05/06 v1.0 LIPIcs volume front matters]
+\ProvidesClass{lipicsmaster-v2016}
+[2010/05/06 v1.1 LIPIcs volume front matters]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -128,6 +128,33 @@
   \@xsect{#5}}
 \def\@seccntformat#1{\csname the#1\endcsname}
 \def\@biblabel#1{\textcolor{darkgray}{\sffamily\bfseries#1}}
+
+\def\EventLogo#1{\gdef\@EventLogo{#1}}
+\EventLogo{}
+\def\EventEditors#1{\gdef\@EventEditors{#1}}
+\EventEditors{}
+\def\EventNoEds#1{\gdef\@EventNoEds{#1}\ifnum #1>1 \gdef\@Eds{Editors}\fi }    
+\EventNoEds{1}
+\gdef\@Eds{Editor}
+\def\EventLongTitle#1{\gdef\@EventLongTitle{#1}}
+\EventLongTitle{}
+\def\EventShortTitle#1{\gdef\@EventShortTitle{#1}}
+\EventShortTitle{}
+\def\EventAcronym#1{\gdef\@EventAcronym{#1}}
+\EventAcronym{}
+\def\EventYear#1{\gdef\@EventYear{#1}}
+\EventYear{}
+\def\EventDate#1{\gdef\@EventDate{#1}}
+\EventDate{}
+\def\EventLocation#1{\gdef\@EventLocation{#1}}
+\EventLocation{}
+\def\SeriesVolume#1{\gdef\@SeriesVolume{#1}}
+\SeriesVolume{}
+\def\ArticleNo#1{\gdef\@ArticleNo{#1}}
+\ArticleNo{}
+\def\DOIPrefix#1{\gdef\@DOIPrefix{#1}}
+\DOIPrefix{10.4230/LIPIcs}
+
 \def\ps@plain{\let\@mkboth\@gobbletwo
   \let\@oddhead\@empty
   \let\@evenhead\@empty
@@ -135,15 +162,15 @@
   \def\@oddfoot{%
     \ifx\@serieslogo\@empty
     \else
-      \setbox\@tempboxa\hbox{\includegraphics[height=56\p@]{\@serieslogo}}%
+      \setbox\@tempboxa\hbox{\includegraphics[height=28\p@]{\@serieslogo}}% 56
       \rlap{\hspace\textwidth\hspace{-\wd\@tempboxa}\hspace{\z@}\vtop to\z@{\vskip-0mm\unhbox\@tempboxa\vss}}%
     \fi
     \scriptsize
     \vtop{\hsize\textwidth
       \nobreakspace\\
       \@Copyright
-      \ifx\@Event\@empty\else\@Event.\\\fi
-      \ifx\@Editors\@empty\else\@Eds: \@Editors\\\fi
+      \ifx\@EventLongTitle\@empty\else\@EventLongTitle.\\\fi
+      \ifx\@EventEditors\@empty\else\@Eds: \@EventEditors\\\fi
       \setbox\@tempboxa\hbox{\includegraphics[height=14\p@,trim=0 15 0 0]{lipics-logo-bw}}%
       \hspace*{\wd\@tempboxa}\enskip
       \href{http://www.dagstuhl.de/en/publications/lipics/}{Leibniz International Proceedings in Informatics}\\
@@ -236,8 +263,8 @@
               \partopsep \p@ \@plus\z@ \@minus\p@
               \itemsep   \z@ \@plus\p@}
 \def\ps@headings{%
-    \def\@evenhead{\large\sffamily\bfseries\llap{\hbox to0.5\oddsidemargin{\thepage\hss}}\leftmark\hfil}%
-    \def\@oddhead{\large\sffamily\bfseries\rightmark\hfil\rlap{\hbox to0.5\oddsidemargin{\hss\thepage}}}%
+    \def\@evenhead{\large\sffamily\bfseries\llap{\hbox to0.5\oddsidemargin{\@ArticleNo:\thepage\hss}}\leftmark\hfil}%
+    \def\@oddhead{\large\sffamily\bfseries\rightmark\hfil\rlap{\hbox to0.5\oddsidemargin{\hss\@ArticleNo:\thepage}}}%
     \def\@oddfoot{\hfil
                   \rlap{%
                     \vtop{%
@@ -245,7 +272,7 @@
                       \colorbox[rgb]{0.99,0.78,0.07}
                                     {\@tempdima\evensidemargin \advance\@tempdima1in \advance\@tempdima\hoffset
                                      \hb@xt@\@tempdima{\textcolor{darkgray}{\normalsize\sffamily\bfseries\quad
-                                     \expandafter\textsolittle\expandafter{\@EventShortName}}\strut\hss}}}}}
+                                     \expandafter\textsolittle\expandafter{\@EventShortTitle}}\strut\hss}}}}}
     \let\@evenfoot\@empty
     \let\@mkboth\markboth
   \let\sectionmark\@gobble
@@ -602,6 +629,7 @@
   \setbox0\hbox{#2\kern.5em}%
   \global\@clabelwidth=\wd0
 }
+\renewcommand{\@pnumwidth}{4.5em} % lipics-v2016
 \newcommand{\@wrapcontitem}{%
   \if@csection \global\@csectionfalse
   \else \addvspace{6pt}%
@@ -622,7 +650,7 @@
     \advance\parfillskip\leftskip
     \andify\authors
     {\@authorfont\authors}\nobreak
-    \hfil\null\penalty\z@\enskip\dotfill
+    \hfil\null\penalty\z@\enskip  \dotfill % DOTFILL
     \enskip\hbox to\@pnumwidth{\@tocpagenum{\@page}}\par
   \fi
   \egroup
