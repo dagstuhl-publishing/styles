@@ -1,13 +1,13 @@
 %%
-%% This is file `dagrep-v2018.cls'.
+%% This is file `dagrep-v2019.cls'.
 %% 
 %% -----------------------------------------------------------------
-%% Author:     Dagstuhl Publishing & le-tex publishing services
+%% Author:     le-tex publishing services
 %% 
-%% This file is part of the dagrep-v2018 package for preparing
+%% This file is part of the dagrep-v2019 package for preparing
 %% reports for the "Dagstuhl Reports" journal.
 %% 
-%% Copyright (C) 2011 Schloss Dagstuhl
+%% Copyright (C) 2018 Schloss Dagstuhl
 %%
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
@@ -23,8 +23,8 @@
 %% Schloss Dagstuhl (publishing@dagstuhl.de).
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
-\ProvidesClass{dagrep-v2018}
-    [2018/02/01 v1.1 Dagstuhl Reports articles]
+\ProvidesClass{dagrep-v2019}
+    [2018/02/01 v1.2 Dagstuhl Reports articles]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -92,7 +92,7 @@
 \def\authorstotoc#1{%
   \@ifundefined{r@#1}%
     \relax
-    {\space\newline\mdseries\itshape\nameref{#1}}}%\space for PDF-Bookmark
+    {\space\texorpdfstring{\newline}{}\mdseries\itshape\nameref{#1}}}%\space for PDF-Bookmark
 \def\@sect#1#2#3#4#5#6[#7]#8{%
   \ifnum #2>\c@secnumdepth
     \let\@svsec\@empty
@@ -786,11 +786,11 @@
 \newcommand*\jointwork[1]{\@preambleentry{Joint work of}{#1}}
 \newcommand\license{\@preambleentry{License}{%
   \href{http://creativecommons.org/licenses/by/3.0/}%
-       {\raise-2\p@\hb@xt@1.3em{% 4.2
-          \includegraphics[height=7.5\p@,clip]{cc}\enskip}}%
+       {\raise-2\p@\hb@xt@1.45em{% 4.2
+          \includegraphics[height=7.5\p@,clip]{cc}\enskip\hfil}}%
   \href{http://creativecommons.org/licenses/by/3.0/}
                {Creative Commons BY 3.0 Unported} license\newline
-  \null\hskip0.055em\textsf{\textcopyright}\enskip\nameref{absaut\theabsaut}}}
+  \null\hb@xt@1.45em{\hfil\textsf{\textcopyright}\hfil\enskip}\nameref{absaut\theabsaut}}}
 \newcommand*\abstractref{\@dblarg{\@abstractref}}
 \def\@abstractref[#1]#2{\@preambleentry{Main reference}{\href{#1}{#2}}}
 \newcommand*\abstractrefurl[1]{\@preambleentry{URL}{\href{#1}{#1}}}

@@ -1,11 +1,11 @@
 %%
-%% This is file `oasics-v2018.cls'.
+%% This is file `darts-v2019.cls'.
 %% 
 %% -----------------------------------------------------------------
 %% Author:     Dagstuhl Publishing & le-tex publishing services
 %% 
-%% This file is part of the oasics package for preparing
-%% OASIcs articles.
+%% This file is part of the darts package for preparing
+%% DARTS articles.
 %% 
 %% Copyright (C) 2018 Schloss Dagstuhl
 %%
@@ -22,9 +22,8 @@
 %% The Current Maintainer of this work is 
 %% Schloss Dagstuhl (publishing@dagstuhl.de).
 %% -----------------------------------------------------------------
-%% 
-\ProvidesClass{oasics-v2018}
-    [2018/04/09 v1.5 OASIcs articles]
+\ProvidesClass{darts-v2019}
+    [2019/03/15 v2.0 DARTS articles]
 \NeedsTeXFormat{LaTeX2e}[2015/01/01]
 \emergencystretch1em
 \advance\hoffset-1in
@@ -90,7 +89,6 @@
       \def\makelabel##1{\hss\llap{##1}}}%
   \fi}
 \def\enditemize{\ifnum\@listdepth=\@ne\global\@nobotseplisttrue\fi\endlist}
-\def\@title{\textcolor{red}{Author: Please provide a title}}
 \def\@sect#1#2#3#4#5#6[#7]#8{%
   \ifnum #2>\c@secnumdepth
     \let\@svsec\@empty
@@ -130,55 +128,47 @@
   \@xsect{#5}}
 \def\@seccntformat#1{\csname the#1\endcsname}
 \def\@biblabel#1{\textcolor{darkgray}{\sffamily\bfseries#1}}
+\def\three@digits#1{\ifnum#1>99\else\ifnum#1>9 0\else00\fi\fi\number#1}
 \def\copyrightline{%
-  \ifx\@hideOASIcs\@undefined
-    \ifx\@EventLogo\@empty
-    \else
-      \setbox\@tempboxa\hbox{\includegraphics[height=42\p@]{\@EventLogo}}%
-      \rlap{\hspace\textwidth\hspace{-\wd\@tempboxa}\hspace{\z@}%
-            \vtop to\z@{\vskip-0mm\unhbox\@tempboxa\vss}}%
-    \fi
-    \scriptsize
-    \vtop{\hsize\textwidth
-      \nobreakspace\par
-      \@Copyright
-      \ifx\@EventLongTitle\@empty\else\@EventLongTitle.\\\fi
-      \ifx\@EventEditors\@empty\else
-        \@Eds: \@EventEditors
-        ; Article~No.\,\@ArticleNo; pp.\,\@ArticleNo:\thepage--\@ArticleNo:\pageref{LastPage}%
-        \\
-      \fi
-      \setbox\@tempboxa\hbox{\includegraphics[height=14\p@,trim=0 15 0 0]{oasics-logo-bw}}%
-      \hspace*{\wd\@tempboxa}\enskip
-      \href{http://www.dagstuhl.de/oasics/}%
-           {OpenAccess Series in Informatics}\\
-      \smash{\unhbox\@tempboxa}\enskip
-      \href{http://www.dagstuhl.de}%
-           {Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik, Dagstuhl Publishing, Germany}}%
-  \fi}
+  \scriptsize
+  \vtop{\hsize\textwidth
+    \nobreakspace\par
+    \@Copyright
+    \textit{Dagstuhl Artifacts Series}%
+    \ifx\@Volume\@empty,\space Vol.\nobreakspace\textcolor{blue}{VOL}\else,\space Vol.\nobreakspace\@Volume\fi
+    \ifx\@Issue\@empty,\space Issue\nobreakspace\textcolor{blue}{ISS}\else,\space Issue\nobreakspace\@Issue\fi
+    \ifx\@Article\@empty,\space Artifact\nobreakspace{}No.\nobreakspace\textcolor{blue}{ART NO.}\else,\space Artifact\nobreakspace{}No.\nobreakspace\@Article\fi
+    ,\space \ifx\@Article\@empty pp.\nobreakspace{}\textcolor{blue}{ART}:\thepage--\textcolor{blue}{ART}:\pageref{LastPage}\else pp.\nobreakspace{}\@Article:\thepage--\@Article:\pageref{LastPage}\fi\\
+    \setbox\@tempboxa\hbox{\includegraphics[height=14\p@,trim=0 15 0 0]{darts-logo-bw}}%
+    \hspace*{\wd\@tempboxa}\enskip
+    \href{https://www.dagstuhl.de/darts}%
+         {Dagstuhl Artifacts Series}\\
+    \smash{\unhbox\@tempboxa}\enskip
+    \href{https://www.dagstuhl.de}%
+         {Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik, Dagstuhl Publishing, Germany}}}
 \def\ps@plain{\let\@mkboth\@gobbletwo
   \let\@oddhead\@empty
   \let\@evenhead\@empty
   \let\@evenfoot\copyrightline
   \let\@oddfoot\copyrightline}
-\def\oasics@opterrshort{Option  "\CurrentOption" not supported}
-\def\oasics@opterrlong{The option "\CurrentOption" from article.cls is not supported by oasics.cls.}
-\DeclareOption{a5paper}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
-\DeclareOption{b5paper}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
-\DeclareOption{legalpaper}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
-\DeclareOption{executivepaper}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
-\DeclareOption{landscape}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
-\DeclareOption{10pt}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
-\DeclareOption{11pt}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
-\DeclareOption{12pt}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
-\DeclareOption{oneside}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
-\DeclareOption{twoside}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
-\DeclareOption{titlepage}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
-\DeclareOption{notitlepage}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
-\DeclareOption{onecolumn}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
-\DeclareOption{twocolumn}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
-\DeclareOption{fleqn}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
-\DeclareOption{openbib}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
+\def\darts@opterrshort{Option  "\CurrentOption" not supported}
+\def\darts@opterrlong{The option "\CurrentOption" from article.cls is not supported by darts.cls.}
+\DeclareOption{a5paper}{\@latexerr{\darts@opterrshort}{\darts@opterrlong}}
+\DeclareOption{b5paper}{\@latexerr{\darts@opterrshort}{\darts@opterrlong}}
+\DeclareOption{legalpaper}{\@latexerr{\darts@opterrshort}{\darts@opterrlong}}
+\DeclareOption{executivepaper}{\@latexerr{\darts@opterrshort}{\darts@opterrlong}}
+\DeclareOption{landscape}{\@latexerr{\darts@opterrshort}{\darts@opterrlong}}
+\DeclareOption{10pt}{\@latexerr{\darts@opterrshort}{\darts@opterrlong}}
+\DeclareOption{11pt}{\@latexerr{\darts@opterrshort}{\darts@opterrlong}}
+\DeclareOption{12pt}{\@latexerr{\darts@opterrshort}{\darts@opterrlong}}
+\DeclareOption{oneside}{\@latexerr{\darts@opterrshort}{\darts@opterrlong}}
+\DeclareOption{twoside}{\@latexerr{\darts@opterrshort}{\darts@opterrlong}}
+\DeclareOption{titlepage}{\@latexerr{\darts@opterrshort}{\darts@opterrlong}}
+\DeclareOption{notitlepage}{\@latexerr{\darts@opterrshort}{\darts@opterrlong}}
+\DeclareOption{onecolumn}{\@latexerr{\darts@opterrshort}{\darts@opterrlong}}
+\DeclareOption{twocolumn}{\@latexerr{\darts@opterrshort}{\darts@opterrlong}}
+\DeclareOption{fleqn}{\@latexerr{\darts@opterrshort}{\darts@opterrlong}}
+\DeclareOption{openbib}{\@latexerr{\darts@opterrshort}{\darts@opterrlong}}
 \DeclareOption{a4paper}{\PassOptionsToClass{\CurrentOption}{article}
                         \advance\hoffset-2.95mm
                         \advance\voffset8.8mm}
@@ -222,10 +212,10 @@
 \setlength\headheight{3mm}
 \setlength\headsep   {10mm}
 \setlength\footskip{3mm}
-\setlength\textwidth{140mm}
+\setlength\textwidth{148mm}%was 140
 \setlength\textheight{222mm}
-\setlength\oddsidemargin{32mm}
-\setlength\evensidemargin{38mm}
+\setlength\oddsidemargin{28mm}%was 32
+\setlength\evensidemargin{34mm}%was 38
 \setlength\marginparwidth{25mm}
 \setlength\topmargin{13mm}
 \setlength{\skip\footins}{2\baselineskip \@plus 4\p@ \@minus 2\p@}
@@ -250,9 +240,9 @@
               \itemsep   \z@ \@plus\p@}
 \def\ps@headings{%
     \def\@evenhead{\large\sffamily\bfseries
-                   \llap{\hbox to0.5\oddsidemargin{\ifx\@ArticleNo\@empty\textcolor{blue}{XX}\else\@ArticleNo\fi:\thepage\hss}}\leftmark\hfil}%
+                   \llap{\hbox to0.5\oddsidemargin{\ifx\@Article\@empty\textcolor{blue}{XX}\else\@Article\fi:\thepage\hss}}\leftmark\hfil}%
     \def\@oddhead{\large\sffamily\bfseries\rightmark\hfil
-                  \rlap{\hbox to0.5\oddsidemargin{\hss\ifx\@ArticleNo\@empty\textcolor{blue}{XX}\else\@ArticleNo\fi:\thepage}}}%
+                  \rlap{\hbox to0.5\oddsidemargin{\hss\ifx\@Article\@empty\textcolor{blue}{XX}\else\@Article\fi:\thepage}}}%
     \def\@oddfoot{\hfil
                   \rlap{%
                     \vtop{%
@@ -262,12 +252,10 @@
                                      \advance\@tempdima1in
                                      \advance\@tempdima\hoffset
                                      \hb@xt@\@tempdima{%
-                                       \ifx\@hideOASIcs\@undefined
-                                         \textcolor{darkgray}{\normalsize\sffamily
-                                         \bfseries\quad
-                                         \expandafter\textsolittle
-                                         \expandafter{\@EventShortTitle}}%
-                                       \fi
+                                       \textcolor{darkgray}{\normalsize\sffamily
+                                       \bfseries\quad
+                                       \expandafter\textsolittle
+                                       \expandafter{\@EventShortName}}%
                                      \strut\hss}}}}}
     \let\@evenfoot\@empty
     \let\@mkboth\markboth
@@ -276,7 +264,6 @@
 \pagestyle{headings}
 \renewcommand\maketitle{\par
   \begingroup
-    \thispagestyle{plain}
     \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
     \if@twocolumn
       \ifnum \col@number=\@ne
@@ -291,6 +278,7 @@
     \fi
     \thispagestyle{plain}\@thanks
   \endgroup
+  \setcounter{footnote}{0}%
   \global\let\thanks\relax
   \global\let\maketitle\relax
   \global\let\@maketitle\relax
@@ -308,6 +296,7 @@
   \newpage
   \null\vskip-\baselineskip
   \vskip-\headsep
+  \ifLineNumbers\nolinenumbers\let\linno@n\relax\fi
   \@titlerunning
   \@authorrunning
   %%\let \footnote \thanks
@@ -328,13 +317,16 @@
         \string\contitem
         \string\title{\@title}%
         \string\author{\@authorsfortoc}%
-        \string\page{\@ArticleNo:\thepage--\@ArticleNo:\number\numexpr\getpagerefnumber{LastPage}}}%
+        \string\page{\@Article:\thepage--\@Article:\number\numexpr\getpagerefnumber{LastPage}}}%
       \closeout\tocfile
     \egroup
-  \par}
+  \par
+  \ifx\linno@n\relax\linenumbers\fi}
 \renewcommand\tableofcontents{%
+  \ifLineNumbers\nolinenumbers\let\linno@n\relax\fi
   \section*{\contentsname}%
-  \@starttoc{toc}}
+  \@starttoc{toc}%
+  \ifx\linno@n\relax\linenumbers\fi}
 \setcounter{secnumdepth}{4}
 \renewcommand\section{\@startsection {section}{1}{\z@}%
                                    {-3.5ex \@plus -1ex \@minus -.2ex}%
@@ -363,13 +355,13 @@
 \setlength\leftmarginv  {1.2em}
 \setlength\leftmarginvi {1.2em}
 \renewcommand\labelenumi{%
-  \textcolor{darkgray}{\sffamily\bfseries\upshape\mathversion{bold}\theenumi.}}
+  \textcolor{darkgray}{\sffamily\bfseries\mathversion{bold}\theenumi.}}
 \renewcommand\labelenumii{%
-  \textcolor{darkgray}{\sffamily\bfseries\upshape\mathversion{bold}\theenumii.}}
+  \textcolor{darkgray}{\sffamily\bfseries\mathversion{bold}\theenumii.}}
 \renewcommand\labelenumiii{%
-  \textcolor{darkgray}{\sffamily\bfseries\upshape\mathversion{bold}\theenumiii.}}
+  \textcolor{darkgray}{\sffamily\bfseries\mathversion{bold}\theenumiii.}}
 \renewcommand\labelenumiv{%
-  \textcolor{darkgray}{\sffamily\bfseries\upshape\mathversion{bold}\theenumiv.}}
+  \textcolor{darkgray}{\sffamily\bfseries\mathversion{bold}\theenumiv.}}
 \renewcommand\labelitemi{%
   \textcolor[rgb]{0.6,0.6,0.61}{\ifnum\@listdepth=\@ne
                                   \rule{0.67em}{0.33em}%
@@ -389,58 +381,88 @@
                {\ifnum\@listdepth=\@ne\global\@nobotseplisttrue\fi\endlist}
 \renewcommand*\descriptionlabel[1]{%
   \hspace\labelsep\textcolor{darkgray}{\sffamily\bfseries\mathversion{bold}#1}}
-\renewenvironment{abstract}{%
-  \vskip\bigskipamount
-  \noindent
-  \rlap{\color[rgb]{0.51,0.50,0.52}\vrule\@width\textwidth\@height1\p@}%
-  \hspace*{7mm}\fboxsep1.5mm\colorbox[rgb]{1,1,1}{\raisebox{-0.4ex}{%
-    \large\selectfont\sffamily\bfseries\abstractname}}%
-  \vskip3\p@
-  \fontsize{9.5}{12.5}\selectfont
-  \noindent\ignorespaces}
-  {\vskip\baselineskip\noindent
-   \subjclassHeading
-   \ifx\@subjclass\@empty
-     \textcolor{red}{Author: Please fill in \string\subjclass\space macro}%
-   \else
-     \@subjclass
-   \fi
-   \vskip\baselineskip
-   \noindent\keywordsHeading
-   \ifx\@keywords\@empty
-     \textcolor{red}{Author: Please fill in \string\keywords\space macro}%
-   \else
-     \@keywords
-   \fi
-   \ifx\@hideOASIcs\@undefined
-     \ifx\@DOIPrefix\@empty\else
-       \vskip\baselineskip\noindent
-       \doiHeading\doi{\@DOIPrefix.\@EventAcronym.\@EventYear.\@ArticleNo}%
+\newsavebox{\metadatabox}
+\newenvironment{colbox}
+  {\begin{lrbox}{\metadatabox}%
+   \begin{minipage}{\dimexpr\columnwidth-2\fboxsep\relax}}
+  {\end{minipage}\end{lrbox}%
+   \begin{center}
+   \colorbox[rgb]{0.85,0.85,0.86}{\usebox{\metadatabox}}
+   \end{center}}
+\renewenvironment{abstract}
+  {\vskip\bigskipamount
+   \ifLineNumbers\nolinenumbers\let\linno@n\relax\fi
+   \multicolsep\z@
+   \columnsep\parindent
+   \begin{multicols}{2}%
+     [\noindent
+      \rlap{\color[rgb]{0.51,0.50,0.52}\vrule\@width\textwidth\@height1\p@}%
+      {\hspace*{4.5mm}\fboxsep1.5mm\colorbox[rgb]{1,1,1}{\raisebox{-0.4ex}{%
+       \large\selectfont\sffamily\bfseries\abstractname}}}%
+      \vskip3\p@]%
+   \fontsize{9}{12}\selectfont
+   \noindent\ignorespaces}
+  {\end{multicols}%
+   \vskip0.5\baselineskip\noindent
+   \begin{colbox}
+     \fontsize{9}{12}\selectfont
+     \vskip0.3\baselineskip\noindent
+     \subjclassHeading
+     \ifx\@ccsdescString\@empty
+     	\textcolor{red}{Author: Please fill in 1 or more \string\ccsdesc\space macro}%
+     \else
+     	\@ccsdescString
+   	 \fi
+     \vskip0.1\baselineskip\noindent
+     \keywordsHeading
+     \ifx\@keywords\@empty
+      \textcolor{red}{MANDATORY: Please provide 1--5 keywords as a comma-separated list}
+     \else
+      \@keywords
      \fi
-   \fi
-   \ifx\@category\@empty\else
-     \vskip\baselineskip\noindent
-     \categoryHeading\@category
-   \fi
-   \ifx\@relatedversion\@empty\else
-     \vskip\baselineskip\noindent
-     \relatedversionHeading\@relatedversion
-   \fi
-   \ifx\@supplement\@empty\else
-     \vskip\baselineskip\noindent
-     \supplementHeading\@supplement
-   \fi
-   \ifx\@funding\@empty\else
-     \vskip\baselineskip\noindent
+	 \ifx\@DOIPrefix\@empty\else
+     	\vskip0.1\baselineskip\noindent
+     	\doiHeading
+     	\ifx\@Volume\@empty
+     		\textcolor{blue}{\@DOIPrefix.VOL.ISS.ART}
+     	\else
+     		\ifx\@Issue\@empty
+     			\textcolor{blue}{\@DOIPrefix.VOL.ISS.ART}
+     		\else
+     			\ifx\@Article\@empty
+     				\textcolor{blue}{\@DOIPrefix.VOL.ISS.ART}
+     			\else
+     				\href{https://doi.org/\@DOIPrefix.\@Volume.\@Issue.\@Article}{\@DOIPrefix.\@Volume.\@Issue.\@Article}
+     			\fi
+     		\fi
+     	\fi 		
+     \fi
+	 \ifx\@funding\@empty\else
+     \vskip0.1\baselineskip\noindent
      \fundingHeading\@funding
    \fi
    \ifx\@acknowledgements\@empty\else
-     \vskip\baselineskip\noindent
+     \vskip0.1\baselineskip\noindent
      \acknowledgementsHeading\@acknowledgements
-   \fi}
+   \fi
+
+     \vskip0.3\baselineskip\noindent
+     \ifx\@RelatedArticle\@empty\else
+      \vskip0.1\baselineskip\noindent
+      \RelatedArticleHeading\@RelatedArticle
+     \fi
+     \ifx\@RelatedConference\@empty\else
+      \vskip0.1\baselineskip\noindent
+      \RelatedConferenceHeading\@RelatedConference
+     \fi
+      \vskip0.3\baselineskip\noindent
+     \par
+   \end{colbox}
+   \ifx\linno@n\relax\linenumbers\fi}
 \renewenvironment{thebibliography}[1]
   {\if@noskipsec \leavevmode \fi
    \par
+   \ifLineNumbers\nolinenumbers\let\linno@n\relax\fi
    \@tempskipa-3.5ex \@plus -1ex \@minus -.2ex\relax
    \@afterindenttrue
    \@tempskipa -\@tempskipa \@afterindentfalse
@@ -449,28 +471,33 @@
    \else
      \addpenalty\@secpenalty\addvspace\@tempskipa
    \fi
-   \noindent
-   \rlap{\color[rgb]{0.51,0.50,0.52}\vrule\@width\textwidth\@height1\p@}%
-   \hspace*{7mm}\fboxsep1.5mm\colorbox[rgb]{1,1,1}{\raisebox{-0.4ex}{%
-     \normalsize\sffamily\bfseries\refname}}%
-   \@xsect{1ex \@plus.2ex}%
-   \list{\@biblabel{\@arabic\c@enumiv}}%
-        {\leftmargin8.5mm
+   \columnsep\parindent
+   \begin{multicols}{2}%
+     [\noindent
+      \rlap{\color[rgb]{0.51,0.50,0.52}\vrule\@width\textwidth\@height1\p@}%
+      {\hspace*{4.5mm}\fboxsep1.5mm\colorbox[rgb]{1,1,1}{\raisebox{-0.4ex}{%
+      \normalsize\sffamily\bfseries\refname}}}%
+      \@xsect{1ex \@plus.2ex}%
+     \vspace{-\multicolsep}]%
+     \list{\@biblabel{\@arabic\c@enumiv}}%
+        {\leftmargin6mm
          \labelsep\leftmargin
          \settowidth\labelwidth{\@biblabel{#1}}%
          \advance\labelsep-\labelwidth
          \usecounter{enumiv}%
          \let\p@enumiv\@empty
          \renewcommand\theenumiv{\@arabic\c@enumiv}}%
-   \fontsize{9.5}{12.5}\selectfont
-   \sloppy
-   \clubpenalty4000
-   \@clubpenalty \clubpenalty
-   \widowpenalty4000%
-   \sfcode`\.\@m}
+     \fontsize{8}{9.5}\selectfont
+     \sloppy
+     \clubpenalty10000
+     \@clubpenalty \clubpenalty
+     \widowpenalty10000%
+     \sfcode`\.\@m}
   {\def\@noitemerr
-     {\@latex@warning{Empty `thebibliography' environment}}%
-   \endlist}
+       {\@latex@warning{Empty `thebibliography' environment}}%
+     \endlist
+   \end{multicols}%
+   \ifx\linno@n\relax\linenumbers\fi}
 \renewcommand\footnoterule{%
   \kern-8\p@
   {\color[rgb]{0.60,0.60,0.61}\hrule\@width40mm\@height1\p@}%
@@ -479,17 +506,22 @@
     \parindent\z@\hangindent1em
     \leavevmode
     \hb@xt@1em{\@makefnmark\hss}#1}
+\def\funding#1{\def\@funding{#1}}
+\let\@funding\@empty
+\def\fundingHeading{%
+ \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
+                      Funding\enskip}}
+\def\acknowledgements#1{\def\@acknowledgements{#1}}
+\let\@acknowledgements\@empty
+\def\acknowledgementsHeading{%
+ \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
+                      Acknowledgements\enskip}}
 \usepackage[utf8]{inputenc}
 \IfFileExists{lmodern.sty}{\RequirePackage{lmodern}}{}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{textcomp}
 \RequirePackage[mathscr]{eucal}
 \RequirePackage{amssymb}
-\PassOptionsToPackage{retainmissing}{MnSymbol}
-\AtBeginDocument{\@ifpackageloaded{MnSymbol}%
-    {\expandafter\let\csname ver@amssymb.sty\endcsname\relax
-     \let\complement\@undefined
-     \RequirePackage{amssymb}}{}}
 \RequirePackage{soul}
 \sodef\textsolittle{}{.12em}{.5em\@plus.08em\@minus.06em}%
         {.4em\@plus.275em\@minus.183em}
@@ -497,17 +529,6 @@
 \definecolor{darkgray}{rgb}{0.31,0.31,0.33}
 \RequirePackage{babel}
 \RequirePackage[tbtags,fleqn]{amsmath}
-\RequirePackage{enumerate}
-\def\@enum@{\list{\textcolor{darkgray}{\sffamily\bfseries\upshape\mathversion{bold}\csname label\@enumctr\endcsname}}%
-           {\advance\partopsep\topsep
-            \topsep\z@\@plus\p@
-            \usecounter{\@enumctr}\def\makelabel##1{\hss\llap{##1}}}}
-\def\romanenumerate{\enumerate[(i)]}
-\let\endromanenumerate\endenumerate
-\def\alphaenumerate{\enumerate[(a)]}
-\let\endalphaenumerate\endenumerate
-\def\bracketenumerate{\enumerate[(1)]}
-\let\endbracketenumerate\endenumerate
 \RequirePackage{amsthm}
 \thm@headfont{%
   \textcolor{darkgray}{$\blacktriangleright$}\nobreakspace\sffamily\bfseries}
@@ -541,8 +562,7 @@
 \newtheorem*{remark}{Remark}
 \ifx\numberwithinsect\relax
   \@addtoreset{theorem}{section}
-  \expandafter\def\expandafter\thetheorem\expandafter{%
-    \expandafter\thesection\expandafter\@thmcountersep\thetheorem}
+  \edef\thetheorem{\expandafter\noexpand\thesection\@thmcountersep\@thmcounter{theorem}}
 \fi
 \RequirePackage{graphicx}
 \RequirePackage{array}
@@ -563,6 +583,8 @@
 \lstset{basicstyle=\small\ttfamily,%
         backgroundcolor=\color[rgb]{0.85,0.85,0.86},%
         frame=single,framerule=0pt,xleftmargin=\fboxsep,xrightmargin=\fboxsep}
+\RequirePackage{multicol}[2011/06/27]
+\multicolsep = 13pt plus 4pt minus 3pt
 \RequirePackage[left,mathlines]{lineno}
 \linenumbers
 \renewcommand\linenumberfont{\normalfont\tiny\sffamily}
@@ -585,12 +607,21 @@
   \patchBothAmsMathEnvironmentsForLineno{gather}%
   \patchBothAmsMathEnvironmentsForLineno{multline}}
 \RequirePackage{lastpage}
-\IfFileExists{doi.sty}
-  {\RequirePackage{doi}%
-   \renewcommand*{\doitext}{}}
-  {\RequirePackage{hyperref}%
-   \def\doi##1{##1}}
-\hypersetup{pdfborder={0 0 0}}
+\RequirePackage{hyperref}
+\AtBeginDocument{
+	\hypersetup{
+		breaklinks=true,
+		pdfborder={0 0 0},
+		%pdftitle={\@title},
+		%pdfauthor={\ifx\authoranonymous\relax Anonymous author(s) \else \@pdfauthor \fi},
+		%pdfkeywords={\@keywords},
+		pdfcreator={LaTeX with darts-v2019.cls and hyperref.sty},
+		%TODO Find way to move information to correct fields in pdf metadata
+		%pdfsubject={LIPIcs, Vol.\@SeriesVolume, \@EventShortTitle; Copyright (C),\ifx\authoranonymous\relax Anonymous author(s) \else  \@copyrightholder;\fi licensed under Creative Commons License CC-BY}
+		%pdflicenseurl={https://creativecommons.org/licenses/by/3.0/},
+		%pdfcopyright={Copyright (C), \@copyrightholder; licensed under Creative Commons License CC-BY},
+	}
+}
 \RequirePackage[labelsep=space,singlelinecheck=false,%
   font={up,small},labelfont={sf,bf},%
   listof=false]{caption}%"listof" instead of "list" for backward compatibility
@@ -603,44 +634,31 @@
 \captionsetup{labelformat=boxed}
 \captionsetup[table]{position=top}
 \RequirePackage[figuresright]{rotating}
-\caption@AtBeginDocument{\@ifpackageloaded{subfig}{\ClassError{oasics}{%
+\caption@AtBeginDocument{\@ifpackageloaded{subfig}{\ClassError{lipics}{%
   Do not load the subfig package}{The more recent subcaption package is already loaded}}{}}
 \RequirePackage{subcaption}
-\usepackage{xstring}
-\newcommand\ccsdesc[2][100]{\StrSubstitute{#2}{~}{ $\rightarrow$ }}
 \def\titlerunning#1{\gdef\@titlerunning{{\let\footnote\@gobble\markboth{#1}{#1}}}}
 \def\authorrunning#1{%
-  \gdef\@authorrunning{\markright{\if!#1!\textcolor{red}{Author: Please fill in the \string\authorrunning\space macro}\else#1\fi}}}
+  \gdef\@authorrunning{\markright{\ifx\authoranonymous\relax\textcolor{red}{Anonymous author(s)} \else\if!#1!\textcolor{red}{Author: Please fill in the \string\authorrunning\space macro}\else#1\fi\fi}}}
 \titlerunning{\@title}
 \authorrunning{\textcolor{red}{Author: Please use the \string\authorrunning\space macro}}
-\def\EventLongTitle#1{\gdef\@EventLongTitle{#1}}
-\EventLongTitle{}
-\def\EventShortTitle#1{\gdef\@EventShortTitle{#1}}
-\EventShortTitle{}
-\def\EventEditors#1{\gdef\@EventEditors{#1}}
-\EventEditors{}
-\def\EventNoEds#1{\gdef\@EventNoEds{#1}\xdef\@Eds{Editor\ifnum#1>1s\fi}}
-\EventNoEds{1}
-\def\EventLogo#1{\gdef\@EventLogo{#1}}
-\EventLogo{}
-\def\EventAcronym#1{\gdef\@EventAcronym{#1}}
-\EventAcronym{}
-\def\EventYear#1{\gdef\@EventYear{#1}}
-\EventYear{}
-\def\EventDate#1{\gdef\@EventDate{#1}}
-\EventDate{}
-\def\EventLocation#1{\gdef\@EventLocation{#1}}
-\EventLocation{}
-\def\SeriesVolume#1{\gdef\@SeriesVolume{#1}}
-\SeriesVolume{}
-\def\ArticleNo#1{\gdef\@ArticleNo{#1}}
-\ArticleNo{}
+\def\Volume#1{\gdef\@Volume{#1}}
+\Volume{}
+\def\Issue#1{\gdef\@Issue{#1}}
+\Issue{}
+\def\Article#1{\gdef\@Article{#1}}
+\Article{}
+\def\FirstPage#1{\setcounter{page}{#1}}
 \def\DOIPrefix#1{\gdef\@DOIPrefix{#1}}
-\DOIPrefix{10.4230/OASIcs}
+\DOIPrefix{10.4230/DARTS}
+\def\and{\newline}
 \let\orig@author\@author
 \let\@authorsfortoc\@empty
+\let\@authorsforpdf\@empty
 \newcount\c@author
 \def\@authornum{0}
+\let\@pdfauthor\relax
+\gdef\@pdfauthor{}
 \def\author#1#2#3#4#5{%
   \ifx\@author\orig@author\let\@author\@empty\fi
   \g@addto@macro\@author{%
@@ -649,19 +667,34 @@
      \if!#1!%
        \textcolor{red}{Author: Please enter author name}%
      \else
-       #1%
-       \if!#5!\else\footnote{#5}\fi
+       \ifx\authoranonymous\relax
+			\textcolor{red}{Anonymous author}
+		\else
+			#1%
+			\if!#5!\else
+				\ifx\@funding\@empty
+					\expandafter\g@addto@macro\expandafter\@funding{\textit{\expandafter{\let\footnote\@gobble #1}}:\space{#5}}
+				\else
+					\expandafter\g@addto@macro\expandafter\@funding{\\\textit{\expandafter{\let\footnote\@gobble #1}}:\space{#5}}
+				\fi
+			\fi
+			\if!#4!\else{ \href{#4}{\includegraphics[height=9\p@]{orcid}}}\fi
+		\fi
      \fi
-     \par}\nobreak
-    \if!#2!\textcolor{red}{Author: Please enter affiliation as second parameter of the author macro}\else#2\fi
-    \if!#3!\else\\*\href{mailto:#3}{#3}\fi
-    \if!#4!\else\\*\href{#4}{\lower2\p@\hbox{\includegraphics[height=10\p@]{orcid}}\;#4}\fi
-    \par\nobreak}%
+     }
+	{\small
+    \if!#2!\textcolor{red}{Author: Please enter affiliation as second parameter of the author macro}\else{\\* \ifx\authoranonymous\relax\textcolor{red}{Anonymous affiliation}\else#2\fi}\fi
+    \if!#3!\else{\ifx\authoranonymous\relax\else\\*\href{mailto:#3}{#3}\fi}\fi
+	}\par\nobreak}%
   \global\advance\c@author\@ne
   \protected@write\@auxout{}{\string\gdef\string\@authornum{\the\c@author}}
   \ifnum\c@author=\@ne
     \gdef\@authorsfortoc{#1}%
+    \gdef\@authorsforpdf{#1}
+    \protected@write\@auxout{\let\footnote\@gobble}{\string\gdef\string\@pdfauthor{#1}}%
   \else
+    \expandafter\g@addto@macro\expandafter\@authorsforpdf\expandafter{,\space #1}
+	\protected@write\@auxout{\let\footnote\@gobble}{\string\gdef\string\@pdfauthor{\@authorsforpdf}}
     \expandafter\g@addto@macro\expandafter\@authorsfortoc\expandafter{\expandafter\csname\the\c@author authand\endcsname#1}%
     \@namedef{\the\c@author authand}{,\space}%
     \AtBeginDocument{%
@@ -672,60 +705,77 @@
       \fi}
   \fi}
 \newcommand*\affil[2][]{%
-  \ClassError{oasics}
-    {Deprecated: Please enter affiliation as second parameter of the author macro}
-    {Since 2017, \string\affil\space is obsolete in oasics.}}
+  \ClassError{darts}
+    {\string\affil\space deprecated: Please enter affiliation as second parameter of the author macro}
+    {Since 2017, \string\affil\space is obsolete in darts.}}
 \newcommand*\Copyright[1]{%
+  \def\@copyrightholder{#1}
   \def\@Copyright{%
     \setbox\@tempboxa\hbox{\includegraphics[height=14\p@,clip]{cc-by}}%
     \@rightskip\@flushglue \rightskip\@rightskip
     \hangindent\dimexpr\wd\@tempboxa+0.5em\relax
-    \href{http://creativecommons.org/licenses/by/3.0/}%
+    \href{https://creativecommons.org/licenses/by/3.0/de/deed.en}%
          {\smash{\lower\baselineskip\hbox{\unhcopy\@tempboxa}}}\enskip
     \textcopyright\ %
-    \ifx!#1!\textcolor{red}{Author: Please fill in the \string\Copyright\space macro}\else#1\fi
+    \ifx!#1!\textcolor{red}{Author: Please fill in the \string\Copyright\space macro}\else\ifx\authoranonymous\relax\textcolor{red}{Anonymous author(s)}\else#1\fi\fi
     ;\\%
-    licensed under Creative Commons License CC-BY\ifx!#1!\\\null\fi\par}}
+    licensed under Creative Commons Attribution 3.0 Germany (CC BY 3.0 DE)\ifx!#1!\\\null\fi\par}}
 \Copyright{\textcolor{red}{Author: Please provide a copyright holder}}
-\def\hideOASIcs{\let\@hideOASIcs\relax}
+\let\@copyrightholder\@empty
 \def\keywords#1{\def\@keywords{#1}}
 \let\@keywords\@empty
 \def\keywordsHeading{%
-  \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
+  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
                        Keywords and phrases\enskip}}
-\def\subjclass#1{\gdef\@subjclass{#1}}
+\RequirePackage{comment}
+\excludecomment{CCSXML}
+% inspired by https://tex.stackexchange.com/questions/12810/how-do-i-split-a-string
+\global\newcommand\ccsdesc[2][100]{\@ccsdesc#1~#2~~\relax}
+\usepackage{xstring}
+\let\orig@ccsdesc\@ccsdesc
+\let\@ccsdesc\@empty
+\let\@ccsdescString\@empty
+\gdef\@ccsdesc#1~#2~#3~{
+	\ifx\@ccsdesc\orig@ccsdesc\let\@ccsdesc\@empty\fi
+	\ifx!#3!
+		\ifx\@ccsdescString\@empty
+			\g@addto@macro\@ccsdescString{{#2}}
+		\else
+			\g@addto@macro\@ccsdescString{; {#2}}
+		\fi
+	\else
+		\ifx\@ccsdescString\@empty
+			\g@addto@macro\@ccsdescString{{#2} $\rightarrow$ {#3}}
+		\else
+			\g@addto@macro\@ccsdescString{; {#2} $\rightarrow$ {#3}}
+		\fi
+	\fi
+\ccsdescEnd
+}
+\def\ccsdescEnd#1\relax{}
+\def\subjclass#1{
+  \ClassError{darts}
+    {\string\subjclass\space deprecated: Please enter subject classification in 1 or more ccsdesc macros}
+    {Since 2019, \string\subjclass\space is obsolete in darts.}}
 \let\@subjclass\@empty
 \def\subjclassHeading{%
-  \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
+  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
                        2012 ACM Subject Classification\enskip}}
 \def\doiHeading{%
-  \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
+  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
                        Digital Object Identifier\enskip}}
-\def\category#1{\def\@category{#1}}
-\let\@category\@empty
-\def\categoryHeading{%
-  \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
-                       Category\enskip}}
-\def\relatedversion#1{\def\@relatedversion{#1}}
-\let\@relatedversion\@empty
-\def\relatedversionHeading{%
-  \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
-                       Related Version\enskip}}
-\def\supplement#1{\def\@supplement{#1}}
-\let\@supplement\@empty
-\def\supplementHeading{%
-  \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
-                       Supplement Material\enskip}}
-\def\funding#1{\def\@funding{#1}}
-\let\@funding\@empty
-\def\fundingHeading{%
- \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
-                      Funding\enskip}}
-\def\acknowledgements#1{\def\@acknowledgements{#1}}
-\let\@acknowledgements\@empty
-\def\acknowledgementsHeading{%
- \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
-                      Acknowledgements\enskip}}
+\def\RelatedConference#1{\gdef\@RelatedConference{#1}}
+\def\RelatedConferenceHeading{%
+  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
+                      Related Conference\enskip}}
+\let\@RelatedConference\@empty
+\def\RelatedArticle#1{\gdef\@RelatedArticle{#1}}
+\def\RelatedArticleHeading{%
+  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
+                      Related Article\enskip}}
+\let\@RelatedArticle\@empty
+\def\EventShortName#1{\gdef\@EventShortName{#1}}
+\EventShortName{DARTS}
 \endinput
 %%
-%% End of file `oasics-v2018.cls'.
+%% End of file `darts.cls'.

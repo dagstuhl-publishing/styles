@@ -1,13 +1,13 @@
 %%
-%% This is file `dartsmaster.cls'.
-%%
+%% This is file `dartsmaster-v2019.cls'.
+%% 
 %% -----------------------------------------------------------------
 %% Author:     Dagstuhl Publishing & le-tex publishing services
 %% 
 %% This file is part of the darts package for preparing
 %% DARTS issues.
 %% 
-%% Copyright (C) 2016 Schloss Dagstuhl
+%% Copyright (C) 2018 Schloss Dagstuhl
 %%
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
@@ -23,8 +23,8 @@
 %% Schloss Dagstuhl (publishing@dagstuhl.de).
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
-\ProvidesClass{dartsmaster}
-[2016/07/13 v1.0 DARTS issue front matters]
+\ProvidesClass{dartsmaster-v2019}
+[2016/07/13 v1.1 DARTS issue front matters]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -408,6 +408,8 @@
     \leavevmode
     \hb@xt@1em{\@makefnmark\hss}#1}
 \usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{wrapfig}
 \IfFileExists{lmodern.sty}{\RequirePackage{lmodern}}{}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{textcomp}
@@ -508,8 +510,44 @@
 \def\keywords#1{\def\@keywords{#1}}
 \let\@keywords\@empty
 \def\keywordsHeading{\textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries Keywords and phrases\enskip}}
-\def\subjclass#1{\gdef\@subjclass{#1}}
+\RequirePackage{comment}
+\excludecomment{CCSXML}
+% inspired by https://tex.stackexchange.com/questions/12810/how-do-i-split-a-string
+\global\newcommand\ccsdesc[2][100]{\@ccsdesc#1~#2~~\relax}
+\usepackage{xstring}
+\let\orig@ccsdesc\@ccsdesc
+\let\@ccsdesc\@empty
+\let\@ccsdescString\@empty
+\gdef\@ccsdesc#1~#2~#3~{
+	\ifx\@ccsdesc\orig@ccsdesc\let\@ccsdesc\@empty\fi
+	\ifx!#3!
+		\ifx\@ccsdescString\@empty
+			\g@addto@macro\@ccsdescString{{#2}}
+		\else
+			\g@addto@macro\@ccsdescString{; {#2}}
+		\fi
+	\else
+		\ifx\@ccsdescString\@empty
+			\g@addto@macro\@ccsdescString{{#2} $\rightarrow$ {#3}}
+		\else
+			\g@addto@macro\@ccsdescString{; {#2} $\rightarrow$ {#3}}
+		\fi
+	\fi
+\ccsdescEnd
+}
+\def\ccsdescEnd#1\relax{}
+\def\subjclass#1{
+  \ClassError{darts}
+    {\string\subjclass\space deprecated: Please enter subject classification in 1 or more ccsdesc macros}
+    {Since 2019, \string\subjclass\space is obsolete in darts.}}
 \let\@subjclass\@empty
+\newcommand{\printSubjclass}{
+   \@\ifx\@ccsdescString\@empty
+     \textcolor{red}{Editor: Please fill in 1 or more \string\ccsdesc\space macro}%
+   \else
+     \@ccsdescString
+   \fi
+}
 \def\subjclassHeading{%
   \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
                        2012 ACM Subject Classification\enskip}}
@@ -601,9 +639,33 @@
 %\def\@subtitle{\@latex@warning@no@line{No \noexpand\subtitle given}}
 \def\subtitleIssue#1{\gdef\@subtitleIssue{#1}}
 \subtitleIssue{}
-\def\editor#1{\gdef\@editor{#1}}
-\def\@editor{\@latex@warning@no@line{No \noexpand\editor given}}
-\editor{\@EventEditors}
+%\def\editor#1{\gdef\@editor{#1}}
+%\def\@editor{\@latex@warning@no@line{No \noexpand\editor given}}
+%\editor{\@EventEditors}
+\let\orig@editor\@editor
+\let\orig@editorLong\@editorLong
+\newcount\c@editor
+\def\@editornum{0}
+\def\editor#1#2#3#4{%
+  \ifx\@editor\orig@editor\let\@editor\@empty\fi
+  \ifx\@editorLong\orig@editorLong\let\@editorLong\@empty\fi
+  \g@addto@macro\@editor{#1\par\nobreak}
+  \g@addto@macro\@editorLong{%
+    \par\addvspace{0.5\baselineskip}%
+    {\large\bfseries
+     \if!#1!%
+       \textcolor{red}{Editor: Please enter editor name}%
+     \else
+       #1%
+     \fi
+     \par}\nobreak
+    \if!#2!\textcolor{red}{Author: Please enter affiliation as second parameter of the editor macro}\else#2\fi
+    \if!#3!\else\\*\href{mailto:#3}{#3}\fi
+    \if!#4!\else\\*\href{#4}{\lower2\p@\hbox{\includegraphics[height=10\p@]{orcid}}\;#4}\fi
+    \par\nobreak}%
+}
+\newcommand{\printEditorLong}{\@editorLong}
+
 \def\titlepagebottomline#1{\gdef\@titlepagebottomline{#1}}
 \titlepagebottomline{\mbox{DARTS, \ifx\@SeriesVolume\@empty Vol.\nobreakspace\textcolor{blue}{VOL}\else Vol.\nobreakspace\@SeriesVolume\fi
 			\ifx\@SeriesIssue\@empty,\space Issue\nobreakspace\textcolor{blue}{ISS}\else,\space Issue\nobreakspace\@SeriesIssue\fi

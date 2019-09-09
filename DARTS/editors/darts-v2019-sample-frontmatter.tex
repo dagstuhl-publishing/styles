@@ -1,13 +1,18 @@
 %This is a template for producing the frontmatter of an issue in DARTS.
 
-\documentclass[a4paper,UKenglish]{dartsmaster}
+\documentclass[a4paper,UKenglish]{dartsmaster-v2019}
  %for A4 paper format use option "a4paper", for US-letter use option "letterpaper"
  %for british hyphenation rules use option "UKenglish", for american hyphenation rules use option "USenglish"
 
-\usepackage{microtype}%if unwanted, comment out or use option "draft"
-\usepackage{wrapfig}
+%\graphicspath{{./graphics/}}%helpful if your graphic files are in another directory
 
-%\editor{John Q. Open \\ Joan R. Access} %optional to modify editors on first page
+\bibliographystyle{plainurl}% the mandatory bibstyle
+
+\editor{John Q. Public}{Dummy University Computing Laboratory, [Address], Country}{johnqpublic@dummyuni.org}{https://orcid.org/0000-0002-1825-0097}%TODO mandatory, please use full name; only 1 editor per \editor macro; first two parameters are mandatory, other parameters can be empty.
+
+\editor{Joan R. Access}{School of Computer Science, University City, Country2}{beditor@uni-city.edu}{}
+
+\ccsdesc[100]{\textcolor{red}{Replace ccsdesc macro with valid one}}%TODO mandatory: Please choose ACM 2012 classifications from https://dl.acm.org/ccs/ccs_flat.cfm . 
 
 \EventEditors{John Q. Open and Joan R. Access}
 \EventNoEds{2}
@@ -21,6 +26,7 @@
 \SeriesVolume{3}
 \SeriesIssue{2}
 \ArticleNo{0} % the frontmatter is always the first paper and has always the article number 0 (zero).
+
 \DatePublished{November 2016}
 
 
@@ -50,17 +56,11 @@
 \newcommand{\email}[1]{\href{mailto:#1}{\texttt{#1}}}
 
 \emph{DARTS Special Issue Editors} \\[0.2cm]
-John Q. Open\\
-Dummy University Computing Laboratory\\
-Address/City, Country\\
-\orcid{xxx}\\ %ORCIDs are optional but highly recommended; for registration, please visit https://orcid.org/register
-\email{open@dummyuniversity.org}\\
+\printEditorLong
 
-Joan R. Access \\
-Department of Informatics, Dummy College \\
-Address/City, Country\\ 
-\orcid{yyy}\\ %ORCIDs are optional but highly recommended; for registration, please visit https://orcid.org/register
-\email{access@dummycollege.org}
+\bigskip
+\emph{ACM Classification 2012}\\
+\printSubjclass
 
 \bigskip
 
@@ -123,12 +123,6 @@ The Dagstuhl Artifacts Series (DARTS) publishes evaluated research data and arti
 \vfill
 
 
-\emph{Editorial Office}\newline
-Michael Wagner \emph{(Managing Editor)}\\
-Jutka Gasiorowski \emph{(Editorial Assistance)}\\
-Dagmar Glaser \emph{(Editorial Assistance)}\\
-Thomas Schillo \emph{(Technical Assistance)}
-
 \bigskip
 \emph{Contact}\newline
 Schloss Dagstuhl -- Leibniz-Zentrum f\"ur Informatik\\
@@ -189,7 +183,7 @@ publishing@dagstuhl.de
 %\part{} %use if volume is divided in parts
 \part{Artifacts}
 
-\inputtocentry{darts-v2018-sample-article}
+\inputtocentry{darts-v2019-sample-article}
 
 \contitem
 \title{Mmmmm $\ldots$ donuts (Artifact)}

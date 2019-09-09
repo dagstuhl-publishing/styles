@@ -1,0 +1,31 @@
+\begin{thebibliography}{1}
+
+\bibitem{DBLP:journals/cacm/Dijkstra68a}
+Edsger~W. Dijkstra.
+\newblock Letters to the editor: go to statement considered harmful.
+\newblock {\em Commun. {ACM}}, 11(3):147--148, 1968.
+\newblock \href {https://doi.org/10.1145/362929.362947}
+  {\path{doi:10.1145/362929.362947}}.
+
+\bibitem{DBLP:books/mk/GrayR93}
+Jim Gray and Andreas Reuter.
+\newblock {\em Transaction Processing: Concepts and Techniques}.
+\newblock Morgan Kaufmann, 1993.
+
+\bibitem{DBLP:conf/focs/HopcroftPV75}
+{John E.} Hopcroft, {Wolfgang J.} Paul, and {Leslie G.} Valiant.
+\newblock On time versus space and related problems.
+\newblock In {\em 16th Annual Symposium on Foundations of Computer Science,
+  Berkeley, California, USA, October 13-15, 1975}, pages 57--64. {IEEE}
+  Computer Society, 1975.
+\newblock \href {https://doi.org/10.1109/SFCS.1975.23}
+  {\path{doi:10.1109/SFCS.1975.23}}.
+
+\bibitem{DBLP:journals/cacm/Knuth74}
+Donald~E. Knuth.
+\newblock {Computer Programming as an Art}.
+\newblock {\em Commun. {ACM}}, 17(12):667--673, 1974.
+\newblock \href {https://doi.org/10.1145/361604.361612}
+  {\path{doi:10.1145/361604.361612}}.
+
+\end{thebibliography}
