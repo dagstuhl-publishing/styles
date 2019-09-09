@@ -1,5 +1,5 @@
 %%
-%% This is file `darts.cls'.
+%% This is file `darts-v2018.cls'.
 %% 
 %% -----------------------------------------------------------------
 %% Author:     Dagstuhl Publishing & le-tex publishing services
@@ -7,7 +7,7 @@
 %% This file is part of the darts package for preparing
 %% DARTS articles.
 %% 
-%% Copyright (C) 2013 Schloss Dagstuhl
+%% Copyright (C) 2018 Schloss Dagstuhl
 %%
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
@@ -23,8 +23,8 @@
 %% Schloss Dagstuhl (publishing@dagstuhl.de).
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2011/06/27]
-\ProvidesClass{darts}
-    [2013/06/14 v1.00 DARTS articles]
+\ProvidesClass{darts-v2018}
+    [2018/02/01 v1.10 DARTS articles]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -299,27 +299,28 @@
   \ifLineNumbers\nolinenumbers\let\linno@n\relax\fi
   \@titlerunning
   \@authorrunning
-  \let \footnote \thanks
+  %%\let \footnote \thanks
   \parindent\z@ \raggedright
+  \if!\@title!\def\@title{\textcolor{red}{Author: Please fill in a title}}\fi
     {\LARGE\sffamily\bfseries\mathversion{bold}\@title \par}%
-    \vskip 1.5em%
-    \ifnum\c@authors=0 %
-      \@latexerr{No \noexpand\author given}%
-        {Provide at least one author. See the LITES class documentation.}%
+    \vskip 1.5em
+    \ifx\@author\orig@author
+      \textcolor{red}{Author: Please provide author information}%
     \else
-      \@author
+      {\def\thefootnote{\@arabic\c@footnote}%
+       \setcounter{footnote}{0}%
+       \fontsize{9.5}{12}\selectfont\@author}%
     \fi
     \bgroup
-      \let\footnote\@gobble
       \immediate\openout\tocfile=\jobname.vtc
-      \protected@write\tocfile{}{%
+      \protected@write\tocfile{\let\footnote\@gobble}{%
         \string\contitem
         \string\title{\@title}%
-        \string\author{\AB@authfortoc}%
+        \string\author{\@authorsfortoc}%
         \string\page{\@Article:\thepage--\@Article:\number\numexpr\getpagerefnumber{LastPage}}}%
       \closeout\tocfile
     \egroup
-  \par%
+  \par
   \ifx\linno@n\relax\linenumbers\fi}
 \renewcommand\tableofcontents{%
   \ifLineNumbers\nolinenumbers\let\linno@n\relax\fi
@@ -607,7 +608,11 @@
 \captionsetup{labelformat=boxed}
 \captionsetup[table]{position=top}
 \RequirePackage[figuresright]{rotating}
-\RequirePackage{subfig}
+\caption@AtBeginDocument{\@ifpackageloaded{subfig}{\ClassError{lipics}{%
+  Do not load the subfig package}{The more recent subcaption package is already loaded}}{}}
+\RequirePackage{subcaption}
+\usepackage{xstring}
+\newcommand\ccsdesc[2][100]{\StrSubstitute{#2}{~}{ $\rightarrow$ }}
 \def\titlerunning#1{\gdef\@titlerunning{{\let\footnote\@gobble\markboth{#1}{#1}}}}
 \def\authorrunning#1{%
   \gdef\@authorrunning{\expandafter\def\expandafter\@tempa\expandafter{#1}%
@@ -621,87 +626,33 @@
 \def\Article#1{\gdef\@Article{#1}}
 \Article{}
 \def\FirstPage#1{\setcounter{page}{#1}}
-\RequirePackage{authblk}
-\renewcommand*\Authand{{ and }}
-\renewcommand*\Authfont{\Large\bfseries\mathversion{bold}}
-\renewcommand*\AB@authnote[1]{\textsuperscript{#1}}
-\renewcommand*\AB@affilnote[1]{\protect\item[#1]}
-\renewcommand*\Affilfont{\fontsize{9.5}{12}\selectfont}
-\setlength\affilsep{\baselineskip}
-\newcommand\AB@authrunning{}
-\newcommand\AB@authfortoc{}
-\renewcommand\author[2][]%
-      {\ifnewaffil\addtocounter{affil}{1}%
-       \edef\AB@thenote{\arabic{affil}}\fi
-      \if\relax#1\relax\def\AB@note{\AB@thenote}\else\def\AB@note{#1}%
-        \setcounter{Maxaffil}{0}\fi
-      \ifnum\value{authors}>1\relax
-      \@namedef{@sep\number\c@authors}{\Authsep}\fi
-      \addtocounter{authors}{1}%
-      \begingroup
-          \let\protect\@unexpandable@protect \let\and\AB@pand
-          \def\thanks{\protect\thanks}\def\footnote{\protect\footnote}%
-         \@temptokena=\expandafter{\AB@authors}%
-         {\def\\{\protect\\[\@affilsep]\protect\Affilfont
-              \protect\AB@resetsep}%
-              \xdef\AB@author{\AB@blk@and#2}%
-       \ifnewaffil\gdef\AB@las{}\gdef\AB@lasx{\protect\Authand}\gdef\AB@as{}%
-           \xdef\AB@authors{\the\@temptokena\AB@blk@and}%
-       \else
-          \xdef\AB@authors{\the\@temptokena\AB@as\AB@au@str}%
-          \global\let\AB@las\AB@lasx\gdef\AB@lasx{\protect\Authands}%
-          \gdef\AB@as{\Authsep}%
-       \fi
-       \gdef\AB@au@str{#2}}%
-         \@temptokena=\expandafter{\AB@authlist}%
-         \let\\=\authorcr
-         \xdef\AB@authlist{\the\@temptokena
-           \protect\@nameuse{@sep\number\c@authors}%
-           \protect\Authfont#2\AB@authnote{\AB@note}}%
-         %new
-         \@temptokena=\expandafter{\AB@authrunning}%
-         \let\\=\authorcr
-         \xdef\AB@authrunning{\the\@temptokena
-           \protect\@nameuse{@sep\number\c@authors}#2}%
-         %
-         %new
-         \@temptokena=\expandafter{\AB@authfortoc}%
-         \let\\=\authorcr
-         \xdef\AB@authfortoc{\the\@temptokena
-           \expandafter\noexpand\csname @sep\number\c@authors\endcsname#2}%
-         %
-      \endgroup
-      \ifnum\value{authors}>2\relax
-      \@namedef{@sep\number\c@authors}{\Authands}\fi
-      \newaffilfalse
-}
-\renewcommand\affil[2][]%
-   {\newaffiltrue\let\AB@blk@and\AB@pand
-      \if\relax#1\relax\def\AB@note{\AB@thenote}\else\def\AB@note{#1}%
-        \setcounter{Maxaffil}{0}\fi
-      \begingroup
-        \let\protect\@unexpandable@protect
-        \def\thanks{\protect\thanks}\def\footnote{\protect\footnote}%
-        \@temptokena=\expandafter{\AB@authors}%
-        {\def\\{\protect\\\protect\Affilfont}\xdef\AB@temp{#2}}%
-         \xdef\AB@authors{\the\@temptokena\AB@las\AB@au@str
-         \protect\\[\affilsep]\protect\Affilfont\AB@temp}%
-         \gdef\AB@las{}\gdef\AB@au@str{}%
-        {\xdef\AB@temp{#2}}%
-        \@temptokena=\expandafter{\AB@affillist}%
-        \xdef\AB@affillist{\the\@temptokena \AB@affilsep
-          \AB@affilnote{\AB@note}\protect\Affilfont\AB@temp}%
-      \endgroup
-       \let\AB@affilsep\AB@affilsepx}
-\renewcommand\@author{\ifx\AB@affillist\AB@empty\AB@authrunning\else
-      \ifnum\value{affil}>\value{Maxaffil}\def\rlap##1{##1}%
-    \AB@authlist\\[\affilsep]
-    \labelwidth6mm\labelsep\z@\leftmargini\labelwidth
-    \edef\@enumctr{enumi}%
-    \list\theenumi{\usecounter\@enumctr\def\makelabel##1{\rlap{##1}\hss}}%
-      \AB@affillist
-    \endlist
-    \else  \AB@authors\fi\fi}
+\let\orig@author\@author
+\let\@authorsfortoc\@empty
+\def\author#1#2#3#4#5{%
+  \ifx\@author\orig@author\let\@author\@empty\fi
+  \g@addto@macro\@author{%
+    \addvspace{0.5\baselineskip}%
+    {\Large\bfseries
+     \if!#1!%
+       \textcolor{red}{Author: Please enter author name}%
+     \else
+       #1%
+       \if!#5!\else\footnote{#5}\fi
+     \fi
+     \par}\nobreak
+    \if!#2!\textcolor{red}{Author: Please enter afillation as second parameter of the author macro}\else#2\fi
+    \if!#3!\else\\*\href{mailto:#3}{#3}\fi
+    \if!#4!\else\\*\href{http://orcid.org/#4}{\lower2\p@\hbox{\includegraphics[height=10\p@]{orcid}}\;#4}\fi
+    \par\nobreak}%
+  \ifx\@authorsfortoc\@empty
+    \gdef\@authorsfortoc{#1}%
+  \else
+    \g@addto@macro\@authorsfortoc{{ and }#1}%
+  \fi}
+\newcommand*\affil[2][]{%
+  \ClassError{lipics}
+    {Deprecated: Please enter affiliation as second parameter of the author macro}
+    {Since 2017, \string\affil\space is obsolete in lipics.}}
 \newcommand*\Copyright[1]{%
   \def\@Copyright{%
       \setbox\@tempboxa\hbox{\includegraphics[height=14\p@,clip]{cc-by}}%
@@ -719,7 +670,7 @@
 \let\@subjclass\@empty
 \def\subjclassHeading{%
   \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
-                       1998 ACM Subject Classification\enskip}}
+                       2012 ACM Subject Classification\enskip}}
 \def\doiHeading{%
   \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
                        Digital Object Identifier\enskip}}

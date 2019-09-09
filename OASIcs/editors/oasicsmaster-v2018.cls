@@ -1,13 +1,12 @@
+%% This is file `oasicsmaster-v2018.cls'.
 %%
-%% This is file `lipicsmaster.cls'.
-%% 
 %% -----------------------------------------------------------------
 %% Author:     Dagstuhl Publishing & le-tex publishing services
 %% 
-%% This file is part of the lipics package for preparing
-%% LIPICS volumes.
+%% This file is part of the oasics package for preparing
+%% oasics volumes.
 %% 
-%% Copyright (C) 2010 Schloss Dagstuhl
+%% Copyright (C) 2018 Schloss Dagstuhl
 %%
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
@@ -23,8 +22,8 @@
 %% Schloss Dagstuhl (publishing@dagstuhl.de).
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
-\ProvidesClass{lipicsmaster-v2016}
-[2010/05/06 v1.1 LIPIcs volume front matters]
+\ProvidesClass{oasicsmaster-v2018}
+[2017/12/20 v1.2 OASIcs volume front matters]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -89,6 +88,7 @@
       \def\makelabel##1{\hss\llap{##1}}}%
   \fi}
 \def\enditemize{\ifnum\@listdepth=\@ne\global\@nobotseplisttrue\fi\endlist}
+\def\@title{\textcolor{red}{Author: Please provide a title}}
 \def\@sect#1#2#3#4#5#6[#7]#8{%
   \ifnum #2>\c@secnumdepth
     \let\@svsec\@empty
@@ -128,76 +128,58 @@
   \@xsect{#5}}
 \def\@seccntformat#1{\csname the#1\endcsname}
 \def\@biblabel#1{\textcolor{darkgray}{\sffamily\bfseries#1}}
-
-\def\EventLogo#1{\gdef\@EventLogo{#1}}
-\EventLogo{}
-\def\EventEditors#1{\gdef\@EventEditors{#1}}
-\EventEditors{}
-\def\EventNoEds#1{\gdef\@EventNoEds{#1}\ifnum #1>1 \gdef\@Eds{Editors}\fi }    
-\EventNoEds{1}
-\gdef\@Eds{Editor}
-\def\EventLongTitle#1{\gdef\@EventLongTitle{#1}}
-\EventLongTitle{}
-\def\EventShortTitle#1{\gdef\@EventShortTitle{#1}}
-\EventShortTitle{}
-\def\EventAcronym#1{\gdef\@EventAcronym{#1}}
-\EventAcronym{}
-\def\EventYear#1{\gdef\@EventYear{#1}}
-\EventYear{}
-\def\EventDate#1{\gdef\@EventDate{#1}}
-\EventDate{}
-\def\EventLocation#1{\gdef\@EventLocation{#1}}
-\EventLocation{}
-\def\SeriesVolume#1{\gdef\@SeriesVolume{#1}}
-\SeriesVolume{}
-\def\ArticleNo#1{\gdef\@ArticleNo{#1}}
-\ArticleNo{}
-\def\DOIPrefix#1{\gdef\@DOIPrefix{#1}}
-\DOIPrefix{10.4230/LIPIcs}
-
-\def\ps@plain{\let\@mkboth\@gobbletwo
-  \let\@oddhead\@empty
-  \let\@evenhead\@empty
-  \let\@evenfoot\@empty
-  \def\@oddfoot{%
-    \ifx\@serieslogo\@empty
+\def\copyrightline{%
+  \ifx\@hideOASIcs\@undefined
+	\ifx\@serieslogo\@empty
     \else
       \setbox\@tempboxa\hbox{\includegraphics[height=28\p@]{\@serieslogo}}% 56
       \rlap{\hspace\textwidth\hspace{-\wd\@tempboxa}\hspace{\z@}\vtop to\z@{\vskip-0mm\unhbox\@tempboxa\vss}}%
     \fi
     \scriptsize
     \vtop{\hsize\textwidth
-      \nobreakspace\\
+      \nobreakspace\par
       \@Copyright
       \ifx\@EventLongTitle\@empty\else\@EventLongTitle.\\\fi
-      \ifx\@EventEditors\@empty\else\@Eds: \@EventEditors\\\fi
-      \setbox\@tempboxa\hbox{\includegraphics[height=14\p@,trim=0 15 0 0]{lipics-logo-bw}}%
+      \ifx\@EventEditors\@empty\else
+        \@Eds: \@EventEditors
+        \\
+      \fi
+      \setbox\@tempboxa\hbox{\includegraphics[height=14\p@,trim=0 15 0 0]{oasics-logo-bw}}%
       \hspace*{\wd\@tempboxa}\enskip
-      \href{http://www.dagstuhl.de/en/publications/lipics/}{Leibniz International Proceedings in Informatics}\\
+      \href{http://www.dagstuhl.de/oasics/}%
+           {OpenAccess Series in Informatics}\\
       \smash{\unhbox\@tempboxa}\enskip
-      \href{http://www.dagstuhl.de/en/about-dagstuhl/}{Schloss Dagstuhl -- Leibniz-Zentrum f\"ur Informatik, Dagstuhl Publishing, Germany}}}}
-\def\lipics@opterrshort{Option  "\CurrentOption" not supported}
-\def\lipics@opterrlong{The option "\CurrentOption" from book.cls is not supported by lipicsmaster.cls.}
-\DeclareOption{a5paper}{\@latexerr{\lipics@opterrshort}{\lipics@opterrlong}}
-\DeclareOption{b5paper}{\@latexerr{\lipics@opterrshort}{\lipics@opterrlong}}
-\DeclareOption{legalpaper}{\@latexerr{\lipics@opterrshort}{\lipics@opterrlong}}
-\DeclareOption{executivepaper}{\@latexerr{\lipics@opterrshort}{\lipics@opterrlong}}
-\DeclareOption{landscape}{\@latexerr{\lipics@opterrshort}{\lipics@opterrlong}}
-\DeclareOption{10pt}{\@latexerr{\lipics@opterrshort}{\lipics@opterrlong}}
-\DeclareOption{11pt}{\@latexerr{\lipics@opterrshort}{\lipics@opterrlong}}
-\DeclareOption{12pt}{\@latexerr{\lipics@opterrshort}{\lipics@opterrlong}}
-\DeclareOption{oneside}{\@latexerr{\lipics@opterrshort}{\lipics@opterrlong}}
-\DeclareOption{twoside}{\@latexerr{\lipics@opterrshort}{\lipics@opterrlong}}
-\DeclareOption{titlepage}{\@latexerr{\lipics@opterrshort}{\lipics@opterrlong}}
-\DeclareOption{notitlepage}{\@latexerr{\lipics@opterrshort}{\lipics@opterrlong}}
-\DeclareOption{onecolumn}{\@latexerr{\lipics@opterrshort}{\lipics@opterrlong}}
-\DeclareOption{twocolumn}{\@latexerr{\lipics@opterrshort}{\lipics@opterrlong}}
-\DeclareOption{fleqn}{\@latexerr{\lipics@opterrshort}{\lipics@opterrlong}}
-\DeclareOption{openbib}{\@latexerr{\lipics@opterrshort}{\lipics@opterrlong}}
+      \href{http://www.dagstuhl.de}%
+           {Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik, Dagstuhl Publishing, Germany}}%
+  \fi}
+\def\ps@plain{\let\@mkboth\@gobbletwo
+  \let\@oddhead\@empty
+  \let\@evenhead\@empty
+  \let\@evenfoot\copyrightline
+  \let\@oddfoot\copyrightline}
+\def\oasics@opterrshort{Option  "\CurrentOption" not supported}
+\def\oasics@opterrlong{The option "\CurrentOption" from book.cls is not supported by oasicsmaster.cls.}
+\DeclareOption{a5paper}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
+\DeclareOption{b5paper}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
+\DeclareOption{legalpaper}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
+\DeclareOption{executivepaper}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
+\DeclareOption{landscape}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
+\DeclareOption{10pt}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
+\DeclareOption{11pt}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
+\DeclareOption{12pt}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
+\DeclareOption{oneside}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
+\DeclareOption{twoside}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
+\DeclareOption{titlepage}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
+\DeclareOption{notitlepage}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
+\DeclareOption{onecolumn}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
+\DeclareOption{twocolumn}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
+\DeclareOption{fleqn}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
+\DeclareOption{openbib}{\@latexerr{\oasics@opterrshort}{\oasics@opterrlong}}
 \DeclareOption{a4paper}{\PassOptionsToClass{\CurrentOption}{book}
                         \advance\hoffset-2.95mm
                         \advance\voffset8.8mm}
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+\DeclareOption{numberwithinsect}{\let\numberwithinsect\relax}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessOptions
 \LoadClass[twoside,fleqn]{book}
 \renewcommand\normalsize{%
@@ -263,16 +245,24 @@
               \partopsep \p@ \@plus\z@ \@minus\p@
               \itemsep   \z@ \@plus\p@}
 \def\ps@headings{%
-    \def\@evenhead{\large\sffamily\bfseries\llap{\hbox to0.5\oddsidemargin{\@ArticleNo:\thepage\hss}}\leftmark\hfil}%
-    \def\@oddhead{\large\sffamily\bfseries\rightmark\hfil\rlap{\hbox to0.5\oddsidemargin{\hss\@ArticleNo:\thepage}}}%
+    \def\@evenhead{\large\sffamily\bfseries
+                   \llap{\hbox to0.5\oddsidemargin{\ifx\@ArticleNo\@empty\textcolor{blue}{XX}\else\@ArticleNo\fi:\thepage\hss}}\leftmark\hfil}%
+    \def\@oddhead{\large\sffamily\bfseries\rightmark\hfil
+                  \rlap{\hbox to0.5\oddsidemargin{\hss\ifx\@ArticleNo\@empty\textcolor{blue}{XX}\else\@ArticleNo\fi:\thepage}}}%
     \def\@oddfoot{\hfil
                   \rlap{%
                     \vtop{%
                       \vskip10mm
                       \colorbox[rgb]{0.99,0.78,0.07}
-                                    {\@tempdima\evensidemargin \advance\@tempdima1in \advance\@tempdima\hoffset
-                                     \hb@xt@\@tempdima{\textcolor{darkgray}{\normalsize\sffamily\bfseries\quad
-                                     \expandafter\textsolittle\expandafter{\@EventShortTitle}}\strut\hss}}}}}
+                                    {\@tempdima\evensidemargin
+                                     \advance\@tempdima1in
+                                     \advance\@tempdima\hoffset
+                                     \hb@xt@\@tempdima{%
+                                       \textcolor{darkgray}{\normalsize\sffamily
+                                       \bfseries\quad
+                                       \expandafter\textsolittle
+                                       \expandafter{\@EventShortTitle}}%
+                                     \strut\hss}}}}}
     \let\@evenfoot\@empty
     \let\@mkboth\markboth
   \let\sectionmark\@gobble
@@ -305,41 +295,81 @@
 \setlength\leftmarginiv {1.2em}
 \setlength\leftmarginv  {1.2em}
 \setlength\leftmarginvi {1.2em}
-\renewcommand\labelenumi{\textcolor{darkgray}{\sffamily\bfseries\mathversion{bold}\theenumi.}}
-\renewcommand\labelenumii{\textcolor{darkgray}{\sffamily\bfseries\mathversion{bold}\theenumii.}}
-\renewcommand\labelenumiii{\textcolor{darkgray}{\sffamily\bfseries\mathversion{bold}\theenumiii.}}
-\renewcommand\labelenumiv{\textcolor{darkgray}{\sffamily\bfseries\mathversion{bold}\theenumiv.}}
+\renewcommand\labelenumi{%
+  \textcolor{darkgray}{\sffamily\bfseries\upshape\mathversion{bold}\theenumi.}}
+\renewcommand\labelenumii{%
+  \textcolor{darkgray}{\sffamily\bfseries\upshape\mathversion{bold}\theenumii.}}
+\renewcommand\labelenumiii{%
+  \textcolor{darkgray}{\sffamily\bfseries\upshape\mathversion{bold}\theenumiii.}}
+\renewcommand\labelenumiv{%
+  \textcolor{darkgray}{\sffamily\bfseries\upshape\mathversion{bold}\theenumiv.}}
 \renewcommand\labelitemi{%
-  \textcolor[rgb]{0.6,0.6,0.61}{\ifnum\@listdepth=\@ne\rule{0.67em}{0.33em}\else\rule{0.45em}{0.225em}\fi}}
-\renewcommand\labelitemii{\textcolor[rgb]{0.6,0.6,0.61}{\rule{0.45em}{0.225em}}}
-\renewcommand\labelitemiii{\textcolor[rgb]{0.6,0.6,0.61}{\sffamily\bfseries\textasteriskcentered}}
-\renewcommand\labelitemiv{\textcolor[rgb]{0.6,0.6,0.61}{\sffamily\bfseries\textperiodcentered}}
+  \textcolor[rgb]{0.6,0.6,0.61}{\ifnum\@listdepth=\@ne
+                                  \rule{0.67em}{0.33em}%
+                                \else
+                                  \rule{0.45em}{0.225em}%
+                                \fi}}
+\renewcommand\labelitemii{%
+  \textcolor[rgb]{0.6,0.6,0.61}{\rule{0.45em}{0.225em}}}
+\renewcommand\labelitemiii{%
+  \textcolor[rgb]{0.6,0.6,0.61}{\sffamily\bfseries\textasteriskcentered}}
+\renewcommand\labelitemiv{%
+  \textcolor[rgb]{0.6,0.6,0.61}{\sffamily\bfseries\textperiodcentered}}
 \renewenvironment{description}
                {\list{}{\advance\partopsep\topsep\topsep\z@\@plus\p@
                         \labelwidth\z@ \itemindent-\leftmargin
                         \let\makelabel\descriptionlabel}}
                {\ifnum\@listdepth=\@ne\global\@nobotseplisttrue\fi\endlist}
-\renewcommand*\descriptionlabel[1]{\hspace\labelsep
-                                \textcolor{darkgray}{\sffamily\bfseries\mathversion{bold}#1}}
+\renewcommand*\descriptionlabel[1]{%
+  \hspace\labelsep\textcolor{darkgray}{\sffamily\bfseries\mathversion{bold}#1}}
 \newenvironment{abstract}{%
   \vskip\bigskipamount
   \noindent
   \rlap{\color[rgb]{0.51,0.50,0.52}\vrule\@width\textwidth\@height1\p@}%
-  \hspace*{7mm}\fboxsep1.5mm\colorbox[rgb]{1,1,1}{\raisebox{-0.4ex}{\large\selectfont\sffamily\bfseries\abstractname}}%
+  \hspace*{7mm}\fboxsep1.5mm\colorbox[rgb]{1,1,1}{\raisebox{-0.4ex}{%
+    \large\selectfont\sffamily\bfseries\abstractname}}%
   \vskip3\p@
   \fontsize{9.5}{12.5}\selectfont
   \noindent\ignorespaces}
-  {\ifx\@subjclass\@empty\else
-     \vskip\baselineskip\noindent
-     \subjclassHeading\@subjclass
+  {\vskip\baselineskip\noindent
+   \subjclassHeading
+   \ifx\@subjclass\@empty
+     \textcolor{red}{Author: Please fill in \string\subjclass\space macro}%
+   \else
+     \@subjclass
    \fi
-   \ifx\@keywords\@empty\else
-     \vskip\baselineskip\noindent
-     \keywordsHeading\@keywords
+   \vskip\baselineskip
+   \noindent\keywordsHeading
+   \ifx\@keywords\@empty
+     \textcolor{red}{Author: Please fill in \string\keywords\space macro}%
+   \else
+     \@keywords
    \fi
-   \ifx\@DOI\@empty\else
+   \ifx\@hideOASIcs\@undefined
+     \ifx\@DOIPrefix\@empty\else
+       \vskip\baselineskip\noindent
+       \doiHeading\doi{\@DOIPrefix.\@EventAcronym.\@EventYear.\@ArticleNo}%
+     \fi
+   \fi
+   \ifx\@category\@empty\else
      \vskip\baselineskip\noindent
-     \doiHeading\doi{\@DOI}%
+     \categoryHeading\@category
+   \fi
+   \ifx\@relatedversion\@empty\else
+     \vskip\baselineskip\noindent
+     \relatedversionHeading\@relatedversion
+   \fi
+   \ifx\@supplement\@empty\else
+     \vskip\baselineskip\noindent
+     \supplementHeading\@supplement
+   \fi
+   \ifx\@funding\@empty\else
+     \vskip\baselineskip\noindent
+     \fundingHeading\@funding
+   \fi
+   \ifx\@acknowledgements\@empty\else
+     \vskip\baselineskip\noindent
+     \acknowledgementsHeading\@acknowledgements
    \fi}
 \renewenvironment{thebibliography}[1]
   {\if@noskipsec \leavevmode \fi
@@ -354,7 +384,8 @@
    \fi
    \noindent
    \rlap{\color[rgb]{0.51,0.50,0.52}\vrule\@width\textwidth\@height1\p@}%
-   \hspace*{7mm}\fboxsep1.5mm\colorbox[rgb]{1,1,1}{\raisebox{-0.4ex}{\normalsize\sffamily\bfseries\refname}}%
+   \hspace*{7mm}\fboxsep1.5mm\colorbox[rgb]{1,1,1}{\raisebox{-0.4ex}{%
+     \normalsize\sffamily\bfseries\refname}}%
    \@xsect{1ex \@plus.2ex}%
    \list{\@biblabel{\@arabic\c@enumiv}}%
         {\leftmargin8.5mm
@@ -387,6 +418,11 @@
 \RequirePackage{textcomp}
 \RequirePackage[mathscr]{eucal}
 \RequirePackage{amssymb}
+\PassOptionsToPackage{retainmissing}{MnSymbol}
+\AtBeginDocument{\@ifpackageloaded{MnSymbol}%
+    {\expandafter\let\csname ver@amssymb.sty\endcsname\relax
+     \let\complement\@undefined
+     \RequirePackage{amssymb}}{}}
 \RequirePackage{soul}
 \sodef\textsolittle{}{.12em}{.5em\@plus.08em\@minus.06em}%
         {.4em\@plus.275em\@minus.183em}
@@ -394,10 +430,32 @@
 \definecolor{darkgray}{rgb}{0.31,0.31,0.33}
 \RequirePackage{babel}
 \RequirePackage[tbtags,fleqn]{amsmath}
+\RequirePackage{enumerate}
+\def\@enum@{\list{\textcolor{darkgray}{\sffamily\bfseries\upshape\mathversion{bold}\csname label\@enumctr\endcsname}}%
+           {\advance\partopsep\topsep
+            \topsep\z@\@plus\p@
+            \ifnum\@listdepth=\@ne
+              \labelsep0.72em
+            \else
+              \ifnum\@listdepth=\tw@
+                \labelsep0.3em
+              \else
+                \labelsep0.5em
+              \fi
+            \fi
+            \usecounter{\@enumctr}\def\makelabel##1{\hss\llap{##1}}}}
+\def\romanenumerate{\enumerate[(i)]}
+\let\endromanenumerate\endenumerate
+\def\alphaenumerate{\enumerate[(a)]}
+\let\endalphaenumerate\endenumerate
+\def\bracketenumerate{\enumerate[{[}1{]}]}
+\let\endbracketenumerate\endenumerate
 \RequirePackage{amsthm}
-\thm@headfont{\textcolor{darkgray}{$\blacktriangleright$}\nobreakspace\sffamily\bfseries}
+\thm@headfont{%
+  \textcolor{darkgray}{$\blacktriangleright$}\nobreakspace\sffamily\bfseries}
 \def\th@remark{%
-  \thm@headfont{\textcolor{darkgray}{$\blacktriangleright$}\nobreakspace\sffamily}%
+  \thm@headfont{%
+    \textcolor{darkgray}{$\blacktriangleright$}\nobreakspace\sffamily}%
   \normalfont % body font
   \thm@preskip\topsep \divide\thm@preskip\tw@
   \thm@postskip\thm@preskip
@@ -423,6 +481,11 @@
 \newtheorem{example}[theorem]{Example}
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
+\ifx\numberwithinsect\relax
+  \@addtoreset{theorem}{section}
+  \expandafter\def\expandafter\thetheorem\expandafter{%
+    \expandafter\thesection\expandafter\@thmcountersep\thetheorem}
+\fi
 \RequirePackage{graphicx}
 \RequirePackage{array}
 \let\@classzold\@classz
@@ -442,7 +505,28 @@
 \lstset{basicstyle=\small\ttfamily,%
         backgroundcolor=\color[rgb]{0.85,0.85,0.86},%
         frame=single,framerule=0pt,xleftmargin=\fboxsep,xrightmargin=\fboxsep}
-%%\RequirePackage{lastpage} - obsolete
+\RequirePackage[left,mathlines]{lineno}
+\linenumbers
+\renewcommand\linenumberfont{\normalfont\tiny\sffamily}
+%%%% patch to cope with amsmath
+%%%% http://phaseportrait.blogspot.de/2007/08/lineno-and-amsmath-compatibility.html
+\newcommand*\patchAmsMathEnvironmentForLineno[1]{%
+  \expandafter\let\csname old#1\expandafter\endcsname\csname #1\endcsname
+  \expandafter\let\csname oldend#1\expandafter\endcsname\csname end#1\endcsname
+  \renewenvironment{#1}%
+     {\linenomath\csname old#1\endcsname}%
+     {\csname oldend#1\endcsname\endlinenomath}}%
+\newcommand*\patchBothAmsMathEnvironmentsForLineno[1]{%
+  \patchAmsMathEnvironmentForLineno{#1}%
+  \patchAmsMathEnvironmentForLineno{#1*}}%
+\AtBeginDocument{%
+  \patchBothAmsMathEnvironmentsForLineno{equation}%
+  \patchBothAmsMathEnvironmentsForLineno{align}%
+  \patchBothAmsMathEnvironmentsForLineno{flalign}%
+  \patchBothAmsMathEnvironmentsForLineno{alignat}%
+  \patchBothAmsMathEnvironmentsForLineno{gather}%
+  \patchBothAmsMathEnvironmentsForLineno{multline}}
+\RequirePackage{lastpage}
 \IfFileExists{doi.sty}
   {\RequirePackage{doi}%
    \renewcommand*{\doitext}{}}
@@ -455,22 +539,46 @@
 \@ifpackagelater{hyperref}{2009/12/09}
   {\captionsetup{compatibility=false}}%cf. http://groups.google.de/group/comp.text.tex/browse_thread/thread/db9310eb540fbbd8/42e30f3b7b3aa17a?lnk=raot
   {}
-\DeclareCaptionLabelFormat{boxed}{\kern0.05em{\color[rgb]{0.99,0.78,0.07}\rule{0.73em}{0.73em}}\hspace*{0.67em}\bothIfFirst{#1}{~}#2}
+\DeclareCaptionLabelFormat{boxed}{%
+  \kern0.05em{\color[rgb]{0.99,0.78,0.07}\rule{0.73em}{0.73em}}%
+  \hspace*{0.67em}\bothIfFirst{#1}{~}#2}
 \captionsetup{labelformat=boxed}
 \captionsetup[table]{position=top}
-\captionsetup[lstlisting]{position=top}
 \RequirePackage[figuresright]{rotating}
-\RequirePackage{subfig}
+\caption@AtBeginDocument{\@ifpackageloaded{subfig}{\ClassError{oasics}{%
+  Do not load the subfig package}{The more recent subcaption package is already loaded}}{}}
+\RequirePackage{subcaption}
+\usepackage{xstring}
+\newcommand\ccsdesc[2][100]{\StrSubstitute{#2}{~}{ $\rightarrow$ }}
 \def\titlerunning#1{\gdef\@titlerunning{{\let\footnote\@gobble\markboth{#1}{#1}}}}
-\def\authorrunning#1{\gdef\@authorrunning{\expandafter\def\expandafter\@tempa\expandafter{#1}\ifx\@tempa\@empty\else\markright{#1}\fi}}
+\def\authorrunning#1{%
+  \gdef\@authorrunning{\markright{\if!#1!\textcolor{red}{Author: Please fill in the \string\authorrunning\space macro}\else#1\fi}}}
 \titlerunning{\@title}
-\authorrunning{\AB@authrunning}
-\newcommand*\volumeinfo[6]{%
-  {\gdef\@Editors{#1}%
-   \gdef\@Eds{Editor}\ifnum #2>1 \gdef\@Eds{Editors}\fi
-   \gdef\@Event{#3}%
-   \setcounter{page}{#6}}}
-\volumeinfo{}{1}{}{}{}{1}
+\authorrunning{\textcolor{red}{Author: Please use the \string\authorrunning\space macro}}
+\def\EventLongTitle#1{\gdef\@EventLongTitle{#1}}
+\EventLongTitle{}
+\def\EventShortTitle#1{\gdef\@EventShortTitle{#1}}
+\EventShortTitle{}
+\def\EventEditors#1{\gdef\@EventEditors{#1}}
+\EventEditors{}
+\def\EventNoEds#1{\gdef\@EventNoEds{#1}\xdef\@Eds{Editor\ifnum#1>1s\fi}}
+\EventNoEds{1}
+\def\EventLogo#1{\gdef\@EventLogo{#1}}
+\EventLogo{}
+\def\EventAcronym#1{\gdef\@EventAcronym{#1}}
+\EventAcronym{}
+\def\EventYear#1{\gdef\@EventYear{#1}}
+\EventYear{}
+\def\EventDate#1{\gdef\@EventDate{#1}}
+\EventDate{}
+\def\EventLocation#1{\gdef\@EventLocation{#1}}
+\EventLocation{}
+\def\SeriesVolume#1{\gdef\@SeriesVolume{#1}}
+\SeriesVolume{}
+\def\ArticleNo#1{\gdef\@ArticleNo{#1}}
+\ArticleNo{}
+\def\DOIPrefix#1{\gdef\@DOIPrefix{#1}}
+\DOIPrefix{10.4230/OASIcs}
 \newcommand*\Copyright[2][]{%
   \def\@Copyright{%
     \def\@tempa{#1}\ifx\@tempa\@empty
@@ -481,19 +589,47 @@
       \href{http://creativecommons.org/licenses/by-#1/3.0/}{\smash{\unhbox\@tempboxa}}\enskip licensed under Creative Commons License \MakeUppercase{#1}\\
     \fi}}
 \Copyright[]{\@empty}
+\def\hideOASIcs{\let\@hideOASIcs\relax}
 \def\keywords#1{\def\@keywords{#1}}
 \let\@keywords\@empty
-\def\keywordsHeading{\textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries Keywords and phrases\enskip}}
+\def\keywordsHeading{%
+  \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
+                       Keywords and phrases\enskip}}
 \def\subjclass#1{\gdef\@subjclass{#1}}
 \let\@subjclass\@empty
-\def\subjclassHeading{\textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries 1998 ACM Subject Classification\enskip}}
-\def\doiHeading{\textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries Digital Object Identifier\enskip}}
+\def\subjclassHeading{%
+  \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
+                       2012 ACM Subject Classification\enskip}}
+\def\doiHeading{%
+  \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
+                       Digital Object Identifier\enskip}}
 \def\serieslogo#1{\gdef\@serieslogo{#1}}
 \serieslogo{}
-\def\EventShortName#1{\gdef\@EventShortName{#1}}
-\EventShortName{}
-\def\DOI#1{\gdef\@DOI{#1}}
-\DOI{}
+\def\category#1{\def\@category{#1}}
+\let\@category\@empty
+\def\categoryHeading{%
+  \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
+                       Category\enskip}}
+\def\relatedversion#1{\def\@relatedversion{#1}}
+\let\@relatedversion\@empty
+\def\relatedversionHeading{%
+  \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
+                       Related Version\enskip}}
+\def\supplement#1{\def\@supplement{#1}}
+\let\@supplement\@empty
+\def\supplementHeading{%
+  \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
+                       Supplement Material\enskip}}
+\def\funding#1{\def\@funding{#1}}
+\let\@funding\@empty
+\def\fundingHeading{%
+ \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
+                      Funding\enskip}}
+\def\acknowledgements#1{\def\@acknowledgements{#1}}
+\let\@acknowledgements\@empty
+\def\acknowledgementsHeading{%
+ \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
+                      Acknowledgements\enskip}}
 \def\cleardoublepage{%
   \clearpage\if@twoside\ifodd\c@page\else\hbox{}\thispagestyle{empty}\newpage\fi\fi}
 \def\subtitle#1{\gdef\@subtitle{#1}}
@@ -516,11 +652,15 @@
                     \vtop{%
                       \vskip10mm
                       \colorbox[rgb]{0.99,0.78,0.07}
-                                    {\@tempdima0.833\textwidth\advance\@tempdima\evensidemargin
+                                    {\@tempdima0.833\textwidth
+                                     \advance\@tempdima\evensidemargin
                                      \advance\@tempdima1in \advance\@tempdima\hoffset
                                      \hb@xt@\@tempdima{%\hspace*{0.833\textwidth}%
-                                       \textcolor{darkgray}{\normalsize\sffamily\bfseries\quad
-                                       \expandafter\textsolittle\expandafter{\@titlepagebottomline}}\strut\hss}}}}}
+                                       \textcolor{darkgray}{\normalsize\sffamily
+                                       \bfseries\quad
+                                       \expandafter\textsolittle
+                                       \expandafter{\@titlepagebottomline}}%
+                                     \strut\hss}}}}}
     \let\@evenfoot\@empty
     \let\@mkboth\markboth
   \let\sectionmark\@gobble
@@ -532,18 +672,18 @@
   \let \footnote \thanks
   \parindent\z@
   \bgroup
-   \leftskip0.167\textwidth
-    \rightskip0.0415\textwidth\@plus1fill % orig: 0.167
+    \leftskip0.167\textwidth
+    \rightskip0.0415\textwidth\@plus1fill
     \null\vskip 60\p@
     \sffamily\bfseries
     {\Huge\@title \par}%
     \vskip 4.5em%
     {\large\@subtitle\par}%
     \vskip 9em%
-    {\Large\mdseries Edited by\\ \huge \@editor\par}%
+    {\Large\mdseries Edited by\\ \huge\@editor\par}%
     \vfill
     \rightskip\z@
-    \includegraphics[width=10em]{lipics-logo-bw}%
+    \includegraphics[width=10em]{oasics-logo-bw}%
     \hfill
     \ifx\@serieslogo\@empty
       \nobreakspace
@@ -629,7 +769,7 @@
   \setbox0\hbox{#2\kern.5em}%
   \global\@clabelwidth=\wd0
 }
-\renewcommand{\@pnumwidth}{4.5em} % lipics-v2016
+\def\@pnumwidth{5em}
 \newcommand{\@wrapcontitem}{%
   \if@csection \global\@csectionfalse
   \else \addvspace{6pt}%
@@ -650,7 +790,7 @@
     \advance\parfillskip\leftskip
     \andify\authors
     {\@authorfont\authors}\nobreak
-    \hfil\null\penalty\z@\enskip  \dotfill % DOTFILL
+    \hfil\null\penalty\z@\enskip\dotfill
     \enskip\hbox to\@pnumwidth{\@tocpagenum{\@page}}\par
   \fi
   \egroup
@@ -740,4 +880,4 @@
 }
 \endinput
 %%
-%% End of file `lipicsmaster.cls'.
+%% End of file `oasicsmaster-v2018.cls'.

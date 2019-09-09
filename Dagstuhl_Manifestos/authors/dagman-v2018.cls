@@ -1,5 +1,5 @@
 %%
-%% This is file `dagman.cls'.
+%% This is file `dagman-v2018.cls'.
 %% 
 %% -----------------------------------------------------------------
 %% Author:     Dagstuhl Publishing & le-tex publishing services
@@ -7,7 +7,7 @@
 %% This file is part of the dagman package for preparing
 %% manifestos for the "Dagstuhl Manifestos" journal.
 %% 
-%% Copyright (C) 2012 Schloss Dagstuhl
+%% Copyright (C) 2018 Schloss Dagstuhl
 %%
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
@@ -23,8 +23,8 @@
 %% Schloss Dagstuhl (publishing@dagstuhl.de).
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
-\ProvidesClass{dagman}
-    [2012/05/21 v1.0 Dagstuhl Manifestos articles]
+\ProvidesClass{dagman-v2018}
+    [2018/03/21 v1.1 Dagstuhl Manifestos articles]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -194,13 +194,13 @@
   \vtop{\hsize\textwidth
     \@rightskip\@flushglue\rightskip\@rightskip
     \nobreakspace\\
-    \setbox\@tempboxa\hbox{\includegraphics[height=14\p@,clip]{cc-by-nd}}%
+    \setbox\@tempboxa\hbox{\includegraphics[height=14\p@,clip]{cc-by}}%
     \hspace*{\wd\@tempboxa}\enskip
     Except where otherwise noted, content of this manifesto is licensed\\
-    \href{http://creativecommons.org/licenses/by-nd/3.0/}%
+    \href{http://creativecommons.org/licenses/by/3.0/}%
          {\smash{\unhbox\@tempboxa}}\enskip under a
-    \href{http://creativecommons.org/licenses/by-nd/3.0/}
-         {Creative Commons BY-ND 3.0 Unported} license\\
+    \href{http://creativecommons.org/licenses/by/3.0/}
+         {Creative Commons BY 3.0 Unported} license\\
     \ifx\@Event\@empty\else\@Event,\space\fi
     \textit{Dagstuhl~Manifestos},%
     \ifx\@Volume\@empty\else\space Vol.\nobreakspace\@Volume,\fi
@@ -728,6 +728,8 @@
       \AB@affillist
     \endlist
     \else  \AB@authors\fi\fi}
+\usepackage{xstring}
+\newcommand\ccsdesc[2][100]{\StrSubstitute{#2}{~}{ $\rightarrow$ }}
 \def\keywords#1{\def\@keywords{#1}}
 \let\@keywords\@empty
 \def\keywordsHeading{%
@@ -737,7 +739,7 @@
 \let\@subjclass\@empty
 \def\subjclassHeading{%
   \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
-                       1998 ACM Subject Classification\enskip}}
+                       2012 ACM Subject Classification\enskip}}
 \def\doiHeading{%
   \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
                        Digital Object Identifier\enskip}}
@@ -792,12 +794,11 @@
   \@afterheading}
 \newcommand*\jointwork[1]{\@preambleentry{Joint work of}{#1}}
 \newcommand\license{\@preambleentry{License}{%
-  \href{http://creativecommons.org/licenses/by-nd/3.0/}%
-       {\raise-2\p@\hb@xt@2.8em{% 4.2em
-          \includegraphics[height=7.5\p@,clip]{cc}\hss
-          \includegraphics[height=7.5\p@,clip]{nd}\enskip}}%
-  \href{http://creativecommons.org/licenses/by-nd/3.0/}
-               {Creative Commons BY-ND 3.0 Unported} license\newline
+  \href{http://creativecommons.org/licenses/by/3.0/}%
+       {\raise-2\p@\hb@xt@1.3em{% 4.2
+          \includegraphics[height=7.5\p@,clip]{cc}\enskip}}%
+  \href{http://creativecommons.org/licenses/by/3.0/}
+               {Creative Commons BY 3.0 Unported} license\newline
   \null\hskip0.055em\textsf{\textcopyright}\enskip\nameref{absaut\theabsaut}}}
 \newcommand*\abstractref{\@dblarg{\@abstractref}}
 \def\@abstractref[#1]#2{\@preambleentry{Main reference}{\href{#1}{#2}}}
@@ -830,4 +831,4 @@
   \labelitemi\hskip\labelsep}
 \endinput
 %%
-%% End of file `dagman.cls'.
+%% End of file `dagman-v2018.cls'.

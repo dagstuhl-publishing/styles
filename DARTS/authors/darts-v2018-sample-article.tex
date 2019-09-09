@@ -1,4 +1,4 @@
-\documentclass[a4paper,UKenglish]{darts}
+\documentclass[a4paper,UKenglish]{darts-v2018}
 %This is a template for producing DARTS artifact descriptions. 
 %for A4 paper format use option "a4paper", for US-letter use option "letterpaper"
 %for british hyphenation rules use option "UKenglish", for american hyphenation rules use option "USenglish"
@@ -34,20 +34,17 @@ charge on the Dagstuhl Research Online Publication Server (DROPS).}{}
 \titlerunning{A Sample DARTS Research Description} %optional, in case that the title is too long; the running title should fit into the top page column
 
 % ARTIFACT: Authors may not be exactly the same as the related scholarly paper, e.g., you may want to include authors who contributed to the preparation of the artifact, but not to the companion paper
-%% Please provide for each author the \author and \affil macro, even when authors have the same affiliation, i.e. for each author there needs to be the  \author and \affil macros (ORCIDs are optional but highly recommended; for registration, please visit https://orcid.org/register)
-\author[1]{John Q. Open}
-\author[2]{Joan R. Access}
-\affil[1]{Dummy University Computing Laboratory, Address/City, Country\\
-  \orcid{xxx}\\
-  \email{open@dummyuniversity.org}}
-\affil[2]{Department of Informatics, Dummy College, Address/City, Country\\
-  \orcid{yyy}\\
-  \email{access@dummycollege.org}}
+
+\author{John Q. Open}{Dummy University Computing Laboratory\\{[Address, Country]}}{johnqpublic@dummyuni.org}{[orcid]}{[funding]}%mandatory, please use full name; only 1 author per \author macro; first two parameters are mandatory, other parameters can be empty.
+
+\author{Joan R. Access}{Department of Informatics, Dummy College, Address/City, Country}{access@dummycollege.org}{yyy}{}
+
 \authorrunning{J.\,Q. Open and J.\,R. Access} %mandatory. First: Use abbreviated first/middle names. Second (only in severe cases): Use first author plus 'et. al.'
 
-\Copyright{John Q. Open and Joan R. Access}%mandatory, please use full first names. LIPIcs license is "CC-BY";  http://creativecommons.org/licenses/by/3.0/
+\Copyright{John Q. Open and Joan R. Access}%mandatory, please use full first names. DARTS license for the artifact description is "CC-BY";  http://creativecommons.org/licenses/by/3.0/
 
-\subjclass{Dummy classification -- please refer to \url{http://www.acm.org/about/class/ccs98-html}}% mandatory: Please choose ACM 1998 classifications from http://www.acm.org/about/class/ccs98-html . E.g., cite as "F.1.1 Models of Computation". 
+\subjclass{Dummy classification -- please refer to \url{https://www.acm.org/publications/class-2012}}% mandatory: Please choose ACM 2012 classifications from https://www.acm.org/publications/class-2012 or https://dl.acm.org/ccs/ccs_flat.cfm . E.g., cite as "General and reference $\rightarrow$ General literature" or \ccsdesc[100]{General and reference~General literature}. 
+
 \keywords{Dummy keyword -- please provide 1--5 keywords}% mandatory: Please provide 1-5 keywords
 % Author macros::end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

@@ -1,8 +1,8 @@
-%This is a template for producing OASIcs conference volumes.
-%The usage of this file together with oasicsmaster-v2016.cls should be
+%This is a template for producing LIPIcs conference volumes.
+%The usage of this file together with lipicsmaster-v2016.cls should be
 %straightforward. There is no separate documentation.
 
-\documentclass[a4paper,UKenglish]{oasicsmaster-v2016}
+\documentclass[a4paper,UKenglish]{lipicsmaster-v2018}
  %for A4 paper format use option "a4paper", for US-letter use option "letterpaper"
  %for british hyphenation rules use option "UKenglish", for american hyphenation rules use option "USenglish"
 
@@ -32,12 +32,13 @@
 \EventLocation{Little Whinging, United Kingdom}
 \EventLogo{}
 \SeriesVolume{42}
-\ArticleNo{23}
+\ArticleNo{0}
 
-\titlepagebottomline{OASIcs -- Vol.~42 -- CVIT'10 \qquad \qquad \qquad www.dagstuhl.de/oasics}%some text line for the yellow box on the titlepage
+\titlepagebottomline{LIPIcs -- Vol.~42 -- CVIT 2016 \qquad \qquad \qquad www.dagstuhl.de/lipics}%some text line for the yellow box on the titlepage
 
-\serieslogo{}%please provide filename (without suffix)
+%\serieslogo{}%please provide filename (without suffix)
 
+\nolinenumbers %uncomment to disable line numbering
 
 \begin{document}
 
@@ -69,7 +70,7 @@ University City & College City \\
 \bigskip
 \bigskip
 \bigskip
-\emph{ACM Classification 1998}\\
+\emph{ACM Classification 2012}\\
 \textcolor{red}{(To be completed)}
 
 \bigskip
@@ -112,13 +113,13 @@ The copyright is retained by the corresponding authors.
 \bigskip
 \bigskip
 
-Digital Object Identifier: \href{http://dx.doi.org/10.4230/OASIcs.CVIT.2016.0}{10.4230/OASIcs.CVIT.2016.0}
+Digital Object Identifier: \href{http://dx.doi.org/10.4230/LIPIcs.CVIT.2016.0}{10.4230/LIPIcs.CVIT.2016.0}
 
 \vfill
-\textbf{\href{http://www.dagstuhl.de/dagpub/\VolumeISBN}{ISBN \VolumeISBN}}\qquad \qquad \textbf{\href{http://drops.dagstuhl.de/oasics}{ISSN 1868-8969}}  \hfill \textbf{\href{http://www.dagstuhl.de/oasics}{http://www.dagstuhl.de/oasics}}
+\textbf{\href{http://www.dagstuhl.de/dagpub/\VolumeISBN}{ISBN \VolumeISBN}}\qquad \qquad \textbf{\href{http://drops.dagstuhl.de/lipics}{ISSN 1868-8969}}  \hfill \textbf{\href{http://www.dagstuhl.de/lipics}{http://www.dagstuhl.de/lipics}}
 
 %%
-%% PAGE 3: OASIcs series information
+%% PAGE 3: LIPIcs series information
 %% 
   
 \newpage
@@ -128,12 +129,12 @@ Digital Object Identifier: \href{http://dx.doi.org/10.4230/OASIcs.CVIT.2016.0}{1
 \bigskip
 \bigskip
 
-{\Large OASIcs -- OpenAccess Series in Informatics}
+{\Large LIPIcs -- Leibniz International Proceedings in Informatics}
  
 \bigskip
  
-OASIcs aims at a suitable publication venue to publish peer-reviewed collections of papers emerging from a scientific event.
-OASIcs volumes are published according to the principle of Open Access, i.e., they are available online and free of charge. 
+LIPIcs is a series of high-quality conference proceedings across all fields in informatics. 
+LIPIcs volumes are published according to the principle of Open Access, i.e., they are available online and free of charge. 
  
 \bigskip
 \bigskip
@@ -141,24 +142,31 @@ OASIcs volumes are published according to the principle of Open Access, i.e., th
  
 \emph{Editorial Board}
 
-\begin{itemize}
-\item Daniel Cremers (TU M\"unchen, Germany)
-\item Barbara Hammer (Universit\"at Bielefeld, Germany)
-\item Marc Langheinrich (Universit\`a della Svizzera Italiana -- Lugano, Switzerland)
-\item Dorothea Wagner (\emph{Editor-in-Chief}, Karlsruher Institut f\"{u}r Technologie, Germany)
- \end{itemize}
+\begin{itemize} 
+\item Luca Aceto (\emph{Chair}, Gran Sasso Science Institute and Reykjavik University) 
+\item Susanne Albers (TU M\"unchen)
+\item Christel Baier (TU Dresden)
+\item Javier Esparza (TU M\"unchen)
+\item Michael Mitzenmacher (Harvard University)
+\item Madhavan Mukund (Chennai Mathematical Institute)
+\item Anca Muscholl (University Bordeaux)
+\item Catuscia Palamidessi (INRIA)
+\item Raimund Seidel (Saarland University and Schloss Dagstuhl -- Leibniz-Zentrum f\"ur Informatik)
+\item Thomas Schwentick (TU Dortmund)
+\item Reinhard Wilhelm (Saarland University)
+\end{itemize}
  
 \bigskip
 \bigskip
 \bigskip
 
-{\large\bf\sffamily \href{http://www.dagstuhl.de/dagpub/2190-6807}{ISSN 2190-6807}}
+{\large\bf\sffamily \href{http://www.dagstuhl.de/dagpub/1868-8969}{ISSN 1868-8969}}
 
 \bigskip
 \bigskip
 \bigskip
 
-{\Large\bf\sffamily \href{http://www.dagstuhl.de/oasics}{http://www.dagstuhl.de/oasics}}
+{\Large\bf\sffamily \href{http://www.dagstuhl.de/lipics}{http://www.dagstuhl.de/lipics}}
  
 \vfill
 
@@ -205,6 +213,7 @@ OASIcs volumes are published according to the principle of Open Access, i.e., th
 \author{Homer J. Simpson}
 \page{1:1--1:23}
 
+\inputtocentry{lipics-v2018-sample-article}
 
 \end{contentslist}
 
@@ -240,6 +249,7 @@ egestas. Quisque vitae accumsan risus. Sed molestie dictum
 venenatis. Sed odio justo, gravida et vulputate eu, congue et lorem. 
 
 
+%optional
 \begin{participants}
 \chapter[Authors]{List of Authors}
 %use \participant for every author, eg.:

@@ -1,0 +1,4 @@
+LIPICS Editor Style - CHANGELOG
+
+
+
