@@ -1,44 +1,51 @@
-%This is a template for producing OASIcs conference volumes.
-%The usage of this file together with oasicsmaster-v2016.cls should be
+%This is a template for producing OASics conference volumes.
+%The usage of this file together with oasicsmaster-v2019.cls should be
 %straightforward. There is no separate documentation.
 
-\documentclass[a4paper,UKenglish]{oasicsmaster-v2018}
- %for A4 paper format use option "a4paper", for US-letter use option "letterpaper"
- %for british hyphenation rules use option "UKenglish", for american hyphenation rules use option "USenglish"
-
-\usepackage{microtype}%if unwanted, comment out or use option "draft"
-
-
-\newcommand{\VolumeISBN}{424-2-424242-424-2}
+\documentclass[a4paper,UKenglish]{oasicsmaster-v2019}
+%for A4 paper format use option "a4paper", for US-letter use option "letterpaper"
+%for british hyphenation rules use option "UKenglish", for american hyphenation rules use option "USenglish"
 
 %\graphicspath{{./graphics/}}%helpful if your graphic files are in another directory
 
-\bibliographystyle{plainurl}% the recommnded bibstyle
+\bibliographystyle{plainurl}% the mandatory bibstyle
 
+\editor{John Q. Public}{Dummy University Computing Laboratory, [Address], Country \and Second affiliation, Country}{johnqpublic@dummyuni.org}{https://orcid.org/0000-0002-1825-0097}%TODO mandatory, please use full name; only 1 editor per \editor macro; first two parameters are mandatory, other parameters can be empty.
 
-\title{\huge 1st Conference on Very Important Topics}
+\editor{Joan R. Access}{School of Computer Science, University City, Country2}{beditor@uni-city.edu}{}
 
-\subtitle{CVIT 2016, December 24--27, 2016, Little Whinging, United Kingdom}
+%TODO please enter name of conference without abbreviate title 
+\EventTitle{42nd Conference on Very Important Topics}
 
-\editor{Billy Editor\\ Bill Editors}
-
-\EventEditors{John Q. Open and Joan R. Acces}
+%TODO please enter macros as provided by OASics office%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\EventEditors{John Q. Open and Joan R. Access}
 \EventNoEds{2}
 \EventLongTitle{42nd Conference on Very Important Topics (CVIT 2016)}
 \EventShortTitle{CVIT 2016}
 \EventAcronym{CVIT}
 \EventYear{2016}
 \EventDate{December 24--27, 2016}
-\EventLocation{Little Whinging, United Kingdom}
+\EventLocation{Little Whinging, United~Kingdom}
 \EventLogo{}
 \SeriesVolume{42}
-\ArticleNo{23}
+\ArticleNo{0}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\titlepagebottomline{OASIcs -- Vol.~42 -- CVIT 2016 \qquad \qquad \qquad www.dagstuhl.de/oasics}%some text line for the yellow box on the titlepage
+\ccsdesc[100]{\textcolor{red}{Replace ccsdesc macro with valid one}}%TODO mandatory: Please choose ACM 2012 classifications from https://dl.acm.org/ccs/ccs_flat.cfm . 
 
-%\serieslogo{}%please provide filename (without suffix)
+\ISBN{424-2-424242-424-2}%TODO mandatory: Please enter ISBN as provided by OASics office
 
-\nolinenumbers %uncomment to disable line numbering
+%\DatePublished{June 6, 2018}%leave empty; will be entered by OASics office before publication
+
+%\title{\huge 1st Conference on Very Important Topics} %use only to override default title
+
+%\subtitle{CVIT 2016, December 24--27, 2016, Little Whinging, United Kingdom} %use only to override default subtitle
+
+%\titlepagebottomline{OASics -- Vol.~\printSeriesVolume{} -- \printEventShortTitle \qquad \qquad \qquad www.dagstuhl.de/oasics} %override text line in the yellow box on the titlepage
+
+%\serieslogo{} %please provide filename (without suffix)
+
+%\nolinenumbers %uncomment to disable line numbering
 
 \begin{document}
 
@@ -57,47 +64,40 @@
 \begin{publicationinfo}%for page ii, please fill as required
 \sffamily
 
-\emph{Editors} \\[0.2cm]
-\begin{tabular}{ll}
-Billy Editor              &   Bill Editors   \\
-School of Computer Science   &  Institute of Knowledge \\ 
-University City & College City \\ 
-\texttt{beditor@uni-city.edu} &  \texttt{editorsb@cs.institute.org}
-\end{tabular}
-\ \\
+\emph{Editors} 
+\printEditorLong
 
-\bigskip
-\bigskip
+
 \bigskip
 \bigskip
 \emph{ACM Classification 2012}\\
-\textcolor{red}{(To be completed)}
+\printSubjclass
 
 \bigskip
 \bigskip
 
-{\Large\bf\sffamily \href{http://www.dagstuhl.de/dagpub/\VolumeISBN}{ISBN \VolumeISBN}}
+{\Large\bf\sffamily \href{https://www.dagstuhl.de/dagpub/\printISBN}{ISBN \printISBN}}
 
 \bigskip
 \bigskip
 
 \emph{Published online and open access by}\newline
-Schloss Dagstuhl -- Leibniz-Zentrum f\"ur Informatik GmbH, Dagstuhl Publishing, Saarbr\"ucken/Wadern, Germany. Online available at \href{http://www.dagstuhl.de/dagpub/\VolumeISBN}{http://www.dagstuhl.de/dagpub/\VolumeISBN}.
+Schloss Dagstuhl -- Leibniz-Zentrum f\"ur Informatik GmbH, Dagstuhl Publishing, Saarbr\"ucken/Wadern, Germany. Online available at \href{https://www.dagstuhl.de/dagpub/\printISBN}{https://www.dagstuhl.de/dagpub/\printISBN}.
 
 \bigskip
 \emph{Publication date}\newline
-\textcolor{red}{(To be completed: Month, Year)}
+\printDatePublished
 
 \bigskip
 \bigskip
 
 \emph{Bibliographic information published by the Deutsche Nationalbibliothek}\newline
-The Deutsche Nationalbibliothek lists this publication in the Deutsche Nationalbibliografie; detailed bibliographic data are available in the Internet at \href{http://dnb.d-nb.de}{http://dnb.d-nb.de}. 
+The Deutsche Nationalbibliothek lists this publication in the Deutsche Nationalbibliografie; detailed bibliographic data are available in the Internet at \href{https://portal.dnb.de}{https://portal.dnb.de}. 
 
 \bigskip
 
 \emph{License}\newline
-This work is licensed under a Creative Commons Attribution 3.0 Unported license (CC-BY~3.0): \texttt{http://creativecommons.org/licenses/by/3.0/legalcode}.\\
+This work is licensed under a Creative Commons Attribution 3.0 Unported license (CC-BY~3.0):\\ \href{https://creativecommons.org/licenses/by/3.0/legalcode}{https://creativecommons.org/licenses/by/3.0/legalcode}.\\
 In brief, this license authorizes each and everybody to share (to copy, distribute and transmit) the work under the following conditions, without impairing or restricting the authors' moral rights:
 \marginpar{\hspace*{0.2\marginparwidth}\includegraphics[width=0.75\marginparwidth]{cc-by.pdf}}
 \begin{itemize}
@@ -113,15 +113,15 @@ The copyright is retained by the corresponding authors.
 \bigskip
 \bigskip
 
-Digital Object Identifier: \href{http://dx.doi.org/10.4230/OASIcs.CVIT.2016.0}{10.4230/OASIcs.CVIT.2016.0}
+Digital Object Identifier: \href{https://doi.org/\printDOI}{\printDOI}
 
 \vfill
-\textbf{\href{http://www.dagstuhl.de/dagpub/\VolumeISBN}{ISBN \VolumeISBN}}\qquad \qquad \textbf{\href{http://drops.dagstuhl.de/oasics}{ISSN 2190-6807}}  \hfill \textbf{\href{http://www.dagstuhl.de/oasics}{http://www.dagstuhl.de/oasics}}
+\textbf{\href{https://www.dagstuhl.de/dagpub/\printISBN}{ISBN \printISBN}}\qquad \qquad \textbf{\href{https://www.dagstuhl.de/dagpub/2190-6807}{ISSN 2190-6807}}  \hfill \textbf{\href{https://www.dagstuhl.de/oasics}{https://www.dagstuhl.de/oasics}}
 
 %%
-%% PAGE 3: OASIcs series information
+%% PAGE 3: OASics series information
 %% 
-  
+
 \newpage
 
 \ \\
@@ -129,46 +129,48 @@ Digital Object Identifier: \href{http://dx.doi.org/10.4230/OASIcs.CVIT.2016.0}{1
 \bigskip
 \bigskip
 
-{\Large OASIcs -- OpenAccess Series in Informatics}
- 
+{\Large OASics -- OpenAccess Series in Informatics}
+
 \bigskip
- 
-OASIcs aims at a suitable publication venue to publish peer-reviewed collections of papers emerging from a scientific event.
-OASIcs volumes are published according to the principle of Open Access, i.e., they are available online and free of charge. 
- 
+
+OASics is a series of high-quality conference proceedings across all fields in informatics. 
+OASics volumes are published according to the principle of Open Access, i.e., they are available online and free of charge. 
+
 \bigskip
 \bigskip
 \bigskip
- 
+
 \emph{Editorial Board}
 
+%OASIcs Board members as of June 2018
 \begin{itemize}
 \item Daniel Cremers (TU M\"unchen, Germany)
 \item Barbara Hammer (Universit\"at Bielefeld, Germany)
 \item Marc Langheinrich (Universit\`a della Svizzera Italiana -- Lugano, Switzerland)
 \item Dorothea Wagner (\emph{Editor-in-Chief}, Karlsruher Institut f\"{u}r Technologie, Germany)
  \end{itemize}
- 
-\bigskip
-\bigskip
-\bigskip
 
-{\large\bf\sffamily \href{http://www.dagstuhl.de/dagpub/2190-6807}{ISSN 2190-6807}}
 
 \bigskip
 \bigskip
 \bigskip
 
-{\Large\bf\sffamily \href{http://www.dagstuhl.de/oasics}{http://www.dagstuhl.de/oasics}}
- 
+{\large\bf\sffamily \href{https://www.dagstuhl.de/dagpub/2190-6807}{ISSN 2190-6807}}
+
+\bigskip
+\bigskip
+\bigskip
+
+{\Large\bf\sffamily \href{https://www.dagstuhl.de/oasics}{https://www.dagstuhl.de/oasics}}
+
 \vfill
 
 %%
 %% PAGE 4: (empty)
 %% 
- 
+
 \newpage
- 
+
 \thispagestyle{empty}
 
 \ \\
@@ -179,12 +181,16 @@ OASIcs volumes are published according to the principle of Open Access, i.e., th
 %% PAGE 5 and more: TOC etc.
 %% 
 
-\begin{dedication}%please fill or comment out
-  Insert dedication here.
+%TODO please fill or comment out
+\begin{dedication}
+Insert dedication here.
 \end{dedication}
 
 
 \begin{contentslist}
+
+%Please note, that the table of contents will be generated by the OASics office based on the order provided in the Dagstuhl Submission System. So you can keep this section as is!!!
+
 %To generate the table of contents copy all the .vtc files
 %of the contributions to your working directory.
 %For every contribution type a line
@@ -206,13 +212,13 @@ OASIcs volumes are published according to the principle of Open Access, i.e., th
 \author{Homer J. Simpson}
 \page{1:1--1:23}
 
-\inputtocentry{oasics-v2018-sample-article}
+\inputtocentry{oasics-v2019-sample-article}
 
 \end{contentslist}
 
 
-
-\chapter{Preface} %please fill or comment out
+%TODO please fill or comment out
+\chapter{Preface}
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut mattis
 elementum fermentum. Pellentesque habitant morbi tristique senectus et
@@ -247,9 +253,9 @@ venenatis. Sed odio justo, gravida et vulputate eu, congue et lorem.
 \chapter[Authors]{List of Authors}
 %use \participant for every author, eg.:
 \participant John Q. Public\\ 
-  Dummy University Computing Laboratory\\
-  Address, Country\\
-  johnqpublic@dummyuni.org
+Dummy University Computing Laboratory\\
+Address, Country\\
+johnqpublic@dummyuni.org
 
 \end{participants} 
 

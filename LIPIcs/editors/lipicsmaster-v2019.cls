@@ -7,7 +7,7 @@
 %% This file is part of the lipics package for preparing
 %% LIPICS volumes.
 %% 
-%% Copyright (C) 2018 Schloss Dagstuhl
+%% Copyright (C) 2019 Schloss Dagstuhl
 %%
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
@@ -24,7 +24,7 @@
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{lipicsmaster-v2019}
-[2019/05/02 v2.1 LIPIcs volume front matters]
+[2019/17/22 v2.2 LIPIcs volume front matters]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -131,9 +131,14 @@
 \def\@biblabel#1{\textcolor{darkgray}{\sffamily\bfseries#1}}
 \def\copyrightline{%
   \ifx\@hideLIPIcs\@undefined
+	\ifx\@EventLogo\@empty
 	\ifx\@serieslogo\@empty
     \else
-      \setbox\@tempboxa\hbox{\includegraphics[height=28\p@]{\@serieslogo}}% 56
+      \setbox\@tempboxa\hbox{\includegraphics[height=25\p@]{\@serieslogo}}% 56
+      \rlap{\hspace\textwidth\hspace{-\wd\@tempboxa}\hspace{\z@}\vtop to\z@{\vskip-0mm\unhbox\@tempboxa\vss}}%
+    \fi
+	\else
+      \setbox\@tempboxa\hbox{\includegraphics[height=25\p@]{\@EventLogo}}% 56
       \rlap{\hspace\textwidth\hspace{-\wd\@tempboxa}\hspace{\z@}\vtop to\z@{\vskip-0mm\unhbox\@tempboxa\vss}}%
     \fi
     \scriptsize
@@ -180,6 +185,7 @@
                         \advance\hoffset-2.95mm
                         \advance\voffset8.8mm}
 \DeclareOption{numberwithinsect}{\let\numberwithinsect\relax}
+\DeclareOption{editorcolumns}{\let\editorcolumns\relax}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessOptions
 \LoadClass[twoside,fleqn]{book}
@@ -706,35 +712,59 @@
   \clearpage\if@twoside\ifodd\c@page\else\hbox{}\thispagestyle{empty}\newpage\fi\fi}
 \def\subtitle#1{\gdef\@subtitle{#1}}
 \subtitle{\@EventShortTitle, \@EventDate, \@EventLocation}
-%\def\@subtitle{\@latex@warning@no@line{No \noexpand\subtitle given}}
-
-%\def\editor#1{\gdef\@editor{#1}}
-%\def\@editor{\@latex@warning@no@line{No \noexpand\editor given}}
-
-%\let\@editorsfortoc\@empty
-%\let\@editorsforpdf\@empty
 \let\orig@editor\@editor
 \let\orig@editorLong\@editorLong
 \newcount\c@editor
+\newcounter{currenteditor}
 \def\@editornum{0}
 \def\editor#1#2#3#4{%
   \ifx\@editor\orig@editor\let\@editor\@empty\fi
   \ifx\@editorLong\orig@editorLong\let\@editorLong\@empty\fi
   \g@addto@macro\@editor{#1\par\nobreak}
   \g@addto@macro\@editorLong{%
-    \par\addvspace{0.5\baselineskip}%
+   \ifx\editorcolumns\relax
+		\ifnum\c@editor>4
+			\stepcounter{currenteditor}
+			\ifodd\value{currenteditor}
+				\par\medskip
+				\begin{minipage}[t]{\textwidth}
+				\begin{minipage}[t]{0.49\textwidth}
+			\else	
+				\hfill \begin{minipage}[t]{0.49\textwidth}
+			\fi
+		\else
+			\ClassWarning{Option 'editorcolumns' only applicable for > 4 editor}{Option 'authorcolumns' only applicable for >4 editors!}
+			\par\addvspace{0.5\baselineskip}
+		\fi
+	\else
+		\par\addvspace{0.5\baselineskip}
+	\fi
     {\large\bfseries
-     \if!#1!%
+     \if!#1!
        \textcolor{red}{Editor: Please enter editor name}%
      \else
-       #1%
-       \if!#4!\else{ \href{#4}{\includegraphics[height=9\p@]{orcid}}}\fi
-     \fi
-     \par}\nobreak
+		#1%
+		\if!#4!\else{\space\href{#4}{\includegraphics[height=9\p@]{orcid}}}\fi
+	\fi
+     \par}
 	\def\and{\newline}
-    \if!#2!\textcolor{red}{Author: Please enter affiliation as second parameter of the editor macro}\else#2\fi
+    \if!#2!\textcolor{red}{Editor: Please enter affiliation as second parameter of the editor macro}\else#2\fi
     \if!#3!\else\\*\href{mailto:#3}{#3}\fi
-    \par\nobreak}%
+	\par
+	\ifx\editorcolumns\relax
+		\ifnum\c@editor>4
+			\end{minipage}
+			\ifnum\c@editor=\value{currenteditor} 
+				\end{minipage}
+			\else
+				\ifodd\value{currenteditor}
+				\else	
+					\end{minipage}% 
+				\fi
+			\fi
+		\fi
+	\fi}%
+	\global\advance\c@editor\@ne
 }
 \newcommand{\printEditorLong}{\@editorLong}
 

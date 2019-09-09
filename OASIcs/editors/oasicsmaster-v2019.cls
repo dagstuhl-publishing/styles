@@ -1,12 +1,13 @@
-%% This is file `oasicsmaster-v2018.cls'.
 %%
+%% This is file `oasicsmaster-v2019.cls'.
+%% 
 %% -----------------------------------------------------------------
 %% Author:     Dagstuhl Publishing & le-tex publishing services
 %% 
 %% This file is part of the oasics package for preparing
-%% oasics volumes.
+%% OASIcs volumes.
 %% 
-%% Copyright (C) 2018 Schloss Dagstuhl
+%% Copyright (C) 2019 Schloss Dagstuhl
 %%
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
@@ -22,8 +23,8 @@
 %% Schloss Dagstuhl (publishing@dagstuhl.de).
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
-\ProvidesClass{oasicsmaster-v2018}
-[2017/12/20 v1.2 OASIcs volume front matters]
+\ProvidesClass{oasicsmaster-v2019}
+[2019/17/22 v2.2 OASIcs volume front matters]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -88,7 +89,7 @@
       \def\makelabel##1{\hss\llap{##1}}}%
   \fi}
 \def\enditemize{\ifnum\@listdepth=\@ne\global\@nobotseplisttrue\fi\endlist}
-\def\@title{\textcolor{red}{Author: Please provide a title}}
+\def\@title{\@EventTitle}
 \def\@sect#1#2#3#4#5#6[#7]#8{%
   \ifnum #2>\c@secnumdepth
     \let\@svsec\@empty
@@ -130,9 +131,14 @@
 \def\@biblabel#1{\textcolor{darkgray}{\sffamily\bfseries#1}}
 \def\copyrightline{%
   \ifx\@hideOASIcs\@undefined
+	\ifx\@EventLogo\@empty
 	\ifx\@serieslogo\@empty
     \else
-      \setbox\@tempboxa\hbox{\includegraphics[height=28\p@]{\@serieslogo}}% 56
+      \setbox\@tempboxa\hbox{\includegraphics[height=25\p@]{\@serieslogo}}% 56
+      \rlap{\hspace\textwidth\hspace{-\wd\@tempboxa}\hspace{\z@}\vtop to\z@{\vskip-0mm\unhbox\@tempboxa\vss}}%
+    \fi
+	\else
+      \setbox\@tempboxa\hbox{\includegraphics[height=25\p@]{\@EventLogo}}% 56
       \rlap{\hspace\textwidth\hspace{-\wd\@tempboxa}\hspace{\z@}\vtop to\z@{\vskip-0mm\unhbox\@tempboxa\vss}}%
     \fi
     \scriptsize
@@ -146,10 +152,10 @@
       \fi
       \setbox\@tempboxa\hbox{\includegraphics[height=14\p@,trim=0 15 0 0]{oasics-logo-bw}}%
       \hspace*{\wd\@tempboxa}\enskip
-      \href{http://www.dagstuhl.de/oasics/}%
+      \href{https://www.dagstuhl.de/oasics/}%
            {OpenAccess Series in Informatics}\\
       \smash{\unhbox\@tempboxa}\enskip
-      \href{http://www.dagstuhl.de}%
+      \href{https://www.dagstuhl.de}%
            {Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik, Dagstuhl Publishing, Germany}}%
   \fi}
 \def\ps@plain{\let\@mkboth\@gobbletwo
@@ -179,6 +185,7 @@
                         \advance\hoffset-2.95mm
                         \advance\voffset8.8mm}
 \DeclareOption{numberwithinsect}{\let\numberwithinsect\relax}
+\DeclareOption{editorcolumns}{\let\editorcolumns\relax}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessOptions
 \LoadClass[twoside,fleqn]{book}
@@ -333,10 +340,10 @@
   \noindent\ignorespaces}
   {\vskip\baselineskip\noindent
    \subjclassHeading
-   \ifx\@subjclass\@empty
-     \textcolor{red}{Author: Please fill in \string\subjclass\space macro}%
+   \@\ifx\@ccsdescString\@empty
+     \textcolor{red}{Author: Please fill in 1 or more \string\ccsdesc\space macro}%
    \else
-     \@subjclass
+     \@ccsdescString
    \fi
    \vskip\baselineskip
    \noindent\keywordsHeading
@@ -413,6 +420,7 @@
     \leavevmode
     \hb@xt@1em{\@makefnmark\hss}#1}
 \usepackage[utf8]{inputenc}
+\usepackage{microtype}
 \IfFileExists{lmodern.sty}{\RequirePackage{lmodern}}{}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{textcomp}
@@ -527,12 +535,21 @@
   \patchBothAmsMathEnvironmentsForLineno{gather}%
   \patchBothAmsMathEnvironmentsForLineno{multline}}
 \RequirePackage{lastpage}
-\IfFileExists{doi.sty}
-  {\RequirePackage{doi}%
-   \renewcommand*{\doitext}{}}
-  {\RequirePackage{hyperref}%
-   \def\doi##1{##1}}
-\hypersetup{pdfborder={0 0 0}}
+\RequirePackage{hyperref}
+\AtBeginDocument{
+	\hypersetup{
+		breaklinks=true,
+		pdfborder={0 0 0},
+		pdftitle={\@title},
+		pdfauthor={\ifx\@EventEditors\@empty\else\@EventEditors\fi},
+		pdfkeywords={OASIcs, Frontmatter, Preface, Table of Contents},
+		pdfcreator={LaTeX with oasicsmaster-v2019.cls and hyperref.sty},
+		%TODO Find way to move information to correct fields in pdf metadata
+		pdfsubject={OASIcs, Vol.\@SeriesVolume, \@EventShortTitle; Copyright (C),  \ifx\@EventEditors\@empty\else\@EventEditors\fi; licensed under Creative Commons License CC-BY}
+		%pdflicenseurl={https://creativecommons.org/licenses/by/3.0/},
+		%pdfcopyright={Copyright (C), \@copyrightholder; licensed under Creative Commons License CC-BY},
+	}
+}
 \RequirePackage[labelsep=space,singlelinecheck=false,%
   font={up,small},labelfont={sf,bf},%
   listof=false]{caption}%"listof" instead of "list" for backward compatibility
@@ -548,17 +565,19 @@
 \caption@AtBeginDocument{\@ifpackageloaded{subfig}{\ClassError{oasics}{%
   Do not load the subfig package}{The more recent subcaption package is already loaded}}{}}
 \RequirePackage{subcaption}
-\usepackage{xstring}
-\newcommand\ccsdesc[2][100]{\StrSubstitute{#2}{~}{ $\rightarrow$ }}
 \def\titlerunning#1{\gdef\@titlerunning{{\let\footnote\@gobble\markboth{#1}{#1}}}}
 \def\authorrunning#1{%
   \gdef\@authorrunning{\markright{\if!#1!\textcolor{red}{Author: Please fill in the \string\authorrunning\space macro}\else#1\fi}}}
 \titlerunning{\@title}
 \authorrunning{\textcolor{red}{Author: Please use the \string\authorrunning\space macro}}
+\def\EventTitle#1{\gdef\@EventTitle{#1}}
+\EventTitle{}
 \def\EventLongTitle#1{\gdef\@EventLongTitle{#1}}
 \EventLongTitle{}
 \def\EventShortTitle#1{\gdef\@EventShortTitle{#1}}
+\soulregister\EventShortTitle7
 \EventShortTitle{}
+\newcommand{\printEventShortTitle}{\@EventShortTitle}
 \def\EventEditors#1{\gdef\@EventEditors{#1}}
 \EventEditors{}
 \def\EventNoEds#1{\gdef\@EventNoEds{#1}\xdef\@Eds{Editor\ifnum#1>1s\fi}}
@@ -575,10 +594,14 @@
 \EventLocation{}
 \def\SeriesVolume#1{\gdef\@SeriesVolume{#1}}
 \SeriesVolume{}
+\soulregister{\SeriesVolume}{7}
+\newcommand{\printSeriesVolume}{\@SeriesVolume}
 \def\ArticleNo#1{\gdef\@ArticleNo{#1}}
-\ArticleNo{}
+\ArticleNo{0}
 \def\DOIPrefix#1{\gdef\@DOIPrefix{#1}}
 \DOIPrefix{10.4230/OASIcs}
+\gdef\@DOI{\@DOIPrefix.\@EventAcronym.\@EventYear.\@ArticleNo}
+\newcommand{\printDOI}{\@DOI}
 \newcommand*\Copyright[2][]{%
   \def\@Copyright{%
     \def\@tempa{#1}\ifx\@tempa\@empty
@@ -586,7 +609,7 @@
     \else
       \setbox\@tempboxa\hbox{\includegraphics[height=14\p@,clip]{cc-by-#1}}%
       \hspace*{\wd\@tempboxa}\enskip\ifx#2\@empty \else \textcopyright\ #2;\\\fi
-      \href{http://creativecommons.org/licenses/by-#1/3.0/}{\smash{\unhbox\@tempboxa}}\enskip licensed under Creative Commons License \MakeUppercase{#1}\\
+      \href{https://creativecommons.org/licenses/by-#1/3.0/}{\smash{\unhbox\@tempboxa}}\enskip licensed under Creative Commons License \MakeUppercase{#1}\\
     \fi}}
 \Copyright[]{\@empty}
 \def\hideOASIcs{\let\@hideOASIcs\relax}
@@ -595,8 +618,44 @@
 \def\keywordsHeading{%
   \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
                        Keywords and phrases\enskip}}
-\def\subjclass#1{\gdef\@subjclass{#1}}
+\RequirePackage{comment}
+\excludecomment{CCSXML}
+% inspired by https://tex.stackexchange.com/questions/12810/how-do-i-split-a-string
+\global\newcommand\ccsdesc[2][100]{\@ccsdesc#1~#2~~\relax}
+\usepackage{xstring}
+\let\orig@ccsdesc\@ccsdesc
+\let\@ccsdesc\@empty
+\let\@ccsdescString\@empty
+\gdef\@ccsdesc#1~#2~#3~{
+	\ifx\@ccsdesc\orig@ccsdesc\let\@ccsdesc\@empty\fi
+	\ifx!#3!
+		\ifx\@ccsdescString\@empty
+			\g@addto@macro\@ccsdescString{{#2}}
+		\else
+			\g@addto@macro\@ccsdescString{; {#2}}
+		\fi
+	\else
+		\ifx\@ccsdescString\@empty
+			\g@addto@macro\@ccsdescString{{#2} $\rightarrow$ {#3}}
+		\else
+			\g@addto@macro\@ccsdescString{; {#2} $\rightarrow$ {#3}}
+		\fi
+	\fi
+\ccsdescEnd
+}
+\def\ccsdescEnd#1\relax{}
+\def\subjclass#1{
+  \ClassError{oasics}
+    {\string\subjclass\space deprecated: Please enter subject classification in 1 or more ccsdesc macros}
+    {Since 2019, \string\subjclass\space is obsolete in oasics.}}
 \let\@subjclass\@empty
+\newcommand{\printSubjclass}{
+   \@\ifx\@ccsdescString\@empty
+     \textcolor{red}{Editor: Please fill in 1 or more \string\ccsdesc\space macro}%
+   \else
+     \@ccsdescString
+   \fi
+}
 \def\subjclassHeading{%
   \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
                        2012 ACM Subject Classification\enskip}}
@@ -630,14 +689,88 @@
 \def\acknowledgementsHeading{%
  \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
                       Acknowledgements\enskip}}
+\def\DatePublished#1{\gdef\@DatePublished{#1}}
+\def\DatePublishedHeading{%
+  \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
+                       Published\enskip}}
+\let\@DatePublished\@empty
+\newcommand{\printDatePublished}{
+  \@\ifx\@DatePublished\@empty
+     \textcolor{red}{Publication date will be entered by OASIcs office.}%
+   \else
+     \@DatePublished
+   \fi
+
+}
+\def\ISBN#1{\gdef\@ISBN{#1}}
+\def\ISBNHeading{%
+  \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
+                       ISBN\enskip}}
+\let\@ISBN\@empty
+\newcommand{\printISBN}{\@ISBN}
 \def\cleardoublepage{%
   \clearpage\if@twoside\ifodd\c@page\else\hbox{}\thispagestyle{empty}\newpage\fi\fi}
 \def\subtitle#1{\gdef\@subtitle{#1}}
-\def\@subtitle{\@latex@warning@no@line{No \noexpand\subtitle given}}
-\def\editor#1{\gdef\@editor{#1}}
-\def\@editor{\@latex@warning@no@line{No \noexpand\editor given}}
+\subtitle{\@EventShortTitle, \@EventDate, \@EventLocation}
+\let\orig@editor\@editor
+\let\orig@editorLong\@editorLong
+\newcount\c@editor
+\newcounter{currenteditor}
+\def\@editornum{0}
+\def\editor#1#2#3#4{%
+  \ifx\@editor\orig@editor\let\@editor\@empty\fi
+  \ifx\@editorLong\orig@editorLong\let\@editorLong\@empty\fi
+  \g@addto@macro\@editor{#1\par\nobreak}
+  \g@addto@macro\@editorLong{%
+   \ifx\editorcolumns\relax
+		\ifnum\c@editor>4
+			\stepcounter{currenteditor}
+			\ifodd\value{currenteditor}
+				\par\medskip
+				\begin{minipage}[t]{\textwidth}
+				\begin{minipage}[t]{0.49\textwidth}
+			\else	
+				\hfill \begin{minipage}[t]{0.49\textwidth}
+			\fi
+		\else
+			\ClassWarning{Option 'editorcolumns' only applicable for > 4 editor}{Option 'authorcolumns' only applicable for >4 editors!}
+			\par\addvspace{0.5\baselineskip}
+		\fi
+	\else
+		\par\addvspace{0.5\baselineskip}
+	\fi
+    {\large\bfseries
+     \if!#1!
+       \textcolor{red}{Editor: Please enter editor name}%
+     \else
+		#1%
+		\if!#4!\else{\space\href{#4}{\includegraphics[height=9\p@]{orcid}}}\fi
+	\fi
+     \par}
+	\def\and{\newline}
+    \if!#2!\textcolor{red}{Editor: Please enter affiliation as second parameter of the editor macro}\else#2\fi
+    \if!#3!\else\\*\href{mailto:#3}{#3}\fi
+	\par
+	\ifx\editorcolumns\relax
+		\ifnum\c@editor>4
+			\end{minipage}
+			\ifnum\c@editor=\value{currenteditor} 
+				\end{minipage}
+			\else
+				\ifodd\value{currenteditor}
+				\else	
+					\end{minipage}% 
+				\fi
+			\fi
+		\fi
+	\fi}%
+	\global\advance\c@editor\@ne
+}
+\newcommand{\printEditorLong}{\@editorLong}
+
 \def\titlepagebottomline#1{\gdef\@titlepagebottomline{#1}}
-\def\@titlepagebottomline{\@latex@warning@no@line{No \noexpand\titlepagebottomline given}}
+\titlepagebottomline{OASIcs -- Vol.~\@SeriesVolume{} -- \mbox{\@EventShortTitle{}} \qquad \qquad  www.dagstuhl.de/oasics}
+%\def\@titlepagebottomline{\@latex@warning@no@line{No \noexpand\titlepagebottomline given}}
 \newenvironment{publicationinfo}
  {\parindent\z@
   \null\vfill
@@ -647,14 +780,15 @@
 \def\ps@titlepage{%
     \let\@evenhead\@empty
     \let\@oddhead\@empty
-    \def\@oddfoot{\hspace*{0.167\textwidth}%
+    \def\@oddfoot{\hfuzz=48pt \hspace*{0.167\textwidth}%
                   \rlap{%
                     \vtop{%
                       \vskip10mm
                       \colorbox[rgb]{0.99,0.78,0.07}
                                     {\@tempdima0.833\textwidth
                                      \advance\@tempdima\evensidemargin
-                                     \advance\@tempdima1in \advance\@tempdima\hoffset
+                                     \advance\@tempdima1in 
+									 \advance\@tempdima\hoffset
                                      \hb@xt@\@tempdima{%\hspace*{0.833\textwidth}%
                                        \textcolor{darkgray}{\normalsize\sffamily
                                        \bfseries\quad
@@ -676,7 +810,7 @@
     \rightskip0.0415\textwidth\@plus1fill
     \null\vskip 60\p@
     \sffamily\bfseries
-    {\Huge\@title \par}%
+    {\huge\@title \par}%
     \vskip 4.5em%
     {\large\@subtitle\par}%
     \vskip 9em%
@@ -699,10 +833,12 @@
   \global\let\maketitle\relax
   \global\let\@thanks\@empty
   \global\let\@author\@empty
+  \global\let\@editor\@empty
   \global\let\@date\@empty
   \global\let\@title\@empty
   \global\let\title\relax
   \global\let\author\relax
+  \global\let\editor\empty
   \global\let\date\relax
   \global\let\and\relax}
 \newenvironment{dedication}
@@ -880,4 +1016,4 @@
 }
 \endinput
 %%
-%% End of file `oasicsmaster-v2018.cls'.
+%% End of file `oasicsmaster-v2019.cls'.

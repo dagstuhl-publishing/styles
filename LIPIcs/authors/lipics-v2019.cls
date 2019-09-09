@@ -24,7 +24,7 @@
 %% -----------------------------------------------------------------
 %% 
 \ProvidesClass{lipics-v2019}
-    [2018/12/10 v2.0 LIPIcs articles]
+    [2019/07/19 v2.2 LIPIcs articles]
 \NeedsTeXFormat{LaTeX2e}[2015/01/01]
 \emergencystretch1em
 \advance\hoffset-1in
@@ -104,7 +104,7 @@
       #6{%
         \@hangfrom{\hskip #3\relax
           \ifnum #2=1
-            \colorbox[rgb]{0.99,0.78,0.07}{\kern0.15em\@svsec\kern0.15em}\quad
+            \colorbox{lipicsYellow}{\kern0.15em\@svsec\kern0.15em}\quad
           \else
             \@svsec\quad
           \fi}%
@@ -129,7 +129,7 @@
   \fi
   \@xsect{#5}}
 \def\@seccntformat#1{\csname the#1\endcsname}
-\def\@biblabel#1{\textcolor{darkgray}{\sffamily\bfseries#1}}
+\def\@biblabel#1{\textcolor{lipicsGray}{\sffamily\bfseries#1}}
 \def\copyrightline{%
   \ifx\@hideLIPIcs\@undefined
     \ifx\@EventLogo\@empty
@@ -185,6 +185,9 @@
 \DeclareOption{numberwithinsect}{\let\numberwithinsect\relax}
 \DeclareOption{cleveref}{\let\usecleveref\relax}
 \DeclareOption{autoref}{\let\useautoref\relax}
+\DeclareOption{anonymous}{\let\authoranonymous\relax}
+\DeclareOption{thm-restate}{\let\usethmrestate\relax}
+\DeclareOption{authorcolumns}{\let\authorcolumns\relax}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions
 \LoadClass[twoside,notitlepage,fleqn]{article}
@@ -252,20 +255,20 @@
               \itemsep   \z@ \@plus\p@}
 \def\ps@headings{%
     \def\@evenhead{\large\sffamily\bfseries
-                   \llap{\hbox to0.5\oddsidemargin{  \ifx\@hideLIPIcs\@undefined\ifx\@ArticleNo\@empty\textcolor{blue}{XX}\else\@ArticleNo\fi:\fi\thepage\hss}}\leftmark\hfil}%
+                   \llap{\hbox to0.5\oddsidemargin{  \ifx\@hideLIPIcs\@undefined\ifx\@ArticleNo\@empty\textcolor{red}{XX}\else\@ArticleNo\fi:\fi\thepage\hss}}\leftmark\hfil}%
     \def\@oddhead{\large\sffamily\bfseries\rightmark\hfil
-                  \rlap{\hbox to0.5\oddsidemargin{\hss  \ifx\@hideLIPIcs\@undefined\ifx\@ArticleNo\@empty\textcolor{blue}{XX}\else\@ArticleNo\fi:\fi\thepage}}}%
+                  \rlap{\hbox to0.5\oddsidemargin{\hss  \ifx\@hideLIPIcs\@undefined\ifx\@ArticleNo\@empty\textcolor{red}{XX}\else\@ArticleNo\fi:\fi\thepage}}}%
     \def\@oddfoot{\hfil
                   \rlap{%
                     \vtop{%
                       \vskip10mm
-                      \colorbox[rgb]{0.99,0.78,0.07}
+                      \colorbox{lipicsYellow}
                                     {\@tempdima\evensidemargin
                                      \advance\@tempdima1in
                                      \advance\@tempdima\hoffset
                                      \hb@xt@\@tempdima{%
                                        \ifx\@hideLIPIcs\@undefined
-                                         \textcolor{darkgray}{\normalsize\sffamily
+                                         \textcolor{lipicsGray}{\normalsize\sffamily
                                          \bfseries\quad
                                          \expandafter\textsolittle
                                          \expandafter{\@EventShortTitle}}%
@@ -326,11 +329,18 @@
     \fi
     \bgroup
       \immediate\openout\tocfile=\jobname.vtc
-      \protected@write\tocfile{\let\footnote\@gobble}{%
-        \string\contitem
-        \string\title{\@title}%
-        \string\author{\@authorsfortoc}%
-        \string\page{\@ArticleNo:\thepage--\@ArticleNo:\number\numexpr\getpagerefnumber{LastPage}}}%
+      \protected@write\tocfile{
+			\let\footnote\@gobble
+			\let\thanks\@gobble
+			\def\footnotemark{}
+			\def\and{and }%
+			\def\,{ }
+			\def\\{ }
+		}{%
+	        \string\contitem
+	        \string\title{\@title}%
+	        \string\author{\@authorsfortoc}%
+	        \string\page{\@ArticleNo:\thepage--\@ArticleNo:\number\numexpr\getpagerefnumber{LastPage}}}%
       \closeout\tocfile
     \egroup
   \par}
@@ -365,36 +375,36 @@
 \setlength\leftmarginv  {1.2em}
 \setlength\leftmarginvi {1.2em}
 \renewcommand\labelenumi{%
-  \textcolor{darkgray}{\sffamily\bfseries\upshape\mathversion{bold}\theenumi.}}
+  \textcolor{lipicsGray}{\sffamily\bfseries\upshape\mathversion{bold}\theenumi.}}
 \renewcommand\labelenumii{%
-  \textcolor{darkgray}{\sffamily\bfseries\upshape\mathversion{bold}\theenumii.}}
+  \textcolor{lipicsGray}{\sffamily\bfseries\upshape\mathversion{bold}\theenumii.}}
 \renewcommand\labelenumiii{%
-  \textcolor{darkgray}{\sffamily\bfseries\upshape\mathversion{bold}\theenumiii.}}
+  \textcolor{lipicsGray}{\sffamily\bfseries\upshape\mathversion{bold}\theenumiii.}}
 \renewcommand\labelenumiv{%
-  \textcolor{darkgray}{\sffamily\bfseries\upshape\mathversion{bold}\theenumiv.}}
+  \textcolor{lipicsGray}{\sffamily\bfseries\upshape\mathversion{bold}\theenumiv.}}
 \renewcommand\labelitemi{%
-  \textcolor[rgb]{0.6,0.6,0.61}{\ifnum\@listdepth=\@ne
+  \textcolor{lipicsBulletGray}{\ifnum\@listdepth=\@ne
                                   \rule{0.67em}{0.33em}%
                                 \else
                                   \rule{0.45em}{0.225em}%
                                 \fi}}
 \renewcommand\labelitemii{%
-  \textcolor[rgb]{0.6,0.6,0.61}{\rule{0.45em}{0.225em}}}
+  \textcolor{lipicsBulletGray}{\rule{0.45em}{0.225em}}}
 \renewcommand\labelitemiii{%
-  \textcolor[rgb]{0.6,0.6,0.61}{\sffamily\bfseries\textasteriskcentered}}
+  \textcolor{lipicsBulletGray}{\sffamily\bfseries\textasteriskcentered}}
 \renewcommand\labelitemiv{%
-  \textcolor[rgb]{0.6,0.6,0.61}{\sffamily\bfseries\textperiodcentered}}
+  \textcolor{lipicsBulletGray}{\sffamily\bfseries\textperiodcentered}}
 \renewenvironment{description}
                {\list{}{\advance\partopsep\topsep\topsep\z@\@plus\p@
                         \labelwidth\z@ \itemindent-\leftmargin
                         \let\makelabel\descriptionlabel}}
                {\ifnum\@listdepth=\@ne\global\@nobotseplisttrue\fi\endlist}
 \renewcommand*\descriptionlabel[1]{%
-  \hspace\labelsep\textcolor{darkgray}{\sffamily\bfseries\mathversion{bold}#1}}
+  \hspace\labelsep\textcolor{lipicsGray}{\sffamily\bfseries\mathversion{bold}#1}}
 \renewenvironment{abstract}{%
   \vskip0.7\bigskipamount
   \noindent
-  \rlap{\color[rgb]{0.51,0.50,0.52}\vrule\@width\textwidth\@height1\p@}%
+  \rlap{\color{lipicsLineGray}\vrule\@width\textwidth\@height1\p@}%
   \hspace*{7mm}\fboxsep1.5mm\colorbox[rgb]{1,1,1}{\raisebox{-0.4ex}{%
     \large\selectfont\sffamily\bfseries\abstractname}}%
   \vskip3\p@
@@ -434,11 +444,11 @@
    \fi
    \ifx\@funding\@empty\else
      \vskip0.7\baselineskip\noindent
-     \fundingHeading\@funding
+     \fundingHeading\ifx\authoranonymous\relax\textcolor{red}{Anonymous funding}\else\@funding\fi
    \fi
    \ifx\@acknowledgements\@empty\else
      \vskip0.7\baselineskip\noindent
-     \acknowledgementsHeading\@acknowledgements
+     \acknowledgementsHeading\ifx\authoranonymous\relax\textcolor{red}{Anonymous acknowledgements} \else\@acknowledgements\fi
    \fi}
 \renewenvironment{thebibliography}[1]
   {\if@noskipsec \leavevmode \fi
@@ -452,7 +462,7 @@
      \addpenalty\@secpenalty\addvspace\@tempskipa
    \fi
    \noindent
-   \rlap{\color[rgb]{0.51,0.50,0.52}\vrule\@width\textwidth\@height1\p@}%
+   \rlap{\color{lipicsLineGray}\vrule\@width\textwidth\@height1\p@}%
    \hspace*{7mm}\fboxsep1.5mm\colorbox[rgb]{1,1,1}{\raisebox{-0.4ex}{%
      \normalsize\sffamily\bfseries\refname}}%
    \@xsect{1ex \@plus.2ex}%
@@ -475,7 +485,7 @@
    \endlist}
 \renewcommand\footnoterule{%
   \kern-8\p@
-  {\color[rgb]{0.60,0.60,0.61}\hrule\@width40mm\@height1\p@}%
+  {\color{lipicsBulletGray}\hrule\@width40mm\@height1\p@}%
   \kern6.6\p@}
 \renewcommand\@makefntext[1]{%
     \parindent\z@\hangindent1em
@@ -496,8 +506,19 @@
 \RequirePackage{soul}
 \sodef\textsolittle{}{.12em}{.5em\@plus.08em\@minus.06em}%
         {.4em\@plus.275em\@minus.183em}
-\RequirePackage{color}
-\definecolor{darkgray}{rgb}{0.31,0.31,0.33}
+\RequirePackage{color} %kept for backward compatibility
+\AtBeginDocument{
+	\@ifpackageloaded{xcolor}{
+	}{
+		\RequirePackage{xcolor}
+	}
+	\definecolor{darkgray}{rgb}{0.31,0.31,0.33}
+	\definecolor[named]{lipicsGray}{rgb}{0.31,0.31,0.33}
+	\definecolor[named]{lipicsBulletGray}{rgb}{0.60,0.60,0.61}
+	\definecolor[named]{lipicsLineGray}{rgb}{0.51,0.50,0.52}
+	\definecolor[named]{lipicsLightGray}{rgb}{0.85,0.85,0.86}
+	\definecolor[named]{lipicsYellow}{rgb}{0.99,0.78,0.07}
+}
 \RequirePackage{babel}
 \RequirePackage[tbtags,fleqn]{amsmath}
 \AtBeginDocument{
@@ -505,7 +526,7 @@
 	\@ifpackageloaded{paralist}{\ClassWarning{Package 'paralist' incompatible}{Don't use package 'paralist'; Package enumerate preloaded!}}{}
 }
 \RequirePackage{enumerate}
-\def\@enum@{\list{\textcolor{darkgray}{\sffamily\bfseries\upshape\mathversion{bold}\csname label\@enumctr\endcsname}}%
+\def\@enum@{\list{\textcolor{lipicsGray}{\sffamily\bfseries\upshape\mathversion{bold}\csname label\@enumctr\endcsname}}%
            {\advance\partopsep\topsep
             \topsep\z@\@plus\p@
             \usecounter{\@enumctr}\def\makelabel##1{\hss\llap{##1}}}}
@@ -532,7 +553,7 @@
   \@ifnextchar[\TPT@setuptnotes\TPTdoTablenotes} % ]
 \RequirePackage{listings}
 \lstset{basicstyle=\small\ttfamily,%
-        backgroundcolor=\color[rgb]{0.85,0.85,0.86},%
+        backgroundcolor=\color{lipicsLightGray},%
         frame=single,framerule=0pt,xleftmargin=\fboxsep,xrightmargin=\fboxsep}
 \RequirePackage[left,mathlines]{lineno}
 \linenumbers
@@ -558,15 +579,25 @@
 \RequirePackage{lastpage}
 \RequirePackage{hyperref}
 \AtBeginDocument{
+	\pdfstringdefDisableCommands{% 
+		\let\thanks\@gobble
+		\let\footnote\@gobble
+		\def\footnotemark{}
+		\def\cs#1{\textbackslash #1}% 
+		\let\normalfont\@empty
+		\let\scshape\@empty
+		\def\and{and }%
+		\def\,{ }
+	}
 	\hypersetup{
 		breaklinks=true,
 		pdfborder={0 0 0},
 		pdftitle={\@title},
-		pdfauthor={\@pdfauthor},
+		pdfauthor={\ifx\authoranonymous\relax Anonymous author(s) \else \@authorsforpdf \fi},
 		pdfkeywords={\@keywords},
 		pdfcreator={LaTeX with lipics-v2019.cls and hyperref.sty},
 		%TODO Find way to move information to correct fields in pdf metadata
-		pdfsubject={LIPIcs, Vol.\@SeriesVolume, \@EventShortTitle; Copyright (C), \@copyrightholder; licensed under Creative Commons License CC-BY}
+		pdfsubject={LIPIcs, Vol.\@SeriesVolume, \@EventShortTitle; Copyright (C) \ifx\authoranonymous\relax Anonymous author(s) \else \@copyrightholder; \fi licensed under Creative Commons License CC-BY}
 		%pdflicenseurl={https://creativecommons.org/licenses/by/3.0/},
 		%pdfcopyright={Copyright (C), \@copyrightholder; licensed under Creative Commons License CC-BY},
 	}
@@ -588,7 +619,7 @@
 \RequirePackage{subcaption}
 \def\titlerunning#1{\gdef\@titlerunning{{\let\footnote\@gobble\markboth{#1}{#1}}}}
 \def\authorrunning#1{%
-  \gdef\@authorrunning{\markright{\if!#1!\textcolor{red}{Author: Please fill in the \string\authorrunning\space macro}\else#1\fi}}}
+  \gdef\@authorrunning{\markright{\ifx\authoranonymous\relax\textcolor{red}{Anonymous author(s)} \else\if!#1!\textcolor{red}{Author: Please fill in the \string\authorrunning\space macro}\else#1\fi\fi}}}
 \titlerunning{\@title}
 \authorrunning{\textcolor{red}{Author: Please use the \string\authorrunning\space macro}}
 \def\EventLongTitle#1{\gdef\@EventLongTitle{#1}}
@@ -620,41 +651,71 @@
 \let\@authorsfortoc\@empty
 \let\@authorsforpdf\@empty
 \newcount\c@author
+\newcounter{currentauthor}
 \def\@authornum{0}
-\let\@pdfauthor\relax
-\gdef\@pdfauthor{}
 \def\author#1#2#3#4#5{%
   \ifx\@author\orig@author\let\@author\@empty\fi
   \g@addto@macro\@author{%
-    \addvspace{0.5\baselineskip}%
+	\ifx\authorcolumns\relax
+		\ifnum\c@author>6
+			\stepcounter{currentauthor}
+			\ifodd\value{currentauthor}
+				\begin{minipage}[t]{\textwidth}
+				\begin{minipage}[t]{0.49\textwidth}
+			\else	
+				\hfill \begin{minipage}[t]{0.49\textwidth}
+			\fi
+		\else
+			\ClassWarning{Option 'authorcolumns' only applicable for > 6 authors}{Option 'authorcolumns' only applicable for >6 authors!}
+			\addvspace{0.5\baselineskip}
+		\fi
+	\else
+		\addvspace{0.5\baselineskip}
+	\fi
     {\Large\bfseries
-     \if!#1!%
+     \if!#1!
        \textcolor{red}{Author: Please enter author name}%
      \else
-       #1%
-		\if!#5!\else
-			\ifx\@funding\@empty
-				\expandafter\g@addto@macro\expandafter\@funding{\textit{\expandafter{\let\footnote\@gobble #1}}:\space{#5}}
-			\else
-				\expandafter\g@addto@macro\expandafter\@funding{\\\textit{\expandafter{\let\footnote\@gobble #1}}:\space{#5}}
+       \ifx\authoranonymous\relax
+			\textcolor{red}{Anonymous author}
+		\else
+			#1%
+			\if!#4!\else{\space\href{#4}{\includegraphics[height=9\p@]{orcid}}}\fi
+			\if!#5!\else
+				\ifx\@funding\@empty
+					\expandafter\g@addto@macro\expandafter\@funding{\textit{\expandafter{\let\footnote\@gobble #1}}:\space{#5}}
+				\else
+					\expandafter\g@addto@macro\expandafter\@funding{\\\textit{\expandafter{\let\footnote\@gobble #1}}:\space{#5}}
+				\fi
 			\fi
 		\fi
-		\if!#4!\else{ \href{#4}{\includegraphics[height=9\p@]{orcid}}}\fi
      \fi
      }
 	{\small
-    \if!#2!\textcolor{red}{Author: Please enter affiliation as second parameter of the author macro}\else{\\* #2}\fi
-    \if!#3!\else{\\*\href{mailto:#3}{#3}}\fi
-	}\par\nobreak}%
+    \if!#2!\textcolor{red}{Author: Please enter affiliation as second parameter of the author macro}\else{\\* \ifx\authoranonymous\relax\textcolor{red}{Anonymous affiliation}\else#2\fi}\fi
+    \if!#3!\else{\ifx\authoranonymous\relax\else\\*\href{mailto:#3}{#3}\fi}\fi
+	}\par
+	\ifx\authorcolumns\relax
+		\ifnum\c@author>6
+			\end{minipage}
+			\ifnum\c@author=\value{currentauthor} 
+				\end{minipage}
+			\else
+				\ifodd\value{currentauthor}
+				\else	
+					\end{minipage}%
+					\medskip 
+				\fi
+			\fi
+		\fi
+	\fi}%
   \global\advance\c@author\@ne
   \protected@write\@auxout{}{\string\gdef\string\@authornum{\the\c@author}}
   \ifnum\c@author=\@ne
     \gdef\@authorsfortoc{#1}%
     \gdef\@authorsforpdf{#1}
-    \protected@write\@auxout{\let\footnote\@gobble}{\string\gdef\string\@pdfauthor{#1}}%
   \else
     \expandafter\g@addto@macro\expandafter\@authorsforpdf\expandafter{,\space #1}
-	\protected@write\@auxout{\let\footnote\@gobble}{\string\gdef\string\@pdfauthor{\@authorsforpdf}}
     \expandafter\g@addto@macro\expandafter\@authorsfortoc\expandafter{\expandafter\csname\the\c@author authand\endcsname#1}%
     \@namedef{\the\c@author authand}{,\space}%
     \AtBeginDocument{%
@@ -677,7 +738,7 @@
     \href{https://creativecommons.org/licenses/by/3.0/}%
          {\smash{\lower\baselineskip\hbox{\unhcopy\@tempboxa}}}\enskip
     \textcopyright\ %
-    \ifx!#1!\textcolor{red}{Author: Please fill in the \string\Copyright\space macro}\else#1\fi
+    \ifx!#1!\textcolor{red}{Author: Please fill in the \string\Copyright\space macro}\else\ifx\authoranonymous\relax\textcolor{red}{Anonymous author(s)}\else#1\fi\fi
     ;\\%
     licensed under Creative Commons License CC-BY\ifx!#1!\\\null\fi\par}}
 \Copyright{\textcolor{red}{Author: Please provide a copyright holder}}
@@ -686,7 +747,7 @@
 \def\keywords#1{\def\@keywords{#1}}
 \let\@keywords\@empty
 \def\keywordsHeading{%
-  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
+  \textcolor{lipicsGray}{\fontsize{9}{12}\sffamily\bfseries
                        Keywords and phrases\enskip}}
 \RequirePackage{comment}
 \excludecomment{CCSXML}
@@ -720,77 +781,117 @@
     {Since 2019, \string\subjclass\space is obsolete in lipics.}}
 \let\@subjclass\@empty
 \def\subjclassHeading{%
-  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
+  \textcolor{lipicsGray}{\fontsize{9}{12}\sffamily\bfseries
                        2012 ACM Subject Classification\enskip}}
 \def\doiHeading{%
-  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
+  \textcolor{lipicsGray}{\fontsize{9}{12}\sffamily\bfseries
                        Digital Object Identifier\enskip}}
 \def\category#1{\def\@category{#1}}
 \let\@category\@empty
 \def\categoryHeading{%
-  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
+  \textcolor{lipicsGray}{\fontsize{9}{12}\sffamily\bfseries
                        Category\enskip}}
 \def\relatedversion#1{\def\@relatedversion{#1}}
 \let\@relatedversion\@empty
 \def\relatedversionHeading{%
-  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
+  \textcolor{lipicsGray}{\fontsize{9}{12}\sffamily\bfseries
                        Related Version\enskip}}
 \def\supplement#1{\def\@supplement{#1}}
 \let\@supplement\@empty
 \def\supplementHeading{%
-  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
+  \textcolor{lipicsGray}{\fontsize{9}{12}\sffamily\bfseries
                        Supplement Material\enskip}}
 \def\funding#1{\def\@funding{#1}}
 \let\@funding\@empty
 \def\fundingHeading{%
- \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
+ \textcolor{lipicsGray}{\fontsize{9}{12}\sffamily\bfseries
                       Funding\enskip}}
 \def\acknowledgements#1{\def\@acknowledgements{#1}}
 \let\@acknowledgements\@empty
 \def\acknowledgementsHeading{%
- \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
+ \textcolor{lipicsGray}{\fontsize{9}{12}\sffamily\bfseries
                       Acknowledgements\enskip}}
 \RequirePackage{amsthm}
+\ifx\usethmrestate\relax
+	\RequirePackage{thm-restate}
+\fi
 \thm@headfont{%
-  \textcolor{darkgray}{$\blacktriangleright$}\nobreakspace\sffamily\bfseries}
+  \textcolor{lipicsGray}{$\blacktriangleright$}\nobreakspace\sffamily\bfseries}
 \def\th@remark{%
   \thm@headfont{%
-    \textcolor{darkgray}{$\blacktriangleright$}\nobreakspace\sffamily}%
+    \textcolor{lipicsGray}{$\blacktriangleright$}\nobreakspace\sffamily}%
   \normalfont % body font
   \thm@preskip\topsep \divide\thm@preskip\tw@
   \thm@postskip\thm@preskip
 }
 \def\@endtheorem{\endtrivlist}%\@endpefalse
-\renewcommand\qedsymbol{\textcolor{darkgray}{\ensuremath{\blacktriangleleft}}}
+\renewcommand\qedsymbol{\textcolor{lipicsGray}{\ensuremath{\blacktriangleleft}}}
 \renewenvironment{proof}[1][\proofname]{\par
   \pushQED{\qed}%
   \normalfont \topsep6\p@\@plus6\p@\relax
   \trivlist
   \item[\hskip\labelsep
-        \color{darkgray}\sffamily\bfseries
+        \color{lipicsGray}\sffamily\bfseries
     #1\@addpunct{.}]\ignorespaces
 }{%
   \popQED\endtrivlist%\@endpefalse
 }
 \newenvironment{claimproof}[1][\proofname]{
-  \renewcommand\qedsymbol{\textcolor{darkgray}{\ensuremath{\vartriangleleft}}}
   \pushQED{\qed}%
   \normalfont \topsep6\p@\@plus6\p@\relax
   \trivlist
   \item[\hskip\labelsep
-        \color{darkgray}\sffamily
+        \color{lipicsGray}\sffamily
     #1\@addpunct{.}]\ignorespaces
 }{%
+  \renewcommand\qedsymbol{\textcolor{lipicsGray}{\ensuremath{\vartriangleleft}}}
   \popQED\endtrivlist%\@endpefalse
-  \renewcommand\qedsymbol{\textcolor{darkgray}{\ensuremath{\blacktriangleleft}}}
+  \renewcommand\qedsymbol{\textcolor{lipicsGray}{\ensuremath{\blacktriangleleft}}}
+}
+% inspired by qed of amsthm class
+\DeclareRobustCommand{\lipicsEnd}{%
+	\leavevmode\unskip\penalty9999 \hbox{}\nobreak\hfill
+	\quad\hbox{$\lrcorner$}%
 }
 \AtBeginDocument{
+	\@ifpackageloaded{algorithm2e}{
+		\renewcommand{\algorithmcfname}{\sffamily\bfseries{}Algorithm}
+		\SetAlgoCaptionSeparator{~}
+		\SetAlCapHSkip{0pt}
+		\renewcommand{\algocf@captiontext}[2]{%
+		    \kern0.05em{\color{lipicsYellow}\rule{0.73em}{0.73em}}%
+		\hspace*{0.67em}\small #1\algocf@capseparator\nobreakspace#2}
+		\renewcommand{\algocf@makecaption}[2]{%
+		    \parbox[t]{\textwidth}{\algocf@captiontext{#1}{#2}}%
+		}%
+		\renewcommand{\@algocf@capt@boxed}{above}
+		\renewcommand{\@algocf@capt@ruled}{above}
+		\setlength\algotitleheightrule{0pt}
+	}{}
+	\@ifpackageloaded{algorithm}{
+		\captionsetup[algorithm]{name=Algorithm, labelformat=boxed, position=top}
+		\newcommand\fs@ruled@notop{\def\@fs@cfont{\bfseries}\let\@fs@capt\floatc@ruled
+		\def\@fs@pre{}%
+		\def\@fs@post{\kern2pt\hrule\relax}%
+		\def\@fs@mid{\kern2pt\hrule\kern2pt}%
+		\let\@fs@iftopcapt\iftrue}
+		\renewcommand\fst@algorithm{\fs@ruled@notop}
+	}{}
 	\ifx\usecleveref\relax\else
 		\@ifpackageloaded{cleveref}{\ClassWarning{Use document option 'cleveref' instead}{Use document option 'cleveref' instead directly loading package 'cleveref'}}{}
 	\fi
+	\ifx\usethmrestate\relax\else
+		\@ifpackageloaded{thm-restate}{\ClassWarning{Use document option 'thm-restate' instead}{Use document option 'thm-restate' instead directly loading package 'thm-restate'}}{}
+	\fi
+	\ifx\useautoref\relax
+		\@ifundefined{algorithmautorefname}{\newcommand{\algorithmautorefname}{Algorithm}}{\renewcommand{\algorithmautorefname}{Algorithm}}%
+	\fi
 }
+
 \ifx\usecleveref\relax
 	\RequirePackage[capitalise, noabbrev]{cleveref}
+	\crefname{algocf}{Algorithm}{Algorithms}
+	\Crefname{algocf}{Algorithm}{Algorithms}
 \fi
 \ifx\useautoref\relax
 	\RequirePackage{aliascnt}
@@ -804,49 +905,92 @@
   \expandafter\def\expandafter\thetheorem\expandafter{%
     \expandafter\thesection\expandafter\@thmcountersep\thetheorem}
 \fi
+
 \ifx\useautoref\relax
-	\newaliascnt{lemma}{theorem}
-	\newtheorem{lemma}[lemma]{Lemma}
-	\aliascntresetthe{lemma}
-	\newcommand{\lemmaautorefname}{Lemma}
-	\newaliascnt{corollary}{theorem}
-	\newtheorem{corollary}[corollary]{Corollary}
-	\aliascntresetthe{corollary}
-	\newcommand{\corollaryautorefname}{Corollary}
-	\newaliascnt{proposition}{theorem}
-	\newtheorem{proposition}[proposition]{Proposition}
-	\aliascntresetthe{proposition}
-	\newcommand{\propositionautorefname}{Proposition}
-	\newaliascnt{exercise}{theorem}
-	\newtheorem{exercise}[exercise]{Exercise}
-	\aliascntresetthe{exercise}
-	\newcommand{\exerciseautorefname}{Exercise}
-	\newaliascnt{definition}{theorem}
-	\newtheorem{definition}[definition]{Definition}
-	\aliascntresetthe{definition}
-	\newcommand{\definitionautorefname}{Definition}
-	\theoremstyle{definition}
-	\newaliascnt{example}{theorem}
-	\newtheorem{example}[example]{Example}
-	\aliascntresetthe{example}
-	\newcommand{\exampleautorefname}{Example}
-	\theoremstyle{remark}
-	\newaliascnt{note}{theorem}
-	\newtheorem{note}[note]{Note}
-	\aliascntresetthe{note}
-	\newcommand{\noteautorefname}{Note}
-	\newtheorem*{note*}{Note}
-	\newaliascnt{remark}{theorem}
-	\newtheorem{remark}[remark]{Remark}
-	\aliascntresetthe{remark}
-	\newcommand{\remarkautorefname}{Remark}
-	\newtheorem*{remark*}{Remark}
-	\theoremstyle{claimstyle}
-	\newaliascnt{claim}{theorem}
-	\newtheorem{claim}[claim]{Claim}
-	\aliascntresetthe{claim}
-	\newcommand{\claimautorefname}{Claim}
-	\newtheorem*{claim*}{Claim}
+	\addto\extrasenglish{%
+		\def\chapterautorefname{Chapter}%
+		\def\sectionautorefname{Section}%
+		\def\subsectionautorefname{Subsection}%
+		\def\subsubsectionautorefname{Subsubsection}%
+		\def\paragraphautorefname{Paragraph}%
+		\def\subparagraphautorefname{Subparagraph}% 
+	}
+	\addto\extrasUKenglish{%
+		\def\chapterautorefname{Chapter}%
+		\def\sectionautorefname{Section}%
+		\def\subsectionautorefname{Subsection}%
+		\def\subsubsectionautorefname{Subsubsection}%
+		\def\paragraphautorefname{Paragraph}%
+		\def\subparagraphautorefname{Subparagraph}% 
+	}
+	\addto\extrasUSenglish{%
+		\def\chapterautorefname{Chapter}%
+		\def\sectionautorefname{Section}%
+		\def\subsectionautorefname{Subsection}%
+		\def\subsubsectionautorefname{Subsubsection}%
+		\def\paragraphautorefname{Paragraph}%
+		\def\subparagraphautorefname{Subparagraph}% 
+	}
+	\ifx\usethmrestate\relax
+		\newtheorem{lemma}[theorem]{Lemma}
+		\newtheorem{corollary}[theorem]{Corollary}
+		\newtheorem{proposition}[theorem]{Proposition}
+		\newtheorem{exercise}[theorem]{Exercise}
+		\newtheorem{definition}[theorem]{Definition}
+		\theoremstyle{definition}
+		\newtheorem{example}[theorem]{Example}
+		\theoremstyle{remark}
+		\newtheorem{note}[theorem]{Note}
+		\newtheorem*{note*}{Note}
+		\newtheorem{remark}[theorem]{Remark}
+		\newtheorem*{remark*}{Remark}
+		\theoremstyle{claimstyle}
+		\newtheorem{claim}[theorem]{Claim}
+		\newtheorem*{claim*}{Claim}
+	\else
+		\newaliascnt{lemma}{theorem}
+		\newtheorem{lemma}[lemma]{Lemma}
+		\aliascntresetthe{lemma}
+		\newcommand{\lemmaautorefname}{Lemma}
+		\newaliascnt{corollary}{theorem}
+		\newtheorem{corollary}[corollary]{Corollary}
+		\aliascntresetthe{corollary}
+		\newcommand{\corollaryautorefname}{Corollary}
+		\newaliascnt{proposition}{theorem}
+		\newtheorem{proposition}[proposition]{Proposition}
+		\aliascntresetthe{proposition}
+		\newcommand{\propositionautorefname}{Proposition}
+		\newaliascnt{exercise}{theorem}
+		\newtheorem{exercise}[exercise]{Exercise}
+		\aliascntresetthe{exercise}
+		\newcommand{\exerciseautorefname}{Exercise}
+		\newaliascnt{definition}{theorem}
+		\newtheorem{definition}[definition]{Definition}
+		\aliascntresetthe{definition}
+		\newcommand{\definitionautorefname}{Definition}
+		\theoremstyle{definition}
+		\newaliascnt{example}{theorem}
+		\newtheorem{example}[example]{Example}
+		\aliascntresetthe{example}
+		\newcommand{\exampleautorefname}{Example}
+		\theoremstyle{remark}
+		\newaliascnt{note}{theorem}
+		\newtheorem{note}[note]{Note}
+		\aliascntresetthe{note}
+		\newcommand{\noteautorefname}{Note}
+		\newtheorem*{note*}{Note}
+		\newaliascnt{remark}{theorem}
+		\newtheorem{remark}[remark]{Remark}
+		\aliascntresetthe{remark}
+		\newcommand{\remarkautorefname}{Remark}
+		\newtheorem*{remark*}{Remark}
+		\theoremstyle{claimstyle}
+		\newaliascnt{claim}{theorem}
+		\newtheorem{claim}[claim]{Claim}
+		\aliascntresetthe{claim}
+		\newcommand{\claimautorefname}{Claim}
+		\newtheorem*{claim*}{Claim}
+	\fi
 \else
 	\newtheorem{lemma}[theorem]{Lemma}
 	\newtheorem{corollary}[theorem]{Corollary}
@@ -864,6 +1008,7 @@
 	\newtheorem{claim}[theorem]{Claim}
 	\newtheorem*{claim*}{Claim}
 \fi
+\theoremstyle{plain}
 \endinput
 %%
 %% End of file `lipics-v2019.cls'.

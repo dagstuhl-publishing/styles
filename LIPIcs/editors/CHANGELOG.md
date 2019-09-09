@@ -1,5 +1,9 @@
 LIPICS Editor Style - CHANGELOG
 
+* 22/07/2019 lipicsmaster-v2019 v2.2
+    * New feature
+        * added document option "editorcolumns" to activate displaying author details in two columns (only allowed for more than 4 editors)
+
 * 02/05/2019 lipicsmaster-v2019 v2.1
     * Bugfixes
         * fixed bug in definition of ccsdesc macro

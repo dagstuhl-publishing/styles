@@ -1,5 +1,25 @@
 LIPICS Style - CHANGELOG
 
+* 19/07/2019 LIPIcs-v2019 v2.2
+    * New Feature
+        * explicitly defined/named colors used in style to ease reusing them (requires load of package xcolor instead of color)
+        * added document option "authorcolumns" to activate displaying author details in two columns (only allowed for more than 6 authors)
+        * revised style of algorithm environments provided by algorithm or algorithm2e packages 
+        * added qed-like symbol to mark end of e.g. definitions (command \lipicsEnd)
+    * Bugfix
+        * fixed problem caused by "\\" in title macro
+
+* 06/06/2019 LIPIcs-v2019 v2.1
+    * New Feature
+        * added document option "anonymous" to make author related information anonymous (e.g. for double-blind review)
+    * Bugfix
+        * fixed problems with using thm-restate (added new documentclass option thm-restate)
+        * fixed bug when using algorithm2e package and cleveref package
+        * fixed problems with texorpdfstring in author macro
+        * fixed spacing variation between author name and orcid symbol
+        * capitalised labels when using autoref (e.g. section -> Section)
+
+
 * 10/12/2018 LIPIcs-v2019 v2.0
     * New Features
         * support of metadata in PDF file (e.g. author, title, keywords) 
