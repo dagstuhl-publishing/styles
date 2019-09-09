@@ -1,0 +1,241 @@
+
+%This is a template for producing LIPIcs conference volumes.
+%The usage of this file together with lipicsmaster.cls should be
+%straightforward. There is no separate documentation.
+%Feel free to adapt this file or lipicsmaster.cls if required.
+
+\documentclass[a4paper,UKenglish]{lipicsmaster}
+  %for A4 paper format use option "a4paper", for US-letter use option "letterpaper"
+  %for british hyphenation rules use option "UKenglish", for american hyphenation rules use option "USenglish"
+
+\usepackage{microtype}%if unwanted, comment out or use option "draft"
+
+%\graphicspath{{./graphics/}}%helpful if your graphic files are in another directory
+
+\bibliographystyle{plain}% the recommnded bibstyle
+
+
+\title{\huge 1st Conference on Very Important Topics}
+
+\subtitle{CVIT'10, December 24--27, 2010, Somewherecity, Somewherecountry}
+
+\editor{Billy Editor\\ Bill Editors}
+
+\volumeinfo %(easychair interface)
+  {B. Editor, B. Editors}% editors
+  {2}% number of editors
+  {1st Conference on Very Important Topics (CVIT'10)}% event
+  {1}% volume
+  {1}% issue
+  {1}% starting page number
+
+\EventShortName{CVIT 2010}%for the label in the margin
+\titlepagebottomline{LIPIcs -- Vol. ??? -- CVIT'10 \qquad \qquad \qquad \qquad  www.dagstuhl.de/lipics}%some text line for the yellow box on the titlepage
+
+\serieslogo{}%please provide filename (without suffix)
+
+
+\begin{document}
+
+\frontmatter
+
+\maketitle
+
+\begin{publicationinfo}%for page ii, please fill as required
+\sffamily
+
+\emph{Editors} \\[0.2cm]
+\begin{tabular}{ll}
+Billy Editor              &   Bill Editors   \\
+School of Computer Science   &  Institute of Knowledge \\ 
+University City & College City \\ 
+\texttt{beditor@uni-city.edu} &  \texttt{editorsb@cs.institute.org}
+\end{tabular}
+\ \\
+
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\emph{ACM Classification 1998}\\
+\textbf{To be completed}
+
+\bigskip
+\bigskip
+
+{\Large\bf\sffamily \href{http://www.dagstuhl.de/dagpub/978-3-939897-???-?}{ISBN 978-3-939897-???-?}}
+
+\bigskip
+\bigskip
+
+\emph{Published online and open access by}\newline
+Schloss Dagstuhl -- Leibniz-Zentrum f\"ur Informatik GmbH, Dagstuhl Publishing, Saarbr\"ucken/Wadern, Germany. Online available at \href{http://www.dagstuhl.de/dagpub/978-3-939897-???-?}{http://www.dagstuhl.de/dagpub/978-3-939897-???-?}.
+
+\bigskip
+\emph{Publication date}\newline
+\textbf{To be completed: Month, Year}
+
+\bigskip
+\bigskip
+
+\emph{Bibliographic information published by the Deutsche Nationalbibliothek}\newline
+The Deutsche Nationalbibliothek lists this publication in the Deutsche Nationalbibliografie; detailed bibliographic data are available in the Internet at \href{http://dnb.d-nb.de}{http://dnb.d-nb.de}. 
+
+\bigskip
+
+\emph{License}\newline
+This work is licensed under a Creative Commons Attribution 3.0 Unported license (CC-BY~3.0): \texttt{http://creativecommons.org/licenses/by/3.0/legalcode}.\\
+In brief, this license authorizes each and everybody to share (to copy, distribute and transmit) the work under the following conditions, without impairing or restricting the authors' moral rights:
+\marginpar{\hspace*{0.2\marginparwidth}\includegraphics[width=0.75\marginparwidth]{cc-by.pdf}}
+
+\begin{itemize}
+\item Attribution: The work must be attributed to its authors.
+\end{itemize}
+
+\smallskip
+
+The copyright is retained by the corresponding authors.
+
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+
+Digital Object Identifier: \href{http://dx.doi.org/10.4230/LIPIcs.CCCC.YYYY.i}{10.4230/LIPIcs.CCCC.YYYY.i}
+
+\vfill
+\textbf{\href{http://www.dagstuhl.de/dagpub//978-3-939897-???-?}{ISBN /978-3-939897-???-?}}\qquad \qquad \textbf{\href{http://drops.dagstuhl.de/lipics}{ISSN 1868-8969}}  \hfill \textbf{\href{http://www.dagstuhl.de/lipics}{http://www.dagstuhl.de/lipics}}
+
+ % Published by: ...\\
+  %ISBN: ...
+  
+ \newpage
+
+\ \\
+\bigskip
+\bigskip
+\bigskip
+
+{\Large LIPIcs -- Leibniz International Proceedings in Informatics}
+ 
+ \bigskip
+ 
+LIPIcs is a series of high-quality conference proceedings across all fields in informatics. 
+LIPIcs volumes are published according to the principle of Open Access, i.e., they are available online and free of charge. 
+
+ 
+ \bigskip
+ \bigskip
+ \bigskip
+ 
+ 
+\emph{Editorial Board}
+
+\begin{itemize} 
+\item Susanne Albers (Humboldt University Berlin)
+\item Chris Hankin (Imperial College London)
+\item Deepak Kapur (University of New Mexico)
+\item Michael Mitzenmacher (Harvard University)
+\item Madhavan Mukund	(Chennai Mathematical Institute)
+\item Wolfgang Thomas (RWTH Aachen)
+\item Vinay V. (Chennai Mathematical Institute)
+\item Pascal Weil (\emph{Chair}, University Bordeaux)
+\item Reinhard Wilhelm (Saarland University, Schloss Dagstuhl)
+ \end{itemize}
+
+
+ \bigskip
+ \bigskip
+ \bigskip
+
+{\large\bf\sffamily \href{http://drops.dagstuhl.de/lipics}{ISSN 1868-8969}}
+
+ \bigskip
+ \bigskip
+ \bigskip
+
+{\Large\bf\sffamily \href{http://www.dagstuhl.de/lipics}{www.dagstuhl.de/lipics}}
+ 
+ \vfill
+ 
+ \newpage
+ 
+ \thispagestyle{empty}
+ 
+\end{publicationinfo}
+
+
+\begin{dedication}%please fill or comment out
+  Insert dedication here.
+\end{dedication}
+
+
+\begin{contentslist}
+%To generate the table of contents copy all the .vtc files
+%of the contributions to your working directory.
+%For every contribution type a line
+%\inputtocentry{dummycontribution}
+%where the argument of \inputtocentry is the name of
+%the vtc file without suffix.
+
+%Alternatively write e.g.
+\contitem
+\title{Preface}
+\author{John Q. Open}
+\page{i}
+
+%\part{} %use if volume is divided in parts
+\part{Regular Papers}
+
+\contitem
+\title{Mmmmm...donuts}
+\author{Homer J. Simpson}
+\page{1}
+
+
+\end{contentslist}
+
+
+
+\chapter{Preface} %please fill or comment out
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut mattis
+elementum fermentum. Pellentesque habitant morbi tristique senectus et
+netus et malesuada fames ac turpis egestas. Nulla sapien magna,
+bibendum in dictum sed, egestas vel purus. Pellentesque id ornare
+lacus. Pellentesque justo elit, sodales a fringilla vitae, gravida sed
+elit. Etiam turpis eros, tincidunt sit amet tempor sed, gravida quis
+eros. Mauris et nunc enim. Ut congue rhoncus odio vitae lacinia. Nunc
+placerat est eu eros dignissim ac tristique nisi placerat. Fusce et
+hendrerit justo. Nunc feugiat pulvinar nunc ac tincidunt. Donec eu
+pharetra metus. Cras malesuada ante accumsan purus dignissim
+euismod. Curabitur risus ante, aliquet ut suscipit eget, vulputate non
+ligula. Nullam eleifend malesuada est, nec adipiscing sapien eleifend
+eget. Vestibulum fringilla diam id felis sagittis aliquet. Maecenas
+sed metus vel dui vulputate pretium et id lacus. Ut eget libero augue,
+ut aliquet orci. Integer sed nunc id massa interdum imperdiet. Nunc ut
+consequat eros.
+
+Morbi hendrerit dapibus augue. Proin sed adipiscing ipsum. Ut
+vulputate ultricies diam id dictum. Nunc pharetra imperdiet
+sodales. Morbi convallis massa vitae justo adipiscing nec congue nunc
+fringilla. Pellentesque eu rhoncus ligula. Nam eros neque, hendrerit a
+rhoncus vel, molestie nec nulla. Ut iaculis vulputate mauris, non
+scelerisque dolor fringilla sit amet. Pellentesque habitant morbi
+tristique senectus et netus et malesuada fames ac turpis
+egestas. Quisque vitae accumsan risus. Sed molestie dictum
+venenatis. Sed odio justo, gravida et vulputate eu, congue et lorem. 
+
+
+\begin{participants}
+\chapter[Authors]{List of Authors}
+%use \participant for every author, eg.:
+\participant John Q. Public\\ 
+  Dummy University Computing Laboratory\\
+  Address, Country\\
+  johnqpublic@dummyuni.org
+
+\end{participants} 
+
+
+\end{document}

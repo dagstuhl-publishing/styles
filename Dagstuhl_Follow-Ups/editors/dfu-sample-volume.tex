@@ -1,0 +1,212 @@
+%This is a template for producing dfu conference volumes.
+%The usage of this file together with dfumaster.cls should be
+%straightforward. There is no separate documentation.
+%Feel free to adapt this file or dfumaster.cls if required.
+
+\documentclass[a4paper,UKenglish]{dfumaster}
+  %for A4 paper format use option "a4paper", for US-letter use option "letterpaper"
+  %for british hyphenation rules use option "UKenglish", for american hyphenation rules use option "USenglish"
+
+\usepackage{microtype}%if unwanted, comment out or use option "draft"
+
+%\graphicspath{{./graphics/}}%helpful if your graphic files are in another directory
+
+\bibliographystyle{plain}% the recommnded bibstyle
+
+
+\title{The wonderful world of dummy booktitles}
+
+\subtitle{... and subtitles}
+
+\editor{John Q. Open and Joan R. Access}
+
+\volumeinfo %(easychair interface)
+  {J.Q. Open and J.R. Access}% editors
+  {2}% number of editors
+  {The wonderful world of dummy booktitles}% event
+  {1}% volume
+  {1}% issue
+  {1}% starting page number
+
+\EventShortName{Vol.~?}%for the label in the margin, volume number within DFU series
+\titlepagebottomline{}%some text line for the yellow box on the titlepage
+
+\serieslogo{} %please provide filename (without suffix)
+
+
+\begin{document}
+
+\frontmatter
+
+\maketitle
+
+\begin{publicationinfo}%for page ii, please fill as required
+\sffamily
+
+\emph{Editors} \\[0.2cm]
+\begin{tabular}{ll}
+Billy Editor              &   Bill Editors   \\
+School of Computer Science   &  Institute of Knowledge \\ 
+University City & College City \\ 
+\texttt{beditor@uni-city.edu} &  \texttt{editorsb@cs.institute.org}
+\end{tabular}
+\ \\
+
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\emph{ACM Classification 1998}\\
+\textbf{To be completed}
+
+\bigskip
+\bigskip
+
+{\Large\bf\sffamily ISBN 978-3-939897-???-?}
+
+\bigskip
+\bigskip
+
+\emph{Published online and open access by}\newline
+Schloss Dagstuhl -- Leibniz-Center for Informatics gGmbH, Dagstuhl Publishing, Saarbrücken/Wadern, Germany.
+
+\bigskip
+\emph{Publication date}\newline
+Month, Year
+
+\bigskip
+\bigskip
+
+\emph{Bibliographic information published by the Deutsche Nationalbibliothek}\newline
+The Deutsche Nationalbibliothek lists this publication in the Deutsche Nationalbibliografie; detailed bibliographic data are available in the Internet at http://dnb.d-nb.de.
+
+\bigskip
+
+\emph{License}\newline
+This work is licensed under  a Creative Commons Attribution-Noncommercial-No Derivative Works license: \texttt{http://creativecommons.org/licenses/by-nc-nd/3.0/legalcode}.\\
+In brief, this license authorizes each and everybody to share (to copy, distribute and transmit) the work under the following conditions, without impairing or restricting the authors’ moral rights:
+
+\begin{itemize}
+\item Attribution: The work must be attributed to its authors.
+\item Noncommercial: The work may not be used for commercial purposes. 
+\item No derivation: It is not allowed to alter or transform this work.
+\end{itemize}
+
+\smallskip
+
+The copyright is retained by the corresponding authors.
+
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+
+Digital Object Identifier: 10.4230/DFU.XXXX.YYYY.i
+
+\vfill
+\textbf{ISBN 978-3-939897-???-?} \qquad \qquad \textbf{ISSN 1868-8977}  \hfill \textbf{http://www.dagstuhl.de/dfu}
+
+ % Published by: ...\\
+  %ISBN: ...
+  
+ \newpage
+
+\ \\
+\bigskip
+\bigskip
+\bigskip
+
+{\Large DFU -- Dagstuhl Follow-Ups}
+ 
+ \bigskip
+
+The series \emph{Dagstuhl Follow-Ups} is a publication format which offers a frame for the publication of peer-reviewed papers based on Dagstuhl Seminars.  
+DFU volumes are published according to the principle of Open Access, i.e., they are available online and free of charge. 
+
+ 
+ \bigskip
+ \bigskip
+ \bigskip
+ 
+ 
+\emph{Editorial Board}
+
+\begin{itemize}
+\item Susanne Albers (Humboldt University Berlin)
+\item Karsten Berns (University of Kaiserslautern)
+\item Stephan Diehl (University Trier)
+\item Hannes Hartenstein (Karlsruhe Institute of Technology)
+\item Frank Leymann (University of Stuttgart)
+\item Ernst W. Mayr (TU München)
+\item Stephan Merz (INRIA Nancy)
+\item Bernhard Nebel (University of Freiburg)
+\item Han La Poutré (Utrecht University)
+\item Bernt Schiele (Max Planck Institute for Informatics)
+\item Nicole Schweikardt (Goethe University Frankfurt)
+\item Otto Spaniol (RWTH Aachen University)
+\item Gerhard Weikum (Max Planck Institute for Informatics)
+\item Reinhard Wilhelm (\emph{Editor-in-Chief}, Saarland University, Schloss Dagstuhl)
+ \end{itemize}
+
+
+ \bigskip
+ \bigskip
+ \bigskip
+
+
+{\large\bf\sffamily ISSN 1868-8977}
+
+ \bigskip
+ \bigskip
+ \bigskip
+
+{\Large\bf\sffamily www.dagstuhl.de/dfu}
+ 
+ \vfill
+ 
+ \newpage
+ 
+ \thispagestyle{empty}
+ 
+\end{publicationinfo}
+
+
+\begin{dedication}%please fill or comment out
+  Insert dedication here.
+\end{dedication}
+
+
+\begin{contentslist}
+%To generate the table of contents copy all the .vtc files
+%of the contributions to your working directory.
+%For every contribution type a line
+\inputtocentry{dummycontribution}
+%where the argument of \inputtocentry is the name of
+%the vtc file without suffix.
+
+%Alternatively write e.g.
+\contitem
+\title{Dummy title}
+\author{John Q. Public}
+\page{77}
+
+%\part{} %use if volume is divided in parts
+\end{contentslist}
+
+
+\chapter{Preface}  %please fill or comment out
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+\begin{participants}
+\chapter[Authors]{List of Authors}
+%use \participant for every author, eg.:
+\participant John Q. Public\\ 
+  Dummy University Computing Laboratory\\
+  Address, Country\\
+  johnqpublic@dummyuni.org
+
+\end{participants} 
+
+
+\end{document}

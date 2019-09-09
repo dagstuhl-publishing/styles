@@ -1,0 +1,146 @@
+\documentclass[a4paper,UKenglish]{lipics}
+%This is a template for producing LIPIcs articles. 
+%See lipics-manual.pdf for further information.
+%for A4 paper format use option "a4paper", for US-letter use option "letterpaper"
+%for british hyphenation rules use option "UKenglish", for american hyphenation rules use option "USenglish"
+% for section-numbered lemmas etc., use "numberwithinsect"
+ 
+\usepackage{microtype}%if unwanted, comment out or use option "draft"
+
+%\graphicspath{{./graphics/}}%helpful if your graphic files are in another directory
+
+\bibliographystyle{plain}% the recommended bibstyle
+
+% Author macros::begin %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{A Sample Article for the LIPIcs series\footnote{This work was partially supported by someone.}}
+\titlerunning{A Sample LIPIcs Article} %optional, in case that the title is too long; the running title should fit into the top page column
+
+\author[1]{John Q. Open}
+\author[2]{Joan R. Access}
+\affil[1]{Dummy University Computing Laboratory\\
+  Address, Country\\
+  \texttt{open@dummyuni.org}}
+\affil[2]{Department of Informatics, Dummy College\\
+  Address, Country\\
+  \texttt{access@dummycollege.org}}
+\authorrunning{J.\,Q. Open and J.\,R. Access} %mandatory. First: Use abbreviated first/middle names. Second (only in severe cases): Use first author plus 'et. al.'
+
+\Copyright{John Q. Open and Joan R. Access}%mandatory, please use full first names. LIPIcs license is "CC-BY";  http://creativecommons.org/licenses/by/3.0/
+
+\subjclass{Dummy classification -- please refer to \url{http://www.acm.org/about/class/ccs98-html}}% mandatory: Please choose ACM 1998 classifications from http://www.acm.org/about/class/ccs98-html . E.g., cite as "F.1.1 Models of Computation". 
+\keywords{Dummy keyword -- please provide 1--5 keywords}% mandatory: Please provide 1-5 keywords
+% Author macros::end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Editor-only macros:: begin (do not touch as author)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\serieslogo{}%please provide filename (without suffix)
+\volumeinfo%(easychair interface)
+  {Billy Editor and Bill Editors}% editors
+  {2}% number of editors: 1, 2, ....
+  {Conference title on which this volume is based on}% event
+  {1}% volume
+  {1}% issue
+  {1}% starting page number
+\EventShortName{}
+\DOI{10.4230/LIPIcs.xxx.yyy.p}% to be completed by the volume editor
+% Editor-only macros::end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent convallis orci arcu, eu mollis dolor. Aliquam eleifend suscipit lacinia. Maecenas quam mi, porta ut lacinia sed, convallis ac dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. 
+ \end{abstract}
+
+\section{Typesetting instructions -- please read carefully}
+Please comply with the following instructions when preparing your article for a LIPIcs proceedings volume. 
+\begin{itemize}
+\item Use pdflatex and an up-to-date LaTeX system.
+\item Use further LaTeX packages only if required.
+\item Add custom made macros carefully and only those which are needed in the document (i.e., do not simply add your convolute of macros collected over the years).
+\item Do not use a different main font. For example, the usage of the times-package is forbidden.
+\item Provide full author names (especially with regard to the first name) in the \verb+\author+ macro and in the \verb+\Copyright+ macro.
+\item Fill out the \verb+\subjclass+ and \verb+\keywords+ macros. For the \verb+\subjclass+, please refer to the ACM classification at \url{http://www.acm.org/about/class/ccs98-html}.
+\item Take care of suitable linebreaks and pagebreaks. No overfull \verb+\hboxes+ should occur in the warnings log.
+\item Provide suitable graphics of at least 300dpi (preferrably in pdf format).
+\item Use the provided sectioning macros: \verb+\section+, \verb+\subsection+, \verb+\subsection*+, \verb+\paragraph+, \verb+\subparagraph*+, ... ``Self-made'' sectioning commands (for example, \verb+\noindent{\bf My+ \verb+subparagraph.}+ will be removed and replaced by standard LIPIcs style sectioning commands.
+\item Do not alter the spacing of the  \verb+lipics.cls+ style file. Such modifications will be removed.
+\item Do not use conditional structures to include/exclude content. Instead, please provide only the content that should be published and nothing else.
+\item Remove all comments, especially avoid commenting large text blocks or using \verb+\iffalse+ \verb+... \fi+ constructions.
+\item Keep the standard style (\verb+plain+) for the bibliography as provided by the \verb+lipics.cls+ style file.
+\item Use BibTex and provide exactly one BibTex file for your article. The BibTex file should contain only entries that are referenced in the article. Please make sure that there are no errors and warnings with the referenced BibTex entries.
+\item Use a spellchecker to get rid of typos.
+\item A manual for the LIPIcs style is available at \url{http://drops.dagstuhl.de/styles/lipics/lipics-authors/lipics-manual.pdf}.
+\end{itemize}
+
+
+\section{Lorem ipsum dolor sit amet}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent convallis orci arcu, eu mollis dolor. Aliquam eleifend suscipit lacinia. Maecenas quam mi, porta ut lacinia sed, convallis ac dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Donec eget odio et magna ullamcorper vehicula ut vitae libero. Maecenas lectus nulla, auctor nec varius ac, ultricies et turpis. Pellentesque id ante erat. In hac habitasse platea dictumst. Curabitur a scelerisque odio. Pellentesque elit risus, posuere quis elementum at, pellentesque ut diam. Quisque aliquam libero id mi imperdiet quis convallis turpis eleifend. 
+
+\begin{lemma}[Lorem ipsum]
+Vestibulum sodales dolor et dui cursus iaculis. Nullam ullamcorper purus vel turpis lobortis eu tempus lorem semper. Proin facilisis gravida rutrum. Etiam sed sollicitudin lorem. Proin pellentesque risus at elit hendrerit pharetra. Integer at turpis varius libero rhoncus fermentum vitae vitae metus. \end{lemma}
+\begin{proof}
+Cras purus lorem, pulvinar et fermentum sagittis, suscipit quis magna.
+\end{proof}
+
+\subsection{Curabitur dictum felis id sapien}
+
+Curabitur dictum felis id sapien mollis ut venenatis tortor feugiat. Curabitur sed velit diam. Integer aliquam, nunc ac egestas lacinia, nibh est vehicula nibh, ac auctor velit tellus non arcu. Vestibulum lacinia ipsum vitae nisi ultrices eget gravida turpis laoreet. Duis rutrum dapibus ornare. Nulla vehicula vulputate iaculis. Proin a consequat neque. Donec ut rutrum urna. Morbi scelerisque turpis sed elit sagittis eu scelerisque quam condimentum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean nec faucibus leo. Cras ut nisl odio, non tincidunt lorem. Integer purus ligula, venenatis et convallis lacinia, scelerisque at erat. Fusce risus libero, convallis at fermentum in, dignissim sed sem. Ut dapibus orci vitae nisl viverra nec adipiscing tortor condimentum. Donec non suscipit lorem. Nam sit amet enim vitae nisl accumsan pretium. 
+
+\begin{lstlisting}[caption={Useless code},label=list:8-6,captionpos=t,float,abovecaptionskip=-\medskipamount]
+for i:=maxint to 0 do 
+begin 
+    j:=square(root(i));
+end;
+\end{lstlisting}
+
+\subsection{Proin ac fermentum augue}
+
+Proin ac fermentum augue. Nullam bibendum enim sollicitudin tellus egestas lacinia euismod orci mollis. Nulla facilisi. Vivamus volutpat venenatis sapien, vitae feugiat arcu fringilla ac. Mauris sapien tortor, sagittis eget auctor at, vulputate pharetra magna. Sed congue, dui nec vulputate convallis, sem nunc adipiscing dui, vel venenatis mauris sem in dui. Praesent a pretium quam. Mauris non mauris sit amet eros rutrum aliquam id ut sapien. Nulla aliquet fringilla sagittis. Pellentesque eu metus posuere nunc tincidunt dignissim in tempor dolor. Nulla cursus aliquet enim. Cras sapien risus, accumsan eu cursus ut, commodo vel velit. Praesent aliquet consectetur ligula, vitae iaculis ligula interdum vel. Integer faucibus faucibus felis. 
+
+\begin{itemize}
+\item Ut vitae diam augue. 
+\item Integer lacus ante, pellentesque sed sollicitudin et, pulvinar adipiscing sem. 
+\item Maecenas facilisis, leo quis tincidunt egestas, magna ipsum condimentum orci, vitae facilisis nibh turpis et elit. 
+\end{itemize}
+
+\section{Pellentesque quis tortor}
+
+Nec urna malesuada sollicitudin. Nulla facilisi. Vivamus aliquam tempus ligula eget ornare. Praesent eget magna ut turpis mattis cursus. Aliquam vel condimentum orci. Nunc congue, libero in gravida convallis, orci nibh sodales quam, id egestas felis mi nec nisi. Suspendisse tincidunt, est ac vestibulum posuere, justo odio bibendum urna, rutrum bibendum dolor sem nec tellus. 
+
+\begin{lemma} [Quisque blandit tempus nunc]
+Sed interdum nisl pretium non. Mauris sodales consequat risus vel consectetur. Aliquam erat volutpat. Nunc sed sapien ligula. Proin faucibus sapien luctus nisl feugiat convallis faucibus elit cursus. Nunc vestibulum nunc ac massa pretium pharetra. Nulla facilisis turpis id augue venenatis blandit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+\end{lemma}
+
+Fusce eu leo nisi. Cras eget orci neque, eleifend dapibus felis. Duis et leo dui. Nam vulputate, velit et laoreet porttitor, quam arcu facilisis dui, sed malesuada risus massa sit amet neque.
+
+
+\subparagraph*{Acknowledgements}
+
+I want to thank \dots
+
+\appendix
+\section{Morbi eros magna}
+
+Morbi eros magna, vestibulum non posuere non, porta eu quam. Maecenas vitae orci risus, eget imperdiet mauris. Donec massa mauris, pellentesque vel lobortis eu, molestie ac turpis. Sed condimentum convallis dolor, a dignissim est ultrices eu. Donec consectetur volutpat eros, et ornare dui ultricies id. Vivamus eu augue eget dolor euismod ultrices et sit amet nisi. Vivamus malesuada leo ac leo ullamcorper tempor. Donec justo mi, tempor vitae aliquet non, faucibus eu lacus. Donec dictum gravida neque, non porta turpis imperdiet eget. Curabitur quis euismod ligula. 
+
+
+%%
+%% Bibliography
+%%
+
+%% Either use bibtex (recommended), but commented out in this sample
+
+%\bibliography{dummybib}
+
+%% .. or use bibitems explicitely
+
+\nocite{Simpson}
+
+\begin{thebibliography}{50}
+\bibitem{Simpson} Homer J. Simpson. \textsl{Mmmmm...donuts}. Evergreen Terrace Printing Co., Springfield, Somewhere, USA, 1998
+\end{thebibliography}
+
+
+\end{document}
