@@ -22,9 +22,9 @@
 %% The Current Maintainer of this work is 
 %% Schloss Dagstuhl (publishing@dagstuhl.de).
 %% -----------------------------------------------------------------
-%% 
+%%
 \ProvidesClass{oasics-v2019}
-    [2019/07/19 v2.2 OASIcs articles]
+    [2020/04/29 v2.2.1 OASIcs articles]
 \NeedsTeXFormat{LaTeX2e}[2015/01/01]
 \emergencystretch1em
 \advance\hoffset-1in
@@ -449,7 +449,9 @@
    \ifx\@acknowledgements\@empty\else
      \vskip0.7\baselineskip\noindent
      \acknowledgementsHeading\ifx\authoranonymous\relax\textcolor{red}{Anonymous acknowledgements} \else\@acknowledgements\fi
-   \fi}
+   \fi
+	\protected@write\@auxout{}{\string\gdef\string\@pageNumberEndAbstract{\thepage}}%
+	}% end abstract
 \renewenvironment{thebibliography}[1]
   {\if@noskipsec \leavevmode \fi
    \par
@@ -479,10 +481,12 @@
    \clubpenalty4000
    \@clubpenalty \clubpenalty
    \widowpenalty4000%
-   \sfcode`\.\@m}
+   \sfcode`\.\@m\protected@write\@auxout{}{\string\gdef\string\@pageNumberStartBibliography{\thepage}}}
   {\def\@noitemerr
      {\@latex@warning{Empty `thebibliography' environment}}%
+   \protected@write\@auxout{}{\string\gdef\string\@pageNumberEndBibliography{\thepage}}%
    \endlist}
+\g@addto@macro\appendix{\immediate\write\@auxout{\string\gdef\string\@pageNumberStartAppendix{\thepage}}}%
 \renewcommand\footnoterule{%
   \kern-8\p@
   {\color{oasicsBulletGray}\hrule\@width40mm\@height1\p@}%
@@ -800,7 +804,7 @@
 \let\@supplement\@empty
 \def\supplementHeading{%
   \textcolor{oasicsGray}{\fontsize{9}{12}\sffamily\bfseries
-                       Supplement Material\enskip}}
+                       Supplementary Material\enskip}}
 \def\funding#1{\def\@funding{#1}}
 \let\@funding\@empty
 \def\fundingHeading{%

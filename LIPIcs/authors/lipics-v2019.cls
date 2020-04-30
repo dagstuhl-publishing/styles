@@ -1,12 +1,12 @@
 %%
 %% This is file `lipics-v2019.cls'.
-%% 
+%%
 %% -----------------------------------------------------------------
 %% Author:     Dagstuhl Publishing & le-tex publishing services
-%% 
+%%
 %% This file is part of the lipics package for preparing
 %% LIPICS articles.
-%% 
+%%
 %% Copyright (C) 2018 Schloss Dagstuhl
 %%
 %% This work may be distributed and/or modified under the
@@ -18,13 +18,13 @@
 %% version 2005/12/01 or later.
 %%
 %% This work has the LPPL maintenance status `maintained'.
-%% 
-%% The Current Maintainer of this work is 
+%%
+%% The Current Maintainer of this work is
 %% Schloss Dagstuhl (publishing@dagstuhl.de).
 %% -----------------------------------------------------------------
-%% 
+%%
 \ProvidesClass{lipics-v2019}
-    [2019/07/19 v2.2 LIPIcs articles]
+    [2020/04/29 v2.2.1 LIPIcs articles]
 \NeedsTeXFormat{LaTeX2e}[2015/01/01]
 \emergencystretch1em
 \advance\hoffset-1in
@@ -449,7 +449,9 @@
    \ifx\@acknowledgements\@empty\else
      \vskip0.7\baselineskip\noindent
      \acknowledgementsHeading\ifx\authoranonymous\relax\textcolor{red}{Anonymous acknowledgements} \else\@acknowledgements\fi
-   \fi}
+   \fi
+	\protected@write\@auxout{}{\string\gdef\string\@pageNumberEndAbstract{\thepage}}%
+	}% end abstract
 \renewenvironment{thebibliography}[1]
   {\if@noskipsec \leavevmode \fi
    \par
@@ -479,10 +481,12 @@
    \clubpenalty4000
    \@clubpenalty \clubpenalty
    \widowpenalty4000%
-   \sfcode`\.\@m}
+   \sfcode`\.\@m\protected@write\@auxout{}{\string\gdef\string\@pageNumberStartBibliography{\thepage}}}
   {\def\@noitemerr
      {\@latex@warning{Empty `thebibliography' environment}}%
+   \protected@write\@auxout{}{\string\gdef\string\@pageNumberEndBibliography{\thepage}}%
    \endlist}
+\g@addto@macro\appendix{\immediate\write\@auxout{\string\gdef\string\@pageNumberStartAppendix{\thepage}}}%
 \renewcommand\footnoterule{%
   \kern-8\p@
   {\color{lipicsBulletGray}\hrule\@width40mm\@height1\p@}%
@@ -579,11 +583,11 @@
 \RequirePackage{lastpage}
 \RequirePackage{hyperref}
 \AtBeginDocument{
-	\pdfstringdefDisableCommands{% 
+	\pdfstringdefDisableCommands{%
 		\let\thanks\@gobble
 		\let\footnote\@gobble
 		\def\footnotemark{}
-		\def\cs#1{\textbackslash #1}% 
+		\def\cs#1{\textbackslash #1}%
 		\let\normalfont\@empty
 		\let\scshape\@empty
 		\def\and{and }%
@@ -662,7 +666,7 @@
 			\ifodd\value{currentauthor}
 				\begin{minipage}[t]{\textwidth}
 				\begin{minipage}[t]{0.49\textwidth}
-			\else	
+			\else
 				\hfill \begin{minipage}[t]{0.49\textwidth}
 			\fi
 		\else
@@ -698,13 +702,13 @@
 	\ifx\authorcolumns\relax
 		\ifnum\c@author>6
 			\end{minipage}
-			\ifnum\c@author=\value{currentauthor} 
+			\ifnum\c@author=\value{currentauthor}
 				\end{minipage}
 			\else
 				\ifodd\value{currentauthor}
-				\else	
+				\else
 					\end{minipage}%
-					\medskip 
+					\medskip
 				\fi
 			\fi
 		\fi
@@ -800,7 +804,7 @@
 \let\@supplement\@empty
 \def\supplementHeading{%
   \textcolor{lipicsGray}{\fontsize{9}{12}\sffamily\bfseries
-                       Supplement Material\enskip}}
+                       Supplementary Material\enskip}}
 \def\funding#1{\def\@funding{#1}}
 \let\@funding\@empty
 \def\fundingHeading{%
@@ -913,7 +917,7 @@
 		\def\subsectionautorefname{Subsection}%
 		\def\subsubsectionautorefname{Subsubsection}%
 		\def\paragraphautorefname{Paragraph}%
-		\def\subparagraphautorefname{Subparagraph}% 
+		\def\subparagraphautorefname{Subparagraph}%
 	}
 	\addto\extrasUKenglish{%
 		\def\chapterautorefname{Chapter}%
@@ -921,7 +925,7 @@
 		\def\subsectionautorefname{Subsection}%
 		\def\subsubsectionautorefname{Subsubsection}%
 		\def\paragraphautorefname{Paragraph}%
-		\def\subparagraphautorefname{Subparagraph}% 
+		\def\subparagraphautorefname{Subparagraph}%
 	}
 	\addto\extrasUSenglish{%
 		\def\chapterautorefname{Chapter}%
@@ -929,7 +933,7 @@
 		\def\subsectionautorefname{Subsection}%
 		\def\subsubsectionautorefname{Subsubsection}%
 		\def\paragraphautorefname{Paragraph}%
-		\def\subparagraphautorefname{Subparagraph}% 
+		\def\subparagraphautorefname{Subparagraph}%
 	}
 	\ifx\usethmrestate\relax
 		\newtheorem{lemma}[theorem]{Lemma}

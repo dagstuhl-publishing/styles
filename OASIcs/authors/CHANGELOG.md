@@ -1,10 +1,15 @@
 OASIcs Style - CHANGELOG
 
+* 29/04/2020 OASIcs-v2019 v2.2.1
+    * Minor changes
+        * export of several page numbers (end top matter, start/end bibliography, start appendix) into aux-file
+        * renamed heading of \supplement macro to "Supplementary Material"
+
 * 19/07/2019 OASIcs-v2019 v2.2
     * New Feature
         * explicitly defined/named colors used in style to ease reusing them (requires load of package xcolor instead of color)
         * added document option "authorcolumns" to activate displaying author details in two columns (only allowed for more than 6 authors)
-        * revised style of algorithm environments provided by algorithm or algorithm2e packages 
+        * revised style of algorithm environments provided by algorithm or algorithm2e packages
         * added qed-like symbol to mark end of e.g. definitions (command \oasicsEnd)
     * Bugfix
         * fixed problem caused by "\\" in title macro
@@ -22,7 +27,7 @@ OASIcs Style - CHANGELOG
 
 * 10/12/2018 OASIcs-v2019 v2.0
     * New Features
-        * support of metadata in PDF file (e.g. author, title, keywords) 
+        * support of metadata in PDF file (e.g. author, title, keywords)
         * revised displaying of author-related funding acknowledgements (now displayed as part of the funding block instead of footnotes)
         * added support for cleveref package (new document option 'cleveref')
         * added support for using autoref for theorem-like environments (new document option 'autoref')
@@ -58,7 +63,7 @@ OASIcs Style - CHANGELOG
 
 * 06/02/2018 OASIcs-v2018 v1.2
     * Release of OASIcs-v2018
-        * revised author macro \author{name}{affil}{email}{orcid}{funding} 
+        * revised author macro \author{name}{affil}{email}{orcid}{funding}
         * added support for ORCIDs
         * switched to ACM 2012 classification system
         * added new macros for extended metadata \category, \relatedversion, \supplement, \funding, \acknowledgements
