@@ -516,6 +516,7 @@
 \def\acknowledgementsHeading{%
  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
                       Acknowledgements\enskip}}
+\usepackage{microtype}
 \usepackage[utf8]{inputenc}
 \IfFileExists{lmodern.sty}{\RequirePackage{lmodern}}{}
 \RequirePackage[T1]{fontenc}
