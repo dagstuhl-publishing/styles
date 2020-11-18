@@ -1,0 +1,163 @@
+\documentclass[a4paper,USenglish]{dagman-master-v2021}
+\pagestyle{empty}
+
+\usepackage{microtype}%if unwanted, comment out or use option "draft"
+\usepackage{wrapfig}
+\usepackage{multicol}
+
+
+\title{\includegraphics[width=0.67\textwidth]{dagman-logo-color}}
+
+\ManifestosVolume{1}
+\ManifestosIssue{1}
+\ManifestosMonthYear{January 2011}
+
+%\subtitle{Volume xx, Issue yy, January 2011} %use only to overwrite default
+
+\begin{document}
+
+
+\maketitle
+
+
+\begin{contentslist}
+%To generate the table of contents copy all the .vtc files
+%of the contributions to your working directory.
+%For every contribution type a line
+\inputtocentry{dummycontribution}
+%where the argument of \inputtocentry is the name of
+%the vtc file without suffix.
+
+%Alternatively write e.g.
+\contitem
+\title{Dummy title}
+\author{John Q. Public}
+\page{77}
+
+%\part{} %use if volume is divided in parts
+\end{contentslist}
+
+\bigskip
+
+\vfill
+
+%\titlepagebottomline{Dagstuhl Manifestos, Vol.~x, Issue y \qquad \qquad \qquad \qquad \quad ISSN 2193-2433} %use only to overwrite default
+
+\bottomline
+
+%\clearpage
+
+
+%% editorial setup / creative commons / ...
+
+\begin{publicationinfo}%for page ii, please fill as required
+\sffamily
+%\columnsep30pt
+\twocolumn
+
+
+{\Large\bf\sffamily \textbf{\href{https://www.dagstuhl.de/dagman}{ISSN 2193-2433}}}
+
+\bigskip
+\bigskip
+
+\emph{Published online and open access by}\newline 
+Schloss Dagstuhl -- Leibniz-Zentrum f\"ur Informatik GmbH, Dagstuhl
+Publishing, Saarbr\"ucken/Wadern, Germany.  Online available at\newline \href{https://www.dagstuhl.de/dagpub/2193-2433}{https://www.dagstuhl.de/dagpub/2193-2433}
+
+\bigskip
+\emph{Publication date}\newline
+June, 2011
+
+\bigskip
+\emph{Bibliographic information published by the Deutsche
+  Nationalbibliothek}\newline 
+The Deutsche Nationalbibliothek lists this publication in the Deutsche
+Nationalbibliografie; detailed bibliographic data are available in the
+Internet at \url{https://dnb.d-nb.de}.
+
+\bigskip
+\emph{License}
+
+This work is licensed under a \href{https://creativecommons.org/licenses/by/4.0/de/legalcode}{Creative Commons
+Attribution 4.0 International license (CC BY 4.0)}.
+
+\begin{wrapfigure}[2]{l}{1.8cm}
+\vspace*{-1\baselineskip}
+\includegraphics[width=1.8cm]{cc-by}
+\end{wrapfigure} 
+In brief, this license authorizes each and everybody to share (to
+copy, distribute and transmit) the work under the following
+conditions, without impairing or restricting the authors'
+moral rights:
+\begin{itemize}
+\item Attribution: The work must be attributed to its authors.
+\end{itemize}
+
+\smallskip
+
+The copyright is retained by the corresponding authors.
+
+\vfill
+
+Digital Object Identifier: \printDOI
+
+\newpage
+
+\vphantom{{\Large\bf\sffamily \textbf{\href{https://www.dagstuhl.de/dagman}{ISSN 2193-2433}}}}
+
+\bigskip
+\bigskip
+
+
+\emph{Aims and Scope}\newline
+The manifestos from Dagstuhl Perspectives Workshops are published in the \emph{Dagstuhl Manifestos} journal. Each manifesto aims for describing the state-of-the-art in a field along with its shortcomings, strengths. Based on this, position statements, perspectives for the future are illustrated. A manifesto typically has a less technical character; instead it provides guidelines, roadmaps for a sustainable organisation of future progress. 
+
+\bigskip
+\bigskip
+
+%% The Editorial Board is equal to the Scientific Directorate (SD) as of the month to which the issue is related, e.g. Issue 10 (2044) => SD constitution as of October 2044
+\emph{Editorial Board}
+\begin{itemize}
+\item Elisabeth Andr\'{e}
+\item Franz Baader
+\item Gilles Barthe
+\item Daniel Cremers
+\item Reiner H\"ahnle
+\item Barbara Hammer
+\item Lynda Hardman
+\item Oliver Kohlbacher
+\item Bernhard Mitschang
+\item Albrecht Schmidt
+\item Wolfgang Schr\"{o}der-Preikschat
+\item Raimund Seidel (\emph{Editor-in-Chief})
+\item Emanuel Thom\'{e}
+\item Heike Wehrheim
+\item Verena Wolf
+\item Martina Zitterbart
+\end{itemize}
+
+\medskip
+\emph{Editorial Office}\newline
+Michael Wagner\emph{(Managing Editor)}\\
+Jutka Gasiorowski \emph{(Editorial Assistance)}\\
+Dagmar Glaser \emph{(Editorial Assistance)}\\
+Thomas Schillo \emph{(Technical Assistance)}
+
+\medskip
+\emph{Contact}\newline
+Schloss Dagstuhl -- Leibniz-Zentrum f\"ur Informatik\\
+Dagstuhl Reports, Editorial Office\\
+Oktavie-Allee, 66687 Wadern, Germany\\ 
+reports@dagstuhl.de
+
+
+\vfill
+
+\href{https://www.dagstuhl.de/dagman}{https://www.dagstuhl.de/dagman}
+
+  
+\end{publicationinfo}
+
+
+\end{document}

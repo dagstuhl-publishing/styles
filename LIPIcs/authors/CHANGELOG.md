@@ -1,5 +1,23 @@
 LIPICS Style - CHANGELOG
 
+* 01/12/2020 LIPIcs-v2021 v3.0
+    * New Feature
+        * more compact presentation of author information (email address and homepage URL only as logo)
+        * adjustment of document licence to CC-BY 4.0
+        * added anonymization (documentclass option "anonymous") also for \relatedversion and \supplement macros; resolves #9
+        * added \claimqedhere to be used in claimproof environments (similar to qedhere in proof environments); resolves #4
+        * added new macro \flag to display a flag or logo near the funding information as requested by some funding agencies (e.g. ERC grant)
+        * added \proofsubparagraph to allow structuring of proofs
+        * added new macros \relatedversiondetails and \supplementdetails to collect information regarding related version/supplementary material in a more structured way
+        * added new theorem-like environments 'conjecture' and 'observation'
+        * added support to produce PDFs according PDF/A-3B standard
+    * Minor changes
+        * revised style of procedure environment provided by algorithm2e package
+    * Bugfix
+        * fixed bug related to loaded but unused algorithm package (This fixes #2)
+        * fixed bug related to outdated algorithm2e package (This fixes #3)
+        * minor issues related to cleveref package (n-dash, oxford comma)
+
 * 29/04/2020 LIPIcs-v2019 v2.2.1
     * Minor changes
         * export of several page numbers (end top matter, start/end bibliography, start appendix) into aux-file
