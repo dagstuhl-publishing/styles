@@ -916,7 +916,7 @@ pdfsubject={LIPIcs, Vol.\@SeriesVolume, \@EventShortTitle; Copyright (C) \ifx\au
   \textcolor{lipicsGray}{\fontsize{9}{12}\sffamily\bfseries
                        Related Version\enskip}}
 \def\supplement#1{\def\@supplement{#1}}
-\let\@supplement\@empty
+\let\@supplement\@empty 
 \define@key{supplementdetails}{linktext}{\def\supplementdetails@linktext{#1}}
 \define@key{supplementdetails}{cite}{\def\supplementdetails@cite{#1}}
 \define@key{supplementdetails}{subcategory}{\def\supplementdetails@subcategory{#1}}
@@ -948,10 +948,10 @@ pdfsubject={LIPIcs, Vol.\@SeriesVolume, \@EventShortTitle; Copyright (C) \ifx\au
 	\ifx\supplementdetails@cite\@empty%
 	\else%
 		\protected@edef\tmp{\tmp\space\cite{\supplementdetails@cite}}%
-	\fi%
+	\fi
 	\ifx\supplementdetails@swhid\@empty%
 	\else%
-		\protected@edef\tmp{\tmp;\space{}archived at \href{https://archive.softwareheritage.org/\supplementdetails@swhid}{\supplementdetails@swhid}}%
+		\protected@edef\tmp{\tmp \\ \hspace*{1.2em} archived at \href{https://archive.softwareheritage.org/\supplementdetails@swhid}{\texttt{\supplementdetails@swhid}}}%
 	\fi%
 	\expandafter\addtosupplementmacro\expandafter{\tmp}{#1}%
 	\endgroup%

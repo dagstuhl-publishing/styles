@@ -951,7 +951,7 @@ pdfsubject={OASIcs, Vol.\@SeriesVolume, \@EventShortTitle; Copyright (C) \ifx\au
 	\fi%
 	\ifx\supplementdetails@swhid\@empty%
 	\else%
-		\protected@edef\tmp{\tmp;\space{}archived at \href{https://archive.softwareheritage.org/\supplementdetails@swhid}{\supplementdetails@swhid}}%
+		\protected@edef\tmp{\tmp \\ \hspace*{1.2em} archived at \href{https://archive.softwareheritage.org/\supplementdetails@swhid}{\texttt{\supplementdetails@swhid}}}%
 	\fi%
 	\expandafter\addtosupplementmacro\expandafter{\tmp}{#1}%
 	\endgroup%

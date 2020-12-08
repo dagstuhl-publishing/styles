@@ -1,3 +1,5 @@
+[![SWH](https://archive.softwareheritage.org/badge/swh:1:dir:1b66fc29b44e371e68a77879c0fbebefe3cd34f8/)](https://archive.softwareheritage.org/swh:1:dir:1b66fc29b44e371e68a77879c0fbebefe3cd34f8/)
+
 # DagPub Styles
 
 This repository contains the various LaTeX Styles provided by Schloss Dagstuhl - Leibniz-Zentrum für Informatik / Dagstuhl Publishing.
