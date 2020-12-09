@@ -24,7 +24,7 @@
 %% -----------------------------------------------------------------
 %%
 \ProvidesClass{oasics-v2021}
-    [2020/12/01 v3.0.0 OASIcs articles]
+    [2020/12/09 v3.0.1 OASIcs articles]
 \NeedsTeXFormat{LaTeX2e}[2015/01/01]
 \emergencystretch1em
 \advance\hoffset-1in
@@ -677,18 +677,22 @@ pdfsubject={OASIcs, Vol.\@SeriesVolume, \@EventShortTitle; Copyright (C) \ifx\au
 }
 \pdfobjcompresslevel=0
 \pdfinclusioncopyfonts=1
+\IfFileExists{colorprofiles.tex}{
+\RequirePackage{colorprofiles}%
+\IfFileExists{sRGB.icc}{
 \immediate\pdfobj stream attr{/N 3} file{sRGB.icc}
 \pdfcatalog{%
-  /OutputIntents [
-    <<
-      /Type /OutputIntent
-      /S /GTS_PDFA1
-      /DestOutputProfile \the\pdflastobj\space 0 R
-      /OutputConditionIdentifier (sRGB)
-      /Info (sRGB)
-    >>
-  ]
-}
+/OutputIntents [
+<<
+/Type /OutputIntent
+/S /GTS_PDFA1
+/DestOutputProfile \the\pdflastobj\space 0 R
+/OutputConditionIdentifier (sRGB)
+/Info (sRGB)
+>>
+]
+}}{}
+}{\ClassWarning{Package colorprofiles not installed}{Please install package colorprofiles}}
 \RequirePackage[labelsep=space,singlelinecheck=false,%
   font={up,small},labelfont={sf,bf},%
   listof=false]{caption}%"listof" instead of "list" for backward compatibility

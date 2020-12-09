@@ -390,18 +390,22 @@ pdfsubject={Dagstuhl Manifestos, Vol.~\@ManifestosVolume{}, Issue~\@ManifestosIs
 }
 \pdfobjcompresslevel=0
 \pdfinclusioncopyfonts=1
+\IfFileExists{colorprofiles.tex}{
+\RequirePackage{colorprofiles}%
+\IfFileExists{sRGB.icc}{
 \immediate\pdfobj stream attr{/N 3} file{sRGB.icc}
 \pdfcatalog{%
-  /OutputIntents [
-    <<
-      /Type /OutputIntent
-      /S /GTS_PDFA1
-      /DestOutputProfile \the\pdflastobj\space 0 R
-      /OutputConditionIdentifier (sRGB)
-      /Info (sRGB)
-    >>
-  ]
-}
+/OutputIntents [
+<<
+/Type /OutputIntent
+/S /GTS_PDFA1
+/DestOutputProfile \the\pdflastobj\space 0 R
+/OutputConditionIdentifier (sRGB)
+/Info (sRGB)
+>>
+]
+}}{}
+}{\ClassWarning{Package colorprofiles not installed}{Please install package colorprofiles}}
 \RequirePackage[labelsep=space,singlelinecheck=false,%
   font={up,small},labelfont={sf,bf},%
   listof=false]{caption}%"listof" instead of "list" for backward compatibility

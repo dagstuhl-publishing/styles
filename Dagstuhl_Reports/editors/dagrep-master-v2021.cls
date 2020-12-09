@@ -24,7 +24,7 @@
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{dagrep-master-v2021}
-[2012/12/01 v3.0 Dagstuhl Reports - Issue front matter]
+[2012/12/09 v3.0.1 Dagstuhl Reports - Issue front matter]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -383,18 +383,22 @@ pdfsubject={Dagstuhl Reports, Vol.~\@ReportsVolume{}, Issue~\@ReportsIssue{}, \@
 }
 \pdfobjcompresslevel=0
 \pdfinclusioncopyfonts=1
+\IfFileExists{colorprofiles.tex}{
+\RequirePackage{colorprofiles}%
+\IfFileExists{sRGB.icc}{
 \immediate\pdfobj stream attr{/N 3} file{sRGB.icc}
 \pdfcatalog{%
-  /OutputIntents [
-    <<
-      /Type /OutputIntent
-      /S /GTS_PDFA1
-      /DestOutputProfile \the\pdflastobj\space 0 R
-      /OutputConditionIdentifier (sRGB)
-      /Info (sRGB)
-    >>
-  ]
-}
+/OutputIntents [
+<<
+/Type /OutputIntent
+/S /GTS_PDFA1
+/DestOutputProfile \the\pdflastobj\space 0 R
+/OutputConditionIdentifier (sRGB)
+/Info (sRGB)
+>>
+]
+}}{}
+}{\ClassWarning{Package colorprofiles not installed}{Please install package colorprofiles}}
 \RequirePackage[labelsep=space,singlelinecheck=false,%
   font={up,small},labelfont={sf,bf},%
   listof=false]{caption}%"listof" instead of "list" for backward compatibility

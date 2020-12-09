@@ -1,5 +1,9 @@
 LIPICS Style - CHANGELOG
 
+* 09/12/2020 LIPIcs-v2021 v3.0.1
+    * Bugfix
+        * fixed bug related to unavailable sRGB.icc (This fixes #10)
+
 * 01/12/2020 LIPIcs-v2021 v3.0
     * New Feature
         * more compact presentation of author information (email address and homepage URL only as logo)

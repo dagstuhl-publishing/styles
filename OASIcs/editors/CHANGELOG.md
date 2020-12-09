@@ -1,5 +1,9 @@
 OASIcs Editor Style - CHANGELOG
 
+* 09/12/2020 OASIcs-v2021 v3.0.1
+    * Bugfix
+        * fixed bug related to unavailable sRGB.icc (This fixes #10)
+
 * 01/12/2020 oasicsmaster-v2021 v3.0
     * New Feature
         * adjustment of document licence to CC-BY 4.0
