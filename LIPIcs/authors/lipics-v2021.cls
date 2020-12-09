@@ -24,7 +24,7 @@
 %% -----------------------------------------------------------------
 %%
 \ProvidesClass{lipics-v2021}
-    [2020/12/01 v3.0.0 LIPIcs articles]
+    [2020/12/09 v3.0.1 LIPIcs articles]
 \NeedsTeXFormat{LaTeX2e}[2015/01/01]
 \emergencystretch1em
 \advance\hoffset-1in
