@@ -24,7 +24,7 @@
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{litesmaster-v2021}
-[2020/12/01 v2.0 LITES issue front matters]
+[2021/01/04 v2.1.0 LITES issue front matters]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -192,6 +192,7 @@
 \DeclareOption{a4paper}{\PassOptionsToClass{\CurrentOption}{book}
                         \advance\hoffset-2.95mm
                         \advance\voffset8.8mm}
+\DeclareOption{pdfa}{\let\pdfa\relax}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions
 \LoadClass[twoside,fleqn]{book}
@@ -437,12 +438,16 @@
 \lstset{basicstyle=\small\ttfamily,%
         backgroundcolor=\color[rgb]{0.85,0.85,0.86},%
         frame=single,framerule=0pt,xleftmargin=\fboxsep,xrightmargin=\fboxsep}
-\IfFileExists{hyperxmp.sty}{%
-  \RequirePackage{hyperxmp}%
-  \let\usehyperxmp\relax%
-}{
-	  \let\usehyperxmp\@empty%
-}%
+\let\usehyperxmp\@empty%
+\ifx\pdfa\relax%
+  \IfFileExists{hyperxmp.sty}{%
+    \RequirePackage{hyperxmp}%
+    \@ifpackagelater{hyperxmp}{2019/04/05}{%
+      \let\usehyperxmp\relax%
+    }{%
+      \ClassWarning{Package hyperxmp outdated}{You are using an outdated version of the package hyperxmp. Please update!}%
+    }}{}%
+\fi%
 \IfFileExists{totpages.sty}{
   \RequirePackage{totpages}
 }{
@@ -450,7 +455,11 @@
 	\newcounter{TotPages}
 	\setcounter{TotPages}{99}
 }
-\RequirePackage[pdfa,unicode]{hyperref}
+\ifx\usehyperxmp\relax%
+  \RequirePackage[pdfa,unicode]{hyperref}%
+\else%
+  \RequirePackage[unicode]{hyperref}%
+\fi%
 \let\C\relax%
 \let\G\relax%
 \let\F\relax%
@@ -505,6 +514,7 @@ pdfsubject={LITES, Vol.~\@Volume{}, Issue~\@Issue{}, \@DatePublished; Copyright 
 }%
 \fi	%
 }
+\ifx\usehyperxmp\relax
 \pdfobjcompresslevel=0
 \pdfinclusioncopyfonts=1
 \IfFileExists{colorprofiles.tex}{
@@ -523,6 +533,7 @@ pdfsubject={LITES, Vol.~\@Volume{}, Issue~\@Issue{}, \@DatePublished; Copyright 
 ]
 }}{}
 }{\ClassWarning{Package colorprofiles not installed}{Please install package colorprofiles}}
+\fi
 \RequirePackage[labelsep=space,singlelinecheck=false,%
   font={up,small},labelfont={sf,bf},%
   listof=false]{caption}%"listof" instead of "list" for backward compatibility

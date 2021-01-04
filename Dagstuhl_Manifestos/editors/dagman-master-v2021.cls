@@ -24,7 +24,7 @@
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{dagman-master-v2021}
-[2012/12/01 v3.0 Dagstuhl Manifestos - Issue front matter]
+[2021/01/04 v3.1.0 Dagstuhl Manifestos - Issue front matter]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -146,6 +146,7 @@
 \DeclareOption{twocolumn}{\@latexerr{\lipics@opterrshort}{\lipics@opterrlong}}
 \DeclareOption{fleqn}{\@latexerr{\lipics@opterrshort}{\lipics@opterrlong}}
 \DeclareOption{openbib}{\@latexerr{\lipics@opterrshort}{\lipics@opterrlong}}
+\DeclareOption{pdfa}{\let\pdfa\relax}
 \DeclareOption{a4paper}{\PassOptionsToClass{\CurrentOption}{article}
                         \advance\hoffset-2.95mm
                         \advance\voffset8.8mm}
@@ -313,19 +314,16 @@
 \def\TPTtagStyle#1{#1)}
 \def\tablenotes{\small\TPT@defaults
   \@ifnextchar[\TPT@setuptnotes\TPTdoTablenotes} % ]
-%\IfFileExists{doi.sty}
-%  {\RequirePackage{doi}%
-%   \renewcommand*{\doitext}{}}
-%  {\RequirePackage{hyperref}%
-%   \def\doi##1{##1}}
-
-%\hypersetup{pdfborder={0 0 0}}
-\IfFileExists{hyperxmp.sty}{%
-  \RequirePackage{hyperxmp}%
-  \let\usehyperxmp\relax%
-}{
-	  \let\usehyperxmp\@empty%
-}%
+\let\usehyperxmp\@empty%
+\ifx\pdfa\relax%
+  \IfFileExists{hyperxmp.sty}{%
+    \RequirePackage{hyperxmp}%
+    \@ifpackagelater{hyperxmp}{2019/04/05}{%
+      \let\usehyperxmp\relax%
+    }{%
+      \ClassWarning{Package hyperxmp outdated}{You are using an outdated version of the package hyperxmp. Please update!}%
+    }}{}%
+\fi%
 \IfFileExists{totpages.sty}{
   \RequirePackage{totpages}
 }{
@@ -333,7 +331,12 @@
 	\newcounter{TotPages}
 	\setcounter{TotPages}{99}
 }
-\RequirePackage[pdfa,unicode]{hyperref}
+\ifx\usehyperxmp\relax%
+  \RequirePackage[pdfa,unicode]{hyperref}%
+\else%
+  \RequirePackage[unicode]{hyperref}%
+\fi%
+
 \let\C\relax%
 \let\G\relax%
 \let\F\relax%
@@ -388,6 +391,7 @@ pdfsubject={Dagstuhl Manifestos, Vol.~\@ManifestosVolume{}, Issue~\@ManifestosIs
 }%
 \fi	%
 }
+\ifx\usehyperxmp\relax
 \pdfobjcompresslevel=0
 \pdfinclusioncopyfonts=1
 \IfFileExists{colorprofiles.tex}{
@@ -406,6 +410,7 @@ pdfsubject={Dagstuhl Manifestos, Vol.~\@ManifestosVolume{}, Issue~\@ManifestosIs
 ]
 }}{}
 }{\ClassWarning{Package colorprofiles not installed}{Please install package colorprofiles}}
+\fi
 \RequirePackage[labelsep=space,singlelinecheck=false,%
   font={up,small},labelfont={sf,bf},%
   listof=false]{caption}%"listof" instead of "list" for backward compatibility

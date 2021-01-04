@@ -24,7 +24,7 @@
 %% -----------------------------------------------------------------
 %%
 \ProvidesClass{oasics-v2021}
-    [2020/12/09 v3.0.1 OASIcs articles]
+    [2021/01/04 v3.1.0 OASIcs articles]
 \NeedsTeXFormat{LaTeX2e}[2015/01/01]
 \emergencystretch1em
 \advance\hoffset-1in
@@ -192,6 +192,7 @@
 \let\compactauthor\relax
 \DeclareOption{oldauthorstyle}{\let\compactauthor\@empty}
 \DeclareOption{compactauthor}{\let\compactauthor\relax}
+\DeclareOption{pdfa}{\let\pdfa\relax}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions
 \LoadClass[twoside,notitlepage,fleqn]{article}
@@ -608,12 +609,16 @@
   \patchBothAmsMathEnvironmentsForLineno{alignat}%
   \patchBothAmsMathEnvironmentsForLineno{gather}%
   \patchBothAmsMathEnvironmentsForLineno{multline}}
-\IfFileExists{hyperxmp.sty}{%
-  \RequirePackage{hyperxmp}%
-  \let\usehyperxmp\relax%
-}{
-	  \let\usehyperxmp\@empty%
-}%
+\let\usehyperxmp\@empty%
+\ifx\pdfa\relax%
+  \IfFileExists{hyperxmp.sty}{%
+    \RequirePackage{hyperxmp}%
+    \@ifpackagelater{hyperxmp}{2019/04/05}{%
+      \let\usehyperxmp\relax%
+    }{%
+      \ClassWarning{Package hyperxmp outdated}{You are using an outdated version of the package hyperxmp. Please update!}%
+    }}{}%
+\fi%
 \IfFileExists{totpages.sty}{
   \RequirePackage{totpages}
 }{
@@ -621,7 +626,11 @@
 	\newcounter{TotPages}
 	\setcounter{TotPages}{99}
 }
-\RequirePackage[pdfa,unicode]{hyperref}
+\ifx\usehyperxmp\relax%
+  \RequirePackage[pdfa,unicode]{hyperref}%
+\else%
+  \RequirePackage[unicode]{hyperref}%
+\fi%
 \let\C\relax%
 \let\G\relax%
 \let\F\relax%
@@ -675,6 +684,7 @@ pdfsubject={OASIcs, Vol.\@SeriesVolume, \@EventShortTitle; Copyright (C) \ifx\au
 }%
 \fi	%
 }
+\ifx\usehyperxmp\relax
 \pdfobjcompresslevel=0
 \pdfinclusioncopyfonts=1
 \IfFileExists{colorprofiles.tex}{
@@ -693,6 +703,7 @@ pdfsubject={OASIcs, Vol.\@SeriesVolume, \@EventShortTitle; Copyright (C) \ifx\au
 ]
 }}{}
 }{\ClassWarning{Package colorprofiles not installed}{Please install package colorprofiles}}
+\fi
 \RequirePackage[labelsep=space,singlelinecheck=false,%
   font={up,small},labelfont={sf,bf},%
   listof=false]{caption}%"listof" instead of "list" for backward compatibility

@@ -24,7 +24,7 @@
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{dagman-v2021}
-    [2020/12/09 v2.0.1 Dagstuhl Manifestos articles]
+    [2021/01/04 v2.1.0 Dagstuhl Manifestos articles]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -250,6 +250,7 @@
 \DeclareOption{twocolumn}{\@latexerr{\dagman@opterrshort}{\dagman@opterrlong}}
 \DeclareOption{fleqn}{\@latexerr{\dagman@opterrshort}{\dagman@opterrlong}}
 \DeclareOption{openbib}{\@latexerr{\dagman@opterrshort}{\dagman@opterrlong}}
+\DeclareOption{pdfa}{\let\pdfa\relax}
 \DeclareOption{a4paper}{\PassOptionsToClass{\CurrentOption}{article}
                         \advance\hoffset-2.95mm
                         \advance\voffset8.8mm}
@@ -627,12 +628,16 @@
 \lstset{basicstyle=\small\ttfamily,%
         backgroundcolor=\color[rgb]{0.85,0.85,0.86},%
         frame=single,framerule=0pt,xleftmargin=\fboxsep,xrightmargin=\fboxsep}
-\IfFileExists{hyperxmp.sty}{%
-  \RequirePackage{hyperxmp}%
-  \let\usehyperxmp\relax%
-}{
-	  \let\usehyperxmp\@empty%
-}%
+\let\usehyperxmp\@empty%
+\ifx\pdfa\relax%
+  \IfFileExists{hyperxmp.sty}{%
+    \RequirePackage{hyperxmp}%
+    \@ifpackagelater{hyperxmp}{2019/04/05}{%
+      \let\usehyperxmp\relax%
+    }{%
+      \ClassWarning{Package hyperxmp outdated}{You are using an outdated version of the package hyperxmp. Please update!}%
+    }}{}%
+\fi%
 \IfFileExists{totpages.sty}{
   \RequirePackage{totpages}
 }{
@@ -640,7 +645,11 @@
 	\newcounter{TotPages}
 	\setcounter{TotPages}{99}
 }
-\RequirePackage[pdfa,unicode]{hyperref}
+\ifx\usehyperxmp\relax%
+  \RequirePackage[pdfa,unicode]{hyperref}%
+\else%
+  \RequirePackage[unicode]{hyperref}%
+\fi%
 \let\C\relax%
 \let\G\relax%
 \let\F\relax%
@@ -695,6 +704,7 @@ pdfsubject={Dagstuhl Manifestos, Vol. \@Volume, Issue \@Issue, Seminar \@Event; 
 }%
 \fi	%
 }
+\ifx\usehyperxmp\relax
 \pdfobjcompresslevel=0
 \pdfinclusioncopyfonts=1
 \IfFileExists{colorprofiles.tex}{
@@ -713,6 +723,7 @@ pdfsubject={Dagstuhl Manifestos, Vol. \@Volume, Issue \@Issue, Seminar \@Event; 
 ]
 }}{}
 }{\ClassWarning{Package colorprofiles not installed}{Please install package colorprofiles}}
+\fi
 \RequirePackage[labelsep=space,singlelinecheck=false,%
   font={up,small},labelfont={sf,bf},%
   listof=false]{caption}%"listof" instead of "list" for backward compatibility

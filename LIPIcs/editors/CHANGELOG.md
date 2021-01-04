@@ -1,5 +1,11 @@
 LIPIcs Editor Style - CHANGELOG
 
+* 04/01/2021 lipicsmaster-v2021 v3.1.0
+    * New feature
+        * added documentclass option pdfa to explicitly enable generation of PDF according PDF/A standard
+    * Bugfix
+        * fixed problems when using old versions of hyperxmp package (This fixes #11)
+
 * 09/12/2020 lipicsmaster-v2021 v3.0.1
     * Bugfix
         * fixed bug related to unavailable sRGB.icc (This fixes #10)

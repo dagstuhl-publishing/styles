@@ -24,7 +24,7 @@
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{dagrep-v2021}
-    [2020/12/09 v3.0.1 Dagstuhl Reports articles]
+    [2021/01/04 v3.1.0 Dagstuhl Reports articles]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -212,6 +212,7 @@
 \DeclareOption{twocolumn}{\@latexerr{\dagrep@opterrshort}{\dagrep@opterrlong}}
 \DeclareOption{fleqn}{\@latexerr{\dagrep@opterrshort}{\dagrep@opterrlong}}
 \DeclareOption{openbib}{\@latexerr{\dagrep@opterrshort}{\dagrep@opterrlong}}
+\DeclareOption{pdfa}{\let\pdfa\relax}
 \DeclareOption{a4paper}{\PassOptionsToClass{\CurrentOption}{article}
                         \advance\hoffset-2.95mm
                         \advance\voffset8.8mm}
@@ -571,12 +572,16 @@
 \lstset{basicstyle=\small\ttfamily,%
         backgroundcolor=\color[rgb]{0.85,0.85,0.86},%
         frame=single,framerule=0pt,xleftmargin=\fboxsep,xrightmargin=\fboxsep}
-\IfFileExists{hyperxmp.sty}{%
-  \RequirePackage{hyperxmp}%
-  \let\usehyperxmp\relax%
-}{
-	  \let\usehyperxmp\@empty%
-}%
+\let\usehyperxmp\@empty%
+\ifx\pdfa\relax%
+  \IfFileExists{hyperxmp.sty}{%
+    \RequirePackage{hyperxmp}%
+    \@ifpackagelater{hyperxmp}{2019/04/05}{%
+      \let\usehyperxmp\relax%
+    }{%
+      \ClassWarning{Package hyperxmp outdated}{You are using an outdated version of the package hyperxmp. Please update!}%
+    }}{}%
+\fi%
 \IfFileExists{totpages.sty}{
   \RequirePackage{totpages}
 }{
@@ -584,7 +589,11 @@
 	\newcounter{TotPages}
 	\setcounter{TotPages}{99}
 }
-\RequirePackage[pdfa,unicode]{hyperref}
+\ifx\usehyperxmp\relax%
+  \RequirePackage[pdfa,unicode]{hyperref}%
+\else%
+  \RequirePackage[unicode]{hyperref}%
+\fi%
 \let\C\relax%
 \let\G\relax%
 \let\F\relax%
@@ -638,6 +647,7 @@ pdfsubject={Dagstuhl Reports, Vol. \@Volume, Issue \@Issue, Seminar \@Event; Cop
 }%
 \fi	%
 }
+\ifx\usehyperxmp\relax
 \pdfobjcompresslevel=0
 \pdfinclusioncopyfonts=1
 \IfFileExists{colorprofiles.tex}{
@@ -656,6 +666,7 @@ pdfsubject={Dagstuhl Reports, Vol. \@Volume, Issue \@Issue, Seminar \@Event; Cop
 ]
 }}{}
 }{\ClassWarning{Package colorprofiles not installed}{Please install package colorprofiles}}
+\fi
 \def\addbookmarkline#1#2#3{% toc extension, type, tag
   \begingroup
     \let\label\@gobble
