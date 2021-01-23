@@ -555,7 +555,7 @@
 \RequirePackage{babel}
 \RequirePackage[tbtags,fleqn]{amsmath}
 \AtBeginDocument{
-	\@ifpackageloaded{enumitem}{\ClassWarning{Package 'enuitem' incompatible}{Don't use package 'enumitem'; Package enumerate preloaded!}}{}
+	\@ifpackageloaded{enumitem}{\ClassWarning{Package 'enumitem' incompatible}{Don't use package 'enumitem'; Package enumerate preloaded!}}{}
 	\@ifpackageloaded{paralist}{\ClassWarning{Package 'paralist' incompatible}{Don't use package 'paralist'; Package enumerate preloaded!}}{}
 }
 \RequirePackage{enumerate}
