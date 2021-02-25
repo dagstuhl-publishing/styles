@@ -24,7 +24,7 @@
 %% -----------------------------------------------------------------
 %%
 \ProvidesClass{oasics-v2021}
-    [2021/01/04 v3.1.0 OASIcs articles]
+    [2021/02/25 v3.1.1 OASIcs articles]
 \NeedsTeXFormat{LaTeX2e}[2015/01/01]
 \emergencystretch1em
 \advance\hoffset-1in

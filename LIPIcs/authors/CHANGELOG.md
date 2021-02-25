@@ -1,5 +1,9 @@
 LIPICS Style - CHANGELOG
 
+* 25/02/2021 lipics-v2021 v3.1.1
+  * Bugfix
+        * corrected typo
+
 * 04/01/2021 lipics-v2021 v3.1.0
     * New feature
         * added documentclass option pdfa to explicitly enable generation of PDF according PDF/A standard

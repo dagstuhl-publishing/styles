@@ -1,5 +1,8 @@
 LIPIcs Editor Style - CHANGELOG
 
+* 25/02/2021 lipicsmaster-v2021 v3.1.1
+    * no changes
+
 * 04/01/2021 lipicsmaster-v2021 v3.1.0
     * New feature
         * added documentclass option pdfa to explicitly enable generation of PDF according PDF/A standard

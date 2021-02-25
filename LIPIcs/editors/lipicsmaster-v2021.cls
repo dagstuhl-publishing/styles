@@ -24,7 +24,7 @@
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{lipicsmaster-v2021}
-[2021/01/04 v3.1.0 LIPIcs volume front matters]
+[2021/02/25 v3.1.1 LIPIcs volume front matters]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
