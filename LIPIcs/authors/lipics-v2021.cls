@@ -450,7 +450,7 @@
    \fi
    \ifx\@supplement\@empty\else
      \vskip\topmattervskip\baselineskip\noindent
-     \supplementHeading\ifx\authoranonymous\relax\textcolor{red}{Anonymous supplemenatary material}\else\@supplement\fi
+     \supplementHeading\ifx\authoranonymous\relax\textcolor{red}{Anonymous supplementary material}\else\@supplement\fi
    \fi
    \ifx\@funding\@empty\else
      \vskip\topmattervskip\baselineskip\noindent
