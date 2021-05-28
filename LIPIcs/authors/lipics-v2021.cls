@@ -1102,11 +1102,8 @@ pdfsubject={LIPIcs, Vol.\@SeriesVolume, \@EventShortTitle; Copyright (C) \ifx\au
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \ifx\numberwithinsect\relax
-  \@addtoreset{theorem}{section}
-  \expandafter\def\expandafter\thetheorem\expandafter{%
-    \expandafter\thesection\expandafter\@thmcountersep\thetheorem}
+  \numberwithin{theorem}{section}
 \fi
-
 \ifx\useautoref\relax
 	\addto\extrasenglish{%
 		\def\chapterautorefname{Chapter}%
@@ -1201,6 +1198,20 @@ pdfsubject={LIPIcs, Vol.\@SeriesVolume, \@EventShortTitle; Copyright (C) \ifx\au
 		\aliascntresetthe{claim}
 		\newcommand{\claimautorefname}{Claim}
 		\newtheorem*{claim*}{Claim}
+		\ifx\numberwithinsect\relax
+			\numberwithin{theorem}{section}
+			\numberwithin{lemma}{section}
+			\numberwithin{corollary}{section}
+			\numberwithin{proposition}{section}
+			\numberwithin{exercise}{section}
+			\numberwithin{definition}{section}
+			\numberwithin{conjecture}{section}
+			\numberwithin{observation}{section}
+			\numberwithin{example}{section}
+			\numberwithin{note}{section}
+			\numberwithin{remark}{section}
+			\numberwithin{claim}{section}
+		\fi
 	\fi
 \else
 	\newtheorem{lemma}[theorem]{Lemma}
