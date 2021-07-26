@@ -1,12 +1,12 @@
 %%
 %% This is file `lites-v2021.cls'.
-%% 
+%%
 %% -----------------------------------------------------------------
 %% Author:     le-tex publishing services
-%% 
+%%
 %% This file is part of the lites package for preparing
 %% LITES articles.
-%% 
+%%
 %% Copyright (C) 2020 Schloss Dagstuhl
 %%
 %% This work may be distributed and/or modified under the
@@ -18,12 +18,12 @@
 %% version 2005/12/01 or later.
 %%
 %% This work has the LPPL maintenance status `maintained'.
-%% 
-%% The Current Maintainer of this work is 
+%%
+%% The Current Maintainer of this work is
 %% Schloss Dagstuhl (publishing@dagstuhl.de).
 %% -----------------------------------------------------------------
 \ProvidesClass{lites-v2021}
-    [2021/01/04 v2.1.0 LITES articles]
+    [2021/05/20 v2.1.1 LITES articles]
 \NeedsTeXFormat{LaTeX2e}[2015/01/01]
 \emergencystretch1em
 \advance\hoffset-1in
@@ -430,15 +430,15 @@
    \fontsize{9}{12}\selectfont
    \noindent\ignorespaces}
   {\end{multicols}%
-   \vskip0.5\baselineskip\noindent
+   \vskip0.3\baselineskip\noindent
    \begin{colbox}
      \fontsize{9}{12}\selectfont
      \vskip0.3\baselineskip\noindent
      \subjclassHeading
-     \ifx\@subjclass\@empty
-      \textcolor{red}{MANDATORY:  Please refer to \url{www.acm.org/about/class/2012}}
+     \ifx\@ccsdescString\@empty
+     \textcolor{red}{Author: Please fill in 1 or more \string\ccsdesc\space macro}%
      \else
-      \@subjclass
+     \@ccsdescString
      \fi
      \vskip0.1\baselineskip\noindent
      \keywordsHeading
@@ -485,7 +485,7 @@
       \@DatePublished\space
      \fi
      \ifx\@SectionAreaEditor\@empty\else
-      \vskip0.9\baselineskip\noindent
+      \vskip0.1\baselineskip\noindent
       \@SectionAreaEditorHeading\@SectionAreaEditor
      \fi
      \ifx\@SpecialIssue\@empty\else
@@ -782,12 +782,10 @@ pdfsubject={LITES, Vol. \@Volume, Issue \@Issue, Artilce \@Article; Copyright (C
 \captionsetup{labelformat=boxed}
 \captionsetup[table]{position=top}
 \RequirePackage[figuresright]{rotating}
-\RequirePackage[figuresright]{rotating}
 \caption@AtBeginDocument{\@ifpackageloaded{subfig}{\ClassError{lites}{%
   Do not load the subfig package}{The more recent subcaption package is already loaded}}{}}
 \RequirePackage{subcaption}
 \usepackage{xstring}
-\newcommand\ccsdesc[2][100]{\StrSubstitute{#2}{~}{ $\rightarrow$ }}
 \def\titlerunning#1{\gdef\@titlerunning{{\let\footnote\@gobble\markboth{#1}{#1}}}}
 \def\authorrunning#1{%
   \gdef\@authorrunning{\expandafter\def\expandafter\@tempa\expandafter{#1}%
@@ -922,7 +920,7 @@ pdfsubject={LITES, Vol. \@Volume, Issue \@Issue, Artilce \@Article; Copyright (C
 	\endgroup%
 }%
 \def\relatedversionHeading{%
-  \textcolor{lipicsGray}{\fontsize{9}{12}\sffamily\bfseries
+  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
                        Related Version\enskip}}
 \def\supplement#1{\def\@supplement{#1}}
 \let\@supplement\@empty
@@ -960,7 +958,7 @@ pdfsubject={LITES, Vol. \@Volume, Issue \@Issue, Artilce \@Article; Copyright (C
 	\endgroup%
 }%
 \def\supplementHeading{%
-  \textcolor{lipicsGray}{\fontsize{9}{12}\sffamily\bfseries
+  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
                        Supplementary Material\enskip}}
 \newcommand\flag[2][0.9cm]{%
     \leavevmode\marginpar{%
@@ -982,7 +980,35 @@ pdfsubject={LITES, Vol. \@Volume, Issue \@Issue, Artilce \@Article; Copyright (C
 \def\keywordsHeading{%
   \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
                        Keywords and Phrases\enskip}}
-\def\subjclass#1{\gdef\@subjclass{#1}}
+\RequirePackage{comment}
+\excludecomment{CCSXML}
+% inspired by https://tex.stackexchange.com/questions/12810/how-do-i-split-a-string
+\global\newcommand\ccsdesc[2][100]{\@ccsdesc#1~#2~~\relax}
+\let\orig@ccsdesc\@ccsdesc
+\let\@ccsdesc\@empty
+\let\@ccsdescString\@empty
+\gdef\@ccsdesc#1~#2~#3~{
+	\ifx\@ccsdesc\orig@ccsdesc\let\@ccsdesc\@empty\fi
+	\ifx!#3!
+		\ifx\@ccsdescString\@empty
+			\g@addto@macro\@ccsdescString{{#2}}
+		\else
+			\g@addto@macro\@ccsdescString{; {#2}}
+		\fi
+	\else
+		\ifx\@ccsdescString\@empty
+			\g@addto@macro\@ccsdescString{{#2} $\rightarrow$ {#3}}
+		\else
+			\g@addto@macro\@ccsdescString{; {#2} $\rightarrow$ {#3}}
+		\fi
+	\fi
+\ccsdescEnd
+}
+\def\ccsdescEnd#1\relax{}
+\def\subjclass#1{
+  \ClassError{lites}
+    {\string\subjclass\space deprecated: Please enter subject classification in 1 or more ccsdesc macros}
+    {Since 2020, \string\subjclass\space is obsolete in lites.}}
 \let\@subjclass\@empty
 \def\subjclassHeading{%
   \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
