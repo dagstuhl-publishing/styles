@@ -1,12 +1,12 @@
 %%
-%% This is file `dagman-v2018.cls'.
-%% 
+%% This is file `dagman-v2021.cls'.
+%%
 %% -----------------------------------------------------------------
 %% Author:     Dagstuhl Publishing & le-tex publishing services
-%% 
+%%
 %% This file is part of the dagman package for preparing
 %% manifestos for the "Dagstuhl Manifestos" journal.
-%% 
+%%
 %% Copyright (C) 2018 Schloss Dagstuhl
 %%
 %% This work may be distributed and/or modified under the
@@ -18,13 +18,13 @@
 %% version 2005/12/01 or later.
 %%
 %% This work has the LPPL maintenance status `maintained'.
-%% 
-%% The Current Maintainer of this work is 
+%%
+%% The Current Maintainer of this work is
 %% Schloss Dagstuhl (publishing@dagstuhl.de).
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{dagman-v2021}
-    [2021/01/04 v2.1.0 Dagstuhl Manifestos articles]
+    [2021/03/18 v3.0.0 Dagstuhl Manifestos articles]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -382,12 +382,12 @@
   \parindent\z@ \raggedright
     {\large\sffamily\@subject \par}%
     {\LARGE\sffamily\mathversion{bold}\@title \par}%
-    \vskip 1.5em%
+    \vskip 1.2em%
     \ifnum\c@authors=0 %
       \@latexerr{No \noexpand\author given}%
         {Provide at least one author. See the Dagstuhl Manifestos class documentation.}%
     \else
-      {\fontsize{9.5}{12}\bfseries Edited by\vskip0.5ex}%
+      %{\fontsize{9.5}{12}\bfseries Edited by\vskip0.5ex}%
       \@author
     \fi
   \par}
@@ -483,24 +483,26 @@
 \renewcommand*\descriptionlabel[1]{%
   \hspace\labelsep\textcolor{darkgray}{\sffamily\bfseries\mathversion{bold}#1}}
 \renewenvironment{abstract}{%
-  \vskip\bigskipamount
+%  \vskip0.1\bigskipamount
   \noindent
   \rlap{\color[rgb]{0.51,0.50,0.52}\vrule\@width\textwidth\@height1\p@}%
   \hspace*{7mm}\fboxsep1.5mm\colorbox[rgb]{1,1,1}{\raisebox{-0.4ex}{%
     \large\selectfont\sffamily\bfseries\abstractname}}%
-  \vskip3\p@
-  \fontsize{9.5}{12.5}\selectfont
+  \vskip1\p@
+  \fontsize{9.5}{12}\selectfont
   \noindent\ignorespaces}
   {\par
-   \vskip0.5\baselineskip
+   \vskip0.2\baselineskip
    \ifx\@semdata\@empty\else
      \noindent\hangindent\parindent
      \semdataHeading\@semdata\par
    \fi
-   \ifx\@subjclass\@empty\else
      \noindent\hangindent\parindent
-     \subjclassHeading\@subjclass\par
-   \fi
+     \subjclassHeading\ifx\@ccsdescString\@empty%
+     \textcolor{red}{Author: Please fill in 1 or more \string\ccsdesc\space macro}%
+   \else%
+     \@ccsdescString
+   \fi\par
    \ifx\@keywords\@empty\else
      \noindent\hangindent\parindent
      \keywordsHeading\@keywords\par
@@ -512,7 +514,16 @@
    \ifx\@additionaleditors\@empty\else
      \noindent
      \additionaleditorsHeading\@additionaleditors\hangindent\parindent\par
-   \fi}
+   \fi
+   \ifx\@funding\@empty\else
+     \noindent\hangindent\parindent
+     \fundingHeading\@funding\par
+   \fi
+   \ifx\@acknowledgements\@empty\else
+     \noindent\hangindent\parindent
+     \acknowledgementsHeading\@acknowledgements\par
+   \fi
+}
 \renewenvironment{thebibliography}[1]
   {\if@noskipsec \leavevmode \fi
    \par
@@ -564,6 +575,17 @@
 \pdfgentounicode=1
 }{}%
 \IfFileExists{lmodern.sty}{\RequirePackage{lmodern}}{}
+\IfFileExists{fontawesome5.sty}{%
+\RequirePackage{fontawesome5}%
+\IfFileExists{orcid.pdf}{%
+\def\orcidsymbol{\includegraphics[height=9\p@]{orcid}}
+}{
+\def\orcidsymbol{\textcolor{darkgray}{\fontsize{9.5}{12}\sffamily\bfseries \faOrcid}}%
+}
+}{%
+\ClassWarning{Package fontawesome5 not installed}{Please install package fontawesome5}
+\def\orcidsymbol{\textcolor{darkgray}{\fontsize{9.5}{12}\sffamily\bfseries ORCID}}
+}%
 \RequirePackage[T1]{fontenc}
 \RequirePackage{textcomp}
 \RequirePackage[mathscr]{eucal}
@@ -748,18 +770,60 @@ pdfsubject={Dagstuhl Manifestos, Vol. \@Volume, Issue \@Issue, Seminar \@Event; 
    \gdef\@Event{#3}%
    \gdef\@Volume{#4}%
    \gdef\@Issue{#5}%
+   \gdef\@FirstPage{#6}%
    \setcounter{page}{#6}}}
 \volumeinfo{}{1}{}{}{}{1}
+\def\and{\leavevmode\unskip\ignorespaces;\xspace}
 \RequirePackage{authblk}
 \renewcommand*\Authand{{ and }}
 \renewcommand*\Authfont{\Large\bfseries\mathversion{bold}}
 \renewcommand*\AB@authnote[1]{\textsuperscript{#1}}
 \renewcommand*\AB@affilnote[1]{\protect\item[#1]}
 \renewcommand*\Affilfont{\fontsize{9.5}{12}\selectfont}
-\setlength\affilsep{\baselineskip}
+\setlength\affilsep{0.8\baselineskip}
 \newcommand\AB@authrunning{}
 \newcommand\AB@authfortoc{}
-\renewcommand\author[2][]%
+\let\@showEditorFootnote\relax
+\newcommand{\editor}[5]{
+	\ifx\@showEditorFootnote\relax
+		\author{#1\footnote{Editor\,/\,Organizer \protect\label{fn:editor}}}{#2}{#3}{#4}{#5}%
+		\let\@showEditorFootnote\true%
+	\else
+		\author{#1\textsuperscript{\normalfont\ref{fn:editor}}}{#2}{#3}{#4}{#5}%
+	\fi
+}
+\let\@showCollectorFootnote\relax
+\newcommand{\collector}[5]{
+	\ifx\@showCollectorFootnote\relax
+		\author{#1\footnote{Editorial Assistant\,/\,Collector \protect\label{fn:collector}}}{#2}{#3}{#4}{#5}%
+		\let\@showCollectorFootnote\true%
+	\else
+		\author{#1\textsuperscript{\normalfont\ref{fn:collector}}}{#2}{#3}{#4}{#5}%
+	\fi
+}
+\def\funding#1{%
+\ifx\@funding\@empty%
+      \def\@funding{#1}%
+    \else%
+      \let\orig@funding\@funding
+     \def\@funding{#1\\\orig@funding}%
+    \fi%
+}
+\let\@funding\@empty
+\usepackage{letltxmacro}
+\newcommand*{\gobblemyopt}[2][]{\@bsphack\@esphack}
+\renewcommand{\author}[5]{%
+  \authorInternal{#1}%
+  \affilInternal{#2}{#3}{#4}%
+  \if!#5!\else%
+    \ifx\@funding\@empty%
+      \expandafter\g@addto@macro\expandafter\@funding{\textit{\expandafter{\let\footnote\gobblemyopt \let\footnotemark\gobblemyopt \let\textsuperscript\@gobble #1}}:\space{#5}}%
+    \else%
+      \expandafter\g@addto@macro\expandafter\@funding{\\\textit{\expandafter{\let\footnote\gobblemyopt \let\footnotemark\gobblemyopt \let\textsuperscript\@gobble #1}}:\space{#5}}%
+    \fi%
+  \fi%
+}
+\newcommand\authorInternal[2][]%
       {\ifnewaffil\addtocounter{affil}{1}%
        \edef\AB@thenote{\arabic{affil}}\fi
       \if\relax#1\relax\def\AB@note{\AB@thenote}\else\def\AB@note{#1}%
@@ -769,7 +833,7 @@ pdfsubject={Dagstuhl Manifestos, Vol. \@Volume, Issue \@Issue, Seminar \@Event; 
       \addtocounter{authors}{1}%
       \begingroup
           \let\protect\@unexpandable@protect \let\and\AB@pand
-          \def\thanks{\protect\thanks}\def\footnote{\protect\footnote}%
+          \def\thanks{\protect\thanks}\def\footnote{\protect\footnote}\def\footnotemark{\protect\footnotemark}%
          \@temptokena=\expandafter{\AB@authors}%
          {\def\\{\protect\\[\@affilsep]\protect\Affilfont
               \protect\AB@resetsep}%
@@ -804,24 +868,33 @@ pdfsubject={Dagstuhl Manifestos, Vol. \@Volume, Issue \@Issue, Seminar \@Event; 
       \@namedef{@sep\number\c@authors}{\Authands}\fi
       \newaffilfalse
 }
-\renewcommand\affil[2][]%
+\usepackage{xspace}
+\newbox{\orcidbox}
+\savebox{\orcidbox}{\orcidsymbol}
+\newcommand{\orcid}[1]{%
+  \href{#1}{\usebox{\orcidbox}}}
+\newcommand\affilInternal[4][]%
    {\newaffiltrue\let\AB@blk@and\AB@pand
       \if\relax#1\relax\def\AB@note{\AB@thenote}\else\def\AB@note{#1}%
         \setcounter{Maxaffil}{0}\fi
       \begingroup
         \let\protect\@unexpandable@protect
-        \def\thanks{\protect\thanks}\def\footnote{\protect\footnote}%
+        \def\thanks{\protect\thanks}\def\footnote{\protect\footnote}\def\footnotemark{\protect\footnotemark}%
         \@temptokena=\expandafter{\AB@authors}%
         {\def\\{\protect\\\protect\Affilfont}\xdef\AB@temp{#2}}%
          \xdef\AB@authors{\the\@temptokena\AB@las\AB@au@str
          \protect\\[\affilsep]\protect\Affilfont\AB@temp}%
          \gdef\AB@las{}\gdef\AB@au@str{}%
-        {\xdef\AB@temp{#2}}%
+        {\xdef\AB@temp{\if\relax#4\else\orcid{#4}\,\,\fi#2\ignorespaces\if\relax#3\else\xspace. \href{mailto:#3}{\texttt{#3}}\fi}}%
         \@temptokena=\expandafter{\AB@affillist}%
         \xdef\AB@affillist{\the\@temptokena \AB@affilsep
           \AB@affilnote{\AB@note}\protect\Affilfont\AB@temp}%
       \endgroup
        \let\AB@affilsep\AB@affilsepx}
+\renewcommand*\affil[2][]{%
+  \ClassError{dagman}
+    {\string\affil\space deprecated: Please enter affiliation as second parameter of the author macro}
+    {Since 2021, \string\affil\space is obsolete in dagman.}}
 \renewcommand\@author{\ifx\AB@affillist\AB@empty\AB@authrunning\else
       \ifnum\value{affil}>\value{Maxaffil}\def\rlap##1{##1}%
     \AB@authlist\\[\affilsep]
@@ -831,21 +904,55 @@ pdfsubject={Dagstuhl Manifestos, Vol. \@Volume, Issue \@Issue, Seminar \@Event; 
       \AB@affillist
     \endlist
     \else  \AB@authors\fi\fi}
-\usepackage{xstring}
-\newcommand\ccsdesc[2][100]{\StrSubstitute{#2}{~}{ $\rightarrow$ }}
+\RequirePackage{comment}
+\excludecomment{CCSXML}
+% inspired by https://tex.stackexchange.com/questions/12810/how-do-i-split-a-string
+\global\newcommand\ccsdesc[2][100]{\@ccsdesc#1~#2~~\relax}
+\let\orig@ccsdesc\@ccsdesc
+\let\@ccsdesc\@empty
+\let\@ccsdescString\@empty
+\gdef\@ccsdesc#1~#2~#3~{
+	\ifx\@ccsdesc\orig@ccsdesc\let\@ccsdesc\@empty\fi
+	\ifx!#3!
+		\ifx\@ccsdescString\@empty
+			\g@addto@macro\@ccsdescString{{#2}}
+		\else
+			\g@addto@macro\@ccsdescString{; {#2}}
+		\fi
+	\else
+		\ifx\@ccsdescString\@empty
+			\g@addto@macro\@ccsdescString{{#2} $\rightarrow$ {#3}}
+		\else
+			\g@addto@macro\@ccsdescString{; {#2} $\rightarrow$ {#3}}
+		\fi
+	\fi
+\ccsdescEnd
+}
+\def\ccsdescEnd#1\relax{}
+\def\subjclass#1{
+  \ClassError{dagman}
+    {\string\subjclass\space deprecated: Please enter subject classification in 1 or more ccsdesc macros}
+    {Since 2021, \string\subjclass\space is obsolete in dagman.}}
+\let\@subjclass\@empty
 \def\keywords#1{\def\@keywords{#1}}
 \let\@keywords\@empty
 \def\keywordsHeading{%
-  \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
+  \textcolor{darkgray}{\fontsize{9.5}{12}\sffamily\bfseries
                        Keywords and phrases\enskip}}
-\def\subjclass#1{\gdef\@subjclass{#1}}
-\let\@subjclass\@empty
 \def\subjclassHeading{%
-  \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
+  \textcolor{darkgray}{\fontsize{9.5}{12}\sffamily\bfseries
                        2012 ACM Subject Classification\enskip}}
 \def\doiHeading{%
-  \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
+  \textcolor{darkgray}{\fontsize{9.5}{12}\sffamily\bfseries
                        Digital Object Identifier\enskip}}
+\def\fundingHeading{%
+  \textcolor{darkgray}{\fontsize{9.5}{12}\sffamily\bfseries
+                      Funding\enskip}}
+\def\acknowledgements#1{\def\@acknowledgements{#1}}
+\let\@acknowledgements\@empty
+\def\acknowledgementsHeading{%
+  \textcolor{darkgray}{\fontsize{9.5}{12}\sffamily\bfseries
+                      Acknowledgements\enskip}}
 \def\subject#1{\gdef\@subject{#1}}
 \subject{}
 \def\seminarnumber#1{\gdef\@seminarnumber{#1}}
@@ -853,14 +960,16 @@ pdfsubject={Dagstuhl Manifestos, Vol. \@Volume, Issue \@Issue, Seminar \@Event; 
 \def\semdata#1{\gdef\@semdata{#1}}
 \semdata{}
 \def\semdataHeading{%
-  \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
+  \textcolor{darkgray}{\fontsize{9.5}{12}\sffamily\bfseries
                        Perspectives Workshop\enskip}}
 \def\DOI#1{\gdef\@DOI{#1}}
-\DOI{}
+\def\DOIPrefix#1{\gdef\@DOIPrefix{#1}}
+\DOIPrefix{10.4230/DagMan}
+\DOI{\@DOIPrefix.\@Volume.\@Issue.\@FirstPage}
 \def\additionaleditors#1{\gdef\@additionaleditors{#1}}
 \additionaleditors{}
 \def\additionaleditorsHeading{%
-  \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
+  \textcolor{darkgray}{\fontsize{9.5}{12}\sffamily\bfseries
                        Edited in cooperation with\enskip}}
 \newcommand*\summaryauthor{\@dblarg{\@summaryauthor}}
 \def\@summaryauthor[#1]#2{%
@@ -874,12 +983,22 @@ pdfsubject={Dagstuhl Manifestos, Vol. \@Volume, Issue \@Issue, Seminar \@Event; 
   \refstepcounter{absaut}%
   \subsection}
 \newcounter{absaut}
-\newcommand*\abstractauthor{\@dblarg{\@abstractauthor}}
-\def\@abstractauthor[#1]#2{%
-  \textit{#2}\@@par
-  \protected@write\@auxout{}{%
-    \string\newlabel{absaut\theabsaut}{{\theabsaut}{\thepage}{#1}{\@currentHref}{}}}%
-  \@xsect{2.3ex \@plus.2ex}}
+\newcommand*\abstractauthor{\@abstractauthor}
+\let\@authorblock\@empty
+\let\@licensestring\@empty
+\newcommand{\@abstractauthor}[4]{%
+	\ifx\@authorblock\@empty%
+      \expandafter\g@addto@macro\expandafter\@authorblock{\textit{#1}\xspace(\if\relax#4\else\orcid{#4}\,\,\fi\textit{#2}\ignorespaces\if\relax#3\else\xspace. \href{mailto:#3}{\texttt{#3}}\fi)}%
+    \else%
+      \expandafter\g@addto@macro\expandafter\@authorblock{;\xspace\textit{#1} (\if\relax#4\else\orcid{#4}\,\,\fi#2\ignorespaces\if\relax#3\else\xspace. \href{mailto:#3}{\texttt{#3}}\fi)}%
+    \fi%
+	\ifx\@licensestring\@empty%
+      \expandafter\g@addto@macro\expandafter\@licensestring{\textit{#1}}%
+    \else%
+      \expandafter\g@addto@macro\expandafter\@licensestring{;\xspace\textit{#1}}%
+    \fi%
+
+}
 \def\@preambleentryheading#1{\scriptsize\sffamily\bfseries#1\enskip}
 \long\def\@preambleentry#1#2{%
   \ifx\@abstractpreamble\@undefined\let\@abstractpreamble\relax\else\vskip-\lastskip\fi
@@ -896,13 +1015,20 @@ pdfsubject={Dagstuhl Manifestos, Vol. \@Volume, Issue \@Issue, Seminar \@Event; 
   \vskip2.3ex \@plus.2ex\@minus\z@
   \@afterheading}
 \newcommand*\jointwork[1]{\@preambleentry{Joint work of}{#1}}
-\newcommand\license{\@preambleentry{License}{%
+\newcommand\license{
+  \@authorblock\par\@xsect{2.3ex \@plus.2ex}%%
+  \protected@write\@auxout{}{%
+    \string\newlabel{absaut\theabsaut}{{\theabsaut}{\thepage}{\@licensestring}{\@currentHref}{}}}%
+  \@preambleentry{License}{%
   \href{https://creativecommons.org/licenses/by/4.0/}%
        {\raise-2\p@\hb@xt@1.45em{% 4.2
           \includegraphics[height=7.5\p@,clip]{cc}\enskip\hfil}}%
   \href{https://creativecommons.org/licenses/by/4.0/}
                {Creative Commons BY 4.0 International} license\newline
-  \null\hb@xt@1.45em{\hfil\textsf{\textcopyright}\hfil\enskip}\nameref{absaut\theabsaut}}}
+  \null\hb@xt@1.45em{\hfil\textsf{\textcopyright}\hfil\enskip}\nameref{absaut\theabsaut}}
+  \let\@authorblock\@empty
+  \let\@licensestring\@empty
+}
 \newcommand*\abstractref{\@dblarg{\@abstractref}}
 \def\@abstractref[#1]#2{\@preambleentry{Main reference}{\href{#1}{#2}}}
 \newcommand*\abstractrefurl[1]{\@preambleentry{URL}{\href{#1}{#1}}}

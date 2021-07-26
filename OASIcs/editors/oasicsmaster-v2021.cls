@@ -24,7 +24,7 @@
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{oasicsmaster-v2021}
-[2021/02/25 v3.1.1 OASIcs volume front matters]
+[2021/06/25 v3.1.2 OASIcs volume front matters]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -129,16 +129,17 @@
   \@xsect{#5}}
 \def\@seccntformat#1{\csname the#1\endcsname}
 \def\@biblabel#1{\textcolor{darkgray}{\sffamily\bfseries#1}}
+\def\EventLogoHeight{25}
 \def\copyrightline{%
   \ifx\@hideOASIcs\@undefined
 	\ifx\@EventLogo\@empty
 	\ifx\@serieslogo\@empty
     \else
-      \setbox\@tempboxa\hbox{\includegraphics[height=25\p@]{\@serieslogo}}% 56
+      \setbox\@tempboxa\hbox{\includegraphics[height=\EventLogoHeight\p@]{\@serieslogo}}% 56
       \rlap{\hspace\textwidth\hspace{-\wd\@tempboxa}\hspace{\z@}\vtop to\z@{\vskip-0mm\unhbox\@tempboxa\vss}}%
     \fi
 	\else
-      \setbox\@tempboxa\hbox{\includegraphics[height=25\p@]{\@EventLogo}}% 56
+      \setbox\@tempboxa\hbox{\includegraphics[height=\EventLogoHeight\p@]{\@EventLogo}}% 56
       \rlap{\hspace\textwidth\hspace{-\wd\@tempboxa}\hspace{\z@}\vtop to\z@{\vskip-0mm\unhbox\@tempboxa\vss}}%
     \fi
     \scriptsize

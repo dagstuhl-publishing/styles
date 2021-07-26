@@ -1,5 +1,9 @@
 OASIcs Editor Style - CHANGELOG
 
+* 25/06/2021 oasicsmaster-v2021 v3.1.2
+    * New Feature
+        * added support to modify logo height (EventLogoHeight)
+
 * 25/02/2021 oasicsmaster-v2021 v3.1.1
   * Bugfix
         * exchanged OASIcs logos to ensure PDF/A compliance

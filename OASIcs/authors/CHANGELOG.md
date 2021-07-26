@@ -1,5 +1,13 @@
 OASIcs Style - CHANGELOG
 
+* 04/05/2021 OASIcs-v2021 v3.1.2
+  * New feature
+        * added optional \subtitle
+        * revised displaying of swhids (hid contextual information)
+  * Bugfix
+        * fixed problem with numberwithinsect in combination with thm-restate,cleveref, autoref (This fixes #15)
+        * Fixing "supplemenatary" typo #14
+
 * 25/02/2021 OASIcs-v2021 v3.1.1
   * Bugfix
         * exchanged OASIcs logos to ensure PDF/A compliance

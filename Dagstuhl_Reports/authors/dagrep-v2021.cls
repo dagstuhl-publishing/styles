@@ -1,5 +1,5 @@
 %%
-%% This is file `dagrep-v2019.cls'.
+%% This is file `dagrep-v2021.cls'.
 %% 
 %% -----------------------------------------------------------------
 %% Author:     le-tex publishing services
@@ -24,7 +24,7 @@
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{dagrep-v2021}
-    [2021/01/04 v3.1.0 Dagstuhl Reports articles]
+    [2021/07/05 v3.1.1 Dagstuhl Reports articles]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -456,10 +456,13 @@
      \noindent\hangindent\parindent
      \semdataHeading\@semdata\par
    \fi
-   \ifx\@subjclass\@empty\else
      \noindent\hangindent\parindent
-     \subjclassHeading\@subjclass\par
-   \fi
+     \subjclassHeading
+   \ifx\@ccsdescString\@empty
+     \textcolor{red}{Author: Please fill in 1 or more \string\ccsdesc\space macro}%
+   \else
+     \@ccsdescString%
+   \fi\par
    \ifx\@keywords\@empty\else
      \noindent\hangindent\parindent
      \keywordsHeading\@keywords\par
@@ -811,14 +814,40 @@ pdfsubject={Dagstuhl Reports, Vol. \@Volume, Issue \@Issue, Seminar \@Event; Cop
       \AB@affillist
     \endlist
     \else  \AB@authors\fi\fi}
-\usepackage{xstring}
-\newcommand\ccsdesc[2][100]{\StrSubstitute{#2}{~}{ $\rightarrow$ }}
 \def\keywords#1{\def\@keywords{#1}}
 \let\@keywords\@empty
 \def\keywordsHeading{%
   \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
                        Keywords and phrases\enskip}}
-\def\subjclass#1{\gdef\@subjclass{#1}}
+\RequirePackage{comment}
+\excludecomment{CCSXML}
+% inspired by https://tex.stackexchange.com/questions/12810/how-do-i-split-a-string
+\global\newcommand\ccsdesc[2][100]{\@ccsdesc#1~#2~~\relax}
+\let\orig@ccsdesc\@ccsdesc
+\let\@ccsdesc\@empty
+\let\@ccsdescString\@empty
+\gdef\@ccsdesc#1~#2~#3~{
+	\ifx\@ccsdesc\orig@ccsdesc\let\@ccsdesc\@empty\fi
+	\ifx!#3!
+		\ifx\@ccsdescString\@empty
+			\g@addto@macro\@ccsdescString{{#2}}
+		\else
+			\g@addto@macro\@ccsdescString{; {#2}}
+		\fi
+	\else
+		\ifx\@ccsdescString\@empty
+			\g@addto@macro\@ccsdescString{{#2} $\rightarrow$ {#3}}
+		\else
+			\g@addto@macro\@ccsdescString{; {#2} $\rightarrow$ {#3}}
+		\fi
+	\fi
+\ccsdescEnd
+}
+\def\ccsdescEnd#1\relax{}
+\def\subjclass#1{
+  \ClassError{DagRep}
+    {\string\subjclass\space deprecated: Please enter subject classification in 1 or more ccsdesc macros}
+    {Since 2021, \string\subjclass\space is obsolete in DagRep.}}
 \let\@subjclass\@empty
 \def\subjclassHeading{%
   \textcolor{darkgray}{\fontsize{9.5}{12.5}\sffamily\bfseries
@@ -888,9 +917,8 @@ pdfsubject={Dagstuhl Reports, Vol. \@Volume, Issue \@Issue, Seminar \@Event; Cop
 \newcommand*\abstractrefurl[1]{\@preambleentry{URL}{\href{#1}{#1}}}
 \RequirePackage{multicol}
 \newif\if@firstparticipant
-\newenvironment{participants}[1][Participants]
- {\clearpage
-  \def\thesection{%
+\newenvironment{internalParticipants}[1][Participants]
+ {\def\thesection{%
     \vrule\@width\z@\@height0.65em\@depth\z@
     \vrule\@width0.65em\@height\z@\@depth\z@}%
   \addtocontents{toc}{\let\string\@secpagenumber\relax}%
@@ -903,6 +931,17 @@ pdfsubject={Dagstuhl Reports, Vol. \@Volume, Issue \@Issue, Seminar \@Event; Cop
   \interlinepenalty=\@M
   \begin{multicols}{3}}
  {\end{multicols}}
+\newenvironment{participants}{
+\clearpage
+\begin{internalParticipants}
+}{
+\end{internalParticipants}
+}
+\newenvironment{rparticipants}{
+\begin{internalParticipants}[Remote Participants]
+}{
+\end{internalParticipants}
+}
 \def\participant{%
   \if@firstparticipant
     \global\@firstparticipantfalse

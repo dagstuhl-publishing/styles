@@ -1,5 +1,11 @@
 DARTS Style - CHANGELOG
 
+* 06/06/2021 darts-v2021 v3.1.1
+    * New feature
+        * added support for eventlogo in footer
+    * Bugfix
+        * disabled loading of glyphtounicode by default to increase support with old LaTeX environments
+
 * 04/01/2021 darts-v2021 v3.1.0
     * New feature
         * added documentclass option pdfa to explicitly enable generation of PDF according PDF/A standard

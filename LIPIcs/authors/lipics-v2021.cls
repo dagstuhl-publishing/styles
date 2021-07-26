@@ -7,7 +7,7 @@
 %% This file is part of the lipics package for preparing
 %% LIPICS articles.
 %%
-%% Copyright (C) 2020 Schloss Dagstuhl
+%% Copyright (C) 2021 Schloss Dagstuhl
 %%
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
@@ -24,7 +24,7 @@
 %% -----------------------------------------------------------------
 %%
 \ProvidesClass{lipics-v2021}
-    [2021/02/25 v3.1.1 LIPIcs articles]
+    [2021/05/04 v3.1.2 LIPIcs articles]
 \NeedsTeXFormat{LaTeX2e}[2015/01/01]
 \emergencystretch1em
 \advance\hoffset-1in
@@ -91,6 +91,9 @@
   \fi}
 \def\enditemize{\ifnum\@listdepth=\@ne\global\@nobotseplisttrue\fi\endlist}
 \def\@title{\textcolor{red}{Author: Please provide a title}}
+\let\@subtitle\@empty
+\def\subtitle#1{\gdef\@subtitle{#1}}
+\def\subtitleseperator{: }
 \def\@sect#1#2#3#4#5#6[#7]#8{%
   \ifnum #2>\c@secnumdepth
     \let\@svsec\@empty
@@ -308,6 +311,7 @@
   \global\let\@author\@empty
   \global\let\@date\@empty
   \global\let\@title\@empty
+  \global\let\@subtitle\@empty
   \global\let\title\relax
   \global\let\author\relax
   \global\let\date\relax
@@ -323,7 +327,7 @@
   %%\let \footnote \thanks
   \parindent\z@ \raggedright
   \if!\@title!\def\@title{\textcolor{red}{Author: Please fill in a title}}\fi
-    {\LARGE\sffamily\bfseries\mathversion{bold}\@title \par}%
+    {\LARGE\sffamily\bfseries\mathversion{bold}\@title \if!\@subtitle!\else{\\\Large\sffamily\bfseries\mathversion{bold}\@subtitle}\fi \par}%
     \vskip 1em
     \ifx\@author\orig@author
       \textcolor{red}{Author: Please provide author information}%
@@ -343,7 +347,7 @@
 			\def\\{ }
 		}{%
 	        \string\contitem
-	        \string\title{\@title}%
+	        \string\title{\@title \if!\@subtitle!\else\subtitleseperator \@subtitle\fi}%
 	        \string\author{\@authorsfortoc}%
 	        \string\page{\@ArticleNo:\thepage--\@ArticleNo:\number\numexpr\getpagerefnumber{TotPages}}}%
       \closeout\tocfile
@@ -450,7 +454,7 @@
    \fi
    \ifx\@supplement\@empty\else
      \vskip\topmattervskip\baselineskip\noindent
-     \supplementHeading\ifx\authoranonymous\relax\textcolor{red}{Anonymous supplemenatary material}\else\@supplement\fi
+     \supplementHeading\ifx\authoranonymous\relax\textcolor{red}{Anonymous supplementary material}\else\@supplement\fi
    \fi
    \ifx\@funding\@empty\else
      \vskip\topmattervskip\baselineskip\noindent
@@ -507,10 +511,12 @@
     \hb@xt@1em{\@makefnmark\hss}#1}
 \usepackage{microtype}
 \usepackage[utf8]{inputenc}
-\IfFileExists{glyphtounicode.tex}{
-\input glyphtounicode
-\pdfgentounicode=1
-}{}%
+\ifx\pdfa\relax%
+	\IfFileExists{glyphtounicode.tex}{
+		\input glyphtounicode
+		\pdfgentounicode=1
+	}{}%
+\fi 
 \IfFileExists{lmodern.sty}{\RequirePackage{lmodern}}{}
 \IfFileExists{fontawesome5.sty}{%
 \RequirePackage{fontawesome5}%
@@ -657,7 +663,7 @@
 \AtBeginDocument{
 \ifx\usehyperxmp\relax
 \hypersetup{
-pdftitle={\@title},
+pdftitle={\@title \if!\@subtitle!\else\subtitleseperator \@subtitle\fi},
 pdfauthor={\ifx\authoranonymous\relax Anonymous author(s) \else \@authorsforpdf \fi},
 pdfkeywords={\@keywords},
 pdfproducer={LaTeX with lipics-v2021.cls},
@@ -676,7 +682,7 @@ pdfaconformance=B
 }
 \else%
 \hypersetup{
-pdftitle={\@title},
+pdftitle={\@title \if!\@subtitle!\else\subtitleseperator \@subtitle\fi},
 pdfauthor={\ifx\authoranonymous\relax Anonymous author(s) \else \@authorsforpdf \fi},
 pdfkeywords={\@keywords},
 pdfcreator={LaTeX with lipics-v2021.cls},
@@ -722,7 +728,7 @@ pdfsubject={LIPIcs, Vol.\@SeriesVolume, \@EventShortTitle; Copyright (C) \ifx\au
 \def\titlerunning#1{\gdef\@titlerunning{{\let\footnote\@gobble\markboth{#1}{#1}}}}
 \def\authorrunning#1{%
   \gdef\@authorrunning{\markright{\ifx\authoranonymous\relax\textcolor{red}{Anonymous author(s)} \else\if!#1!\textcolor{red}{Author: Please fill in the \string\authorrunning\space macro}\else#1\fi\fi}}}
-\titlerunning{\@title}
+\titlerunning{\@title \if!\@subtitle!\else\subtitleseperator \@subtitle\fi}
 \authorrunning{\textcolor{red}{Author: Please use the \string\authorrunning\space macro}}
 \def\EventLongTitle#1{\gdef\@EventLongTitle{#1}}
 \EventLongTitle{}
@@ -922,7 +928,7 @@ pdfsubject={LIPIcs, Vol.\@SeriesVolume, \@EventShortTitle; Copyright (C) \ifx\au
 	\fi%
 	\ifx\relatedversiondetails@cite\@empty%
 	\else%
-		\protected@edef\tmp{\tmp\space\cite{\relatedversiondetails@cite}}%
+		\protected@edef\tmp{\tmp\nobreakspace\cite{\relatedversiondetails@cite}}%
 	\fi%
 	\expandafter\addtorelatedversionmacro\expandafter{\tmp}{#1}%
 	\endgroup%
@@ -935,7 +941,17 @@ pdfsubject={LIPIcs, Vol.\@SeriesVolume, \@EventShortTitle; Copyright (C) \ifx\au
 \define@key{supplementdetails}{linktext}{\def\supplementdetails@linktext{#1}}
 \define@key{supplementdetails}{cite}{\def\supplementdetails@cite{#1}}
 \define@key{supplementdetails}{subcategory}{\def\supplementdetails@subcategory{#1}}
-\define@key{supplementdetails}{swhid}{\def\supplementdetails@swhid{#1}}
+\define@key{supplementdetails}{swhlinktext}{\def\supplementdetails@swhlinktext{#1}}
+\let\supplementdetails@swhlinktext\@empty
+\define@key{supplementdetails}{swhid}{
+	\ifx\supplementdetails@swhlinktext\@empty%
+		\StrBefore{#1}{;}[\supplementdetails@swhlinktext]%
+	\fi%
+	\def\supplementdetails@swhid{#1}%
+}
+
+\define@key{supplementdetails}{swhdelimiter}{\def\supplementdetails@swhdelimiter{#1}}
+\def\supplementdetails@swhdelimiter{\\ \hspace*{1.2em}}
 \newcommand*\addtosupplementmacro[2]{%
 		\ifx\@supplement\@empty%
 				\g@addto@macro\@supplement{#1}%
@@ -962,11 +978,17 @@ pdfsubject={LIPIcs, Vol.\@SeriesVolume, \@EventShortTitle; Copyright (C) \ifx\au
 	\fi%
 	\ifx\supplementdetails@cite\@empty%
 	\else%
-		\protected@edef\tmp{\tmp\space\cite{\supplementdetails@cite}}%
+		\protected@edef\tmp{\tmp\nobreakspace\cite{\supplementdetails@cite}}%
 	\fi
 	\ifx\supplementdetails@swhid\@empty%
 	\else%
-		\protected@edef\tmp{\tmp \\ \hspace*{1.2em} archived at \href{https://archive.softwareheritage.org/\supplementdetails@swhid}{\texttt{\supplementdetails@swhid}}}%
+		\ifx\supplementdetails@swhlinktext\@empty%
+			\protected@edef\tmp{\tmp \supplementdetails@swhdelimiter{} archived at %
+			\href{https://archive.softwareheritage.org/\supplementdetails@swhid}{\nolinkurl{\supplementdetails@swhid}}}%
+		\else%
+			\protected@edef\tmp{\tmp \supplementdetails@swhdelimiter{} archived at %
+			\href{https://archive.softwareheritage.org/\supplementdetails@swhid}{\nolinkurl{\supplementdetails@swhlinktext}}}%
+		\fi%
 	\fi%
 	\expandafter\addtosupplementmacro\expandafter{\tmp}{#1}%
 	\endgroup%

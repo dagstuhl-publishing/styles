@@ -23,7 +23,7 @@
 %% Schloss Dagstuhl (publishing@dagstuhl.de).
 %% -----------------------------------------------------------------
 \ProvidesClass{darts-v2021}
-    [2021/01/04 v3.1.0 DARTS articles]
+    [2021/05/06 v3.1.1 DARTS articles]
 \NeedsTeXFormat{LaTeX2e}[2015/01/01]
 \emergencystretch1em
 \advance\hoffset-1in
@@ -129,7 +129,14 @@
 \def\@seccntformat#1{\csname the#1\endcsname}
 \def\@biblabel#1{\textcolor{darkgray}{\sffamily\bfseries#1}}
 \def\three@digits#1{\ifnum#1>99\else\ifnum#1>9 0\else00\fi\fi\number#1}
+\def\EventLogoHeight{25}
 \def\copyrightline{%
+  \ifx\@EventLogo\@empty
+  \else%
+    \setbox\@tempboxa\hbox{\includegraphics[height=\EventLogoHeight\p@]{\@EventLogo}}%
+    \rlap{\hspace\textwidth\hspace{-\wd\@tempboxa}\hspace{\z@}%
+            \vtop to\z@{\vskip-0mm\unhbox\@tempboxa\vss}}%
+  \fi%
   \scriptsize
   \vtop{\hsize\textwidth
     \nobreakspace\par
@@ -535,10 +542,12 @@
                       Acknowledgements\enskip}}
 \usepackage{microtype}
 \usepackage[utf8]{inputenc}
-\IfFileExists{glyphtounicode.tex}{
-\input glyphtounicode
-\pdfgentounicode=1
-}{}%
+\ifx\pdfa\relax%
+	\IfFileExists{glyphtounicode.tex}{
+		\input glyphtounicode
+		\pdfgentounicode=1
+	}{}%
+\fi 
 \IfFileExists{lmodern.sty}{\RequirePackage{lmodern}}{}
 \IfFileExists{fontawesome5.sty}{%
 \RequirePackage{fontawesome5}%
@@ -934,6 +943,8 @@ pdfsubject={DARTS, Vol. \@Volume, Issue \@Issue, Article \@Article; Copyright (C
 \let\@RelatedArticle\@empty
 \def\EventShortName#1{\gdef\@EventShortName{#1}}
 \EventShortName{DARTS}
+\def\EventLogo#1{\gdef\@EventLogo{#1}}
+\EventLogo{}
 \endinput
 %%
 %% End of file `darts.cls'.
