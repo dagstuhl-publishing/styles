@@ -24,7 +24,7 @@
 %% -----------------------------------------------------------------
 %%
 \ProvidesClass{oasics-v2021}
-    [2021/05/04 v3.1.2 OASIcs articles]
+    [2023/05/11 v3.1.3 OASIcs articles]
 \NeedsTeXFormat{LaTeX2e}[2015/01/01]
 \emergencystretch1em
 \advance\hoffset-1in
@@ -615,6 +615,11 @@
   \patchBothAmsMathEnvironmentsForLineno{alignat}%
   \patchBothAmsMathEnvironmentsForLineno{gather}%
   \patchBothAmsMathEnvironmentsForLineno{multline}}
+\ifx\pdfa\relax%
+  \RequirePackage[pdfa,unicode]{hyperref}%
+\else%
+  \RequirePackage[unicode]{hyperref}%
+\fi%
 \let\usehyperxmp\@empty%
 \ifx\pdfa\relax%
   \IfFileExists{hyperxmp.sty}{%
@@ -632,11 +637,6 @@
 	\newcounter{TotPages}
 	\setcounter{TotPages}{99}
 }
-\ifx\usehyperxmp\relax%
-  \RequirePackage[pdfa,unicode]{hyperref}%
-\else%
-  \RequirePackage[unicode]{hyperref}%
-\fi%
 \let\C\relax%
 \let\G\relax%
 \let\F\relax%

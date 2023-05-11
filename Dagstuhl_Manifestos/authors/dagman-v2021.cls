@@ -24,7 +24,7 @@
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{dagman-v2021}
-    [2021/03/18 v3.0.0 Dagstuhl Manifestos articles]
+    [2023/05/11 v3.0.1 Dagstuhl Manifestos articles]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -650,6 +650,11 @@
 \lstset{basicstyle=\small\ttfamily,%
         backgroundcolor=\color[rgb]{0.85,0.85,0.86},%
         frame=single,framerule=0pt,xleftmargin=\fboxsep,xrightmargin=\fboxsep}
+\ifx\pdfa\relax%
+  \RequirePackage[pdfa,unicode]{hyperref}%
+\else%
+  \RequirePackage[unicode]{hyperref}%
+\fi%
 \let\usehyperxmp\@empty%
 \ifx\pdfa\relax%
   \IfFileExists{hyperxmp.sty}{%
@@ -667,11 +672,6 @@
 	\newcounter{TotPages}
 	\setcounter{TotPages}{99}
 }
-\ifx\usehyperxmp\relax%
-  \RequirePackage[pdfa,unicode]{hyperref}%
-\else%
-  \RequirePackage[unicode]{hyperref}%
-\fi%
 \let\C\relax%
 \let\G\relax%
 \let\F\relax%

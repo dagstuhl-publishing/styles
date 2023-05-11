@@ -1,5 +1,9 @@
 DARTS Style - CHANGELOG
 
+* 11/05/2023 darts-v2021 v3.1.2
+  * Bugfix
+      * changed order of loading hyperxmp and hyperref to avoid minor bug when using lastest version of hyperxmp
+
 * 06/06/2021 darts-v2021 v3.1.1
     * New feature
         * added support for eventlogo in footer

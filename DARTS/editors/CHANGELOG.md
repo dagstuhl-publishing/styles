@@ -1,5 +1,9 @@
 DARTS Editor Style - CHANGELOG
 
+* 11/05/2023 dartsmaster-v2021 v3.1.1
+  * Bugfix
+      * changed order of loading hyperxmp and hyperref to avoid minor bug when using lastest version of hyperxmp
+
 * 04/01/2021 dartsmaster-v2021 v3.1.0
     * New feature
         * added documentclass option pdfa to explicitly enable generation of PDF according PDF/A standard

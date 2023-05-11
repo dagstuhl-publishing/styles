@@ -24,7 +24,7 @@
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{dagrep-master-v2021}
-[2021/01/04 v3.1.0 Dagstuhl Reports - Issue front matter]
+[2023/05/11 v3.1.1 Dagstuhl Reports - Issue front matter]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -314,6 +314,11 @@
 \def\TPTtagStyle#1{#1)}
 \def\tablenotes{\small\TPT@defaults
   \@ifnextchar[\TPT@setuptnotes\TPTdoTablenotes} % ]
+\ifx\pdfa\relax%
+  \RequirePackage[pdfa,unicode]{hyperref}%
+\else%
+  \RequirePackage[unicode]{hyperref}%
+\fi%
 \let\usehyperxmp\@empty%
 \ifx\pdfa\relax%
   \IfFileExists{hyperxmp.sty}{%
@@ -331,11 +336,6 @@
 	\newcounter{TotPages}
 	\setcounter{TotPages}{99}
 }
-\ifx\usehyperxmp\relax%
-  \RequirePackage[pdfa,unicode]{hyperref}%
-\else%
-  \RequirePackage[unicode]{hyperref}%
-\fi%
 \let\C\relax%
 \let\G\relax%
 \let\F\relax%

@@ -1,5 +1,9 @@
 LIPIcs Editor Style - CHANGELOG
 
+* 11/05/2023 lipicsmaster-v2021 v3.1.3
+  * Bugfix
+      * changed order of loading hyperxmp and hyperref to avoid minor bug when using lastest version of hyperxmp
+
 * 25/06/2021 lipicsmaster-v2021 v3.1.2
     * New Feature
         * added support to modify logo height (EventLogoHeight)

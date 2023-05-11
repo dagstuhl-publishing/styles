@@ -24,7 +24,7 @@
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{litesmaster-v2021}
-[2021/01/04 v2.1.0 LITES issue front matters]
+[2023/05/11 v2.1.1 LITES issue front matters]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -438,6 +438,11 @@
 \lstset{basicstyle=\small\ttfamily,%
         backgroundcolor=\color[rgb]{0.85,0.85,0.86},%
         frame=single,framerule=0pt,xleftmargin=\fboxsep,xrightmargin=\fboxsep}
+\ifx\pdfa\relax%
+  \RequirePackage[pdfa,unicode]{hyperref}%
+\else%
+  \RequirePackage[unicode]{hyperref}%
+\fi%
 \let\usehyperxmp\@empty%
 \ifx\pdfa\relax%
   \IfFileExists{hyperxmp.sty}{%
@@ -455,11 +460,6 @@
 	\newcounter{TotPages}
 	\setcounter{TotPages}{99}
 }
-\ifx\usehyperxmp\relax%
-  \RequirePackage[pdfa,unicode]{hyperref}%
-\else%
-  \RequirePackage[unicode]{hyperref}%
-\fi%
 \let\C\relax%
 \let\G\relax%
 \let\F\relax%

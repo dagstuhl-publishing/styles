@@ -1,5 +1,9 @@
 OASIcs Style - CHANGELOG
 
+* 11/05/2023 OASIcs-v2021 v3.1.3
+  * Bugfix
+      * changed order of loading hyperxmp and hyperref to avoid minor bug when using lastest version of hyperxmp
+
 * 04/05/2021 OASIcs-v2021 v3.1.2
   * New feature
         * added optional \subtitle

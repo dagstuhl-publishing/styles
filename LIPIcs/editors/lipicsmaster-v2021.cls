@@ -24,7 +24,7 @@
 %% -----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{lipicsmaster-v2021}
-[2021/06/25 v3.1.2 LIPIcs volume front matters]
+[2023/05/11 v3.1.3 LIPIcs volume front matters]
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -540,6 +540,11 @@
   \patchBothAmsMathEnvironmentsForLineno{alignat}%
   \patchBothAmsMathEnvironmentsForLineno{gather}%
   \patchBothAmsMathEnvironmentsForLineno{multline}}
+\ifx\pdfa\relax%
+  \RequirePackage[pdfa,unicode]{hyperref}%
+\else%
+  \RequirePackage[unicode]{hyperref}%
+\fi%
 \let\usehyperxmp\@empty%
 \ifx\pdfa\relax%
   \IfFileExists{hyperxmp.sty}{%
@@ -557,11 +562,6 @@
 	\newcounter{TotPages}
 	\setcounter{TotPages}{99}
 }
-\ifx\usehyperxmp\relax%
-  \RequirePackage[pdfa,unicode]{hyperref}%
-\else%
-  \RequirePackage[unicode]{hyperref}%
-\fi%
 \let\C\relax%
 \let\G\relax%
 \let\F\relax%
