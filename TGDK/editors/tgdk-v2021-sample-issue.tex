@@ -1,0 +1,138 @@
+
+%This is a template for producing a frontmatter of a TGDK ussze.
+%The usage of this file together with tgdkmaster-v2021.cls should be
+%straightforward. There is no separate documentation.
+%Feel free to adapt this file or lipicsmaster.cls if required.
+
+\documentclass[a4paper,UKenglish]{tgdkmaster-v2021}
+  %for A4 paper format use option "a4paper", for US-letter use option "letterpaper"
+  %for british hyphenation rules use option "UKenglish", for american hyphenation rules use option "USenglish"
+  %for producing a PDF according the PDF/A standard, add "pdfa"
+
+\usepackage{microtype}%if unwanted, comment out or use option "draft"
+\usepackage{wrapfig}
+
+
+%\graphicspath{{./graphics/}}%helpful if your graphic files are in another directory
+
+\bibliographystyle{plain}% the recommnded bibstyle
+
+\Volume{00}
+\Issue{00}
+\DatePublished{June 2010}
+\Copyright{Editor} % copyright owner for foreword
+
+
+
+\begin{document}
+
+\frontmatter
+
+\maketitle
+
+\begin{publicationinfo}%for page ii, please fill as required
+\sffamily
+\twocolumn
+
+{\Large\bf\sffamily \textbf{\href{https://www.dagstuhl.de/lites}{ISSN \printISSN{}}}}
+
+\bigskip
+
+\emph{Published online and open access by}\newline
+Schloss Dagstuhl -- Leibniz-Zentrum f\"ur Informatik GmbH, Dagstuhl Publishing, Saarbr\"ucken/Wadern, Germany. 
+
+Online available at \\ \url{https://www.dagstuhl.de/dagpub/\printISSN}.
+
+\bigskip
+\emph{Publication date}\newline
+\printDatePublished{}
+
+
+
+\bigskip
+
+\emph{Bibliographic information published by the Deutsche Nationalbibliothek}\newline
+The Deutsche Nationalbibliothek lists this publication in the Deutsche Nationalbibliografie; detailed bibliographic data are available in the Internet at \href{https://dnb.d-nb.de}{https://dnb.d-nb.de}. 
+
+\bigskip
+
+\emph{License}\newline
+This work is licensed under a Creative Commons Attribution 4.0 International license (CC BY~4.0): \href{https://creativecommons.org/licenses/by/4.0/}{\nolinkurl{https://creativecommons.org/licenses/by/4.0}}.
+\begin{wrapfigure}[2]{l}{1.8cm}
+\vspace*{-1\baselineskip}
+\includegraphics[width=1.8cm]{cc-by}
+\end{wrapfigure} 
+In brief, this license authorizes each and everybody to share (to
+copy, distribute and transmit) the work under the following
+conditions, without impairing or restricting the authors'
+moral rights:
+\begin{itemize}
+\item Attribution: The work must be attributed to its authors.
+\end{itemize}
+
+The copyright is retained by the corresponding authors.
+
+%\bigskip
+\vfill
+\emph{Digital Object Identifier}\newline
+\printIssueDOI
+
+\newpage
+
+\vphantom{{\Large\bf\sffamily \textbf{\href{https://www.dagstuhl.de/lites}{ISSN \printISSN{}}}}}
+
+\bigskip
+
+\emph{Aims and Scope}\newline
+Transactions on Graph Data and Knowledge (TGDK) is an Open Access journal that publishes original research articles and survey articles on graph-based abstractions for data and knowledge, and the techniques that such abstractions enable with respect to integration, querying, reasoning and learning. The scope of the journal thus intersects with areas such as Graph Algorithms, Graph Databases, Graph Representation Learning, Knowledge Graphs, Knowledge Representation, Linked Data and the Semantic Web. Also in-scope for the journal is research investigating graph-based abstractions of data and knowledge in the context of Data Integration, Data Science, Information Extraction, Information Retrieval, Machine Learning, Natural Language Processing, and the Web.
+
+\medskip
+
+The journal is Open Access without fees for readers nor for authors (also known as <em>Diamond Open Access</em>).	
+
+\bigskip
+
+\emph{Editors in Chief}
+\begin{itemize}
+\item Ian Horrocks %– University of Oxford, U.K.
+\item Lalana Kagal %– Massachusetts Institute of Technology, U.S.
+\item Andreas Hotho %– University of Würzburg, Germany
+\item Aidan Hogan %– IMFD; DCC, University of Chile, Chile
+\end{itemize}
+
+\bigskip
+\emph{Editorial Office}\newline
+Schloss Dagstuhl -- Leibniz-Zentrum f\"ur Informatik\\
+TGDK, Editorial Office\\
+Oktavie-Allee, 66687 Wadern, Germany\\ 
+tgdk@dagstuhl.de
+
+
+\vfill
+
+\url{https://www.dagstuhl.de/tgdk}
+ 
+ \thispagestyle{empty}
+ \onecolumn
+\end{publicationinfo}
+
+
+\begin{contentslist}
+%To generate the table of contents copy all the .vtc files
+%of the contributions to your working directory.
+%For every contribution type a line
+\inputtocentry{dummycontribution}
+%where the argument of \inputtocentry is the name of
+%the vtc file without suffix.
+
+%Alternatively write e.g.
+\contitem
+\title{Dummy title}
+\author{John Q. Public}
+\page{77}
+
+%\part{} %use if volume is divided in parts
+\end{contentslist}
+
+
+\end{document}
