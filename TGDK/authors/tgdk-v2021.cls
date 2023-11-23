@@ -919,14 +919,20 @@ TGDK articles]
 \EventLocation{}
 \def\SeriesVolume#1{\gdef\@SeriesVolume{#1}}
 \SeriesVolume{}
-\def\Volume#1{\gdef\@SeriesVolume{#1}}
-\Volume{}
+\def\Volume#1{%
+   \ClassWarning{\string\Volume\space deprecated: Please don't use}{\string\Volume\space is deprecated in the styles of Dagstuhl Publishing. Please use \string\SeriesVolume\space instead.}%
+   \gdef\@SeriesVolume{#1}}
+\def\Issue#1{%
+  \ClassWarning{\string\Issue\space deprecated: Please don't use}{\string\Issue\space is deprecated in the styles of Dagstuhl Publishing. Please use \string\SeriesIssue\space instead.}%
+  \gdef\@SeriesIssue{#1}}
 \def\SeriesIssue#1{\gdef\@SeriesIssue{#1}}
-\def\Issue#1{\gdef\@SeriesIssue{#1}}
-\Issue{}
+\SeriesIssue{}
 \def\ArticleNo#1{\gdef\@ArticleNo{#1}}
-\def\Article#1{\gdef\@ArticleNo{#1}}
-\Article{}
+\ArticleNo{}
+\def\Article#1{%
+  \ClassWarning{\string\Article\space deprecated: Please don't use}{\string\Article\space is deprecated in the styles of Dagstuhl Publishing. Please use \string\ArticleNo\space instead.}%
+  \gdef\@ArticleNo{#1}%
+}
 \def\FirstPage#1{\setcounter{page}{#1}}
 \ArticleNo{}
 \def\DagPubSeriesName#1{\gdef\@DagPubSeriesName{#1}}
@@ -1099,8 +1105,10 @@ TGDK articles]
   \textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries
                       Related Article\enskip}}
 \let\@RelatedArticle\@empty
-\def\EventShortName#1{\gdef\@EventShortTitle{#1}}
-\EventShortName{\@DagPubSeriesNameShort}
+\def\EventShortName#1{%
+  \ClassWarning{\string\EventShortName\space deprecated: Please don't use}{\string\EventShortName\space is deprecated in the styles of Dagstuhl Publishing. Please use \string\EventShortTitle\space instead.}%
+  \gdef\@EventShortTitle{#1}}
+\EventShortTitle{\@DagPubSeriesNameShort}
 \def\category#1{\def\@category{#1}}
 \let\@category\@empty
 \def\categoryHeading{%
