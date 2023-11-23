@@ -1,30 +1,38 @@
 %%
-%% This is file `lites-v2021.cls'.
+%% This is file `lites-v2021.cls',
+%% generated with the docstrip utility.
 %%
+%% The original source files were:
+%%
+%% dagpub.dtx  (with options: `lites')
+%% 
 %% -----------------------------------------------------------------
-%% Author:     le-tex publishing services
-%%
-%% This file is part of the lites package for preparing
-%% LITES articles.
-%%
-%% Copyright (C) 2020 Schloss Dagstuhl
-%%
+%% Author:    Dagstuhl Publishing
+%% 
+%% This file is part of the style package of Dagstuhl
+%% Publishing for preparing articles for its different
+%% series.
+%% 
+%%       Copyright (C) 2010--2023
+%%        Schloss Dagstuhl
+%% 
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
 %% of this license or (at your option) any later version.
 %% The latest version of this license is in
-%%   http://www.latex-project.org/lppl.txt
+%% http://www.latex-project.org/lppl.txt
 %% and version 1.3 or later is part of all distributions of LaTeX
 %% version 2005/12/01 or later.
-%%
+%% 
 %% This work has the LPPL maintenance status `maintained'.
-%%
+%% 
 %% The Current Maintainer of this work is
 %% Schloss Dagstuhl (publishing@dagstuhl.de).
 %% -----------------------------------------------------------------
 \ProvidesClass{lites-v2021}
-    [2023/05/11 v2.1.2 LITES articles]
-\NeedsTeXFormat{LaTeX2e}[2015/01/01]
+[2023/11/08 v3.2.0
+LITES articles]
+
 \emergencystretch1em
 \advance\hoffset-1in
 \advance\voffset-1in
@@ -47,30 +55,8 @@
             \everypar{}%
             \if@nobotseplist\global\@nobotseplistfalse\fi
             \@endpefalse}}
-\def\list#1#2{%
-  \ifnum \@listdepth >9\relax
-    \@toodeep
-  \else
-    \global\advance\@listdepth\@ne
-  \fi
-  \rightmargin\z@
-  \listparindent\z@
-  \itemindent\z@
-  \csname @list\romannumeral\the\@listdepth\endcsname
-  \def\@itemlabel{#1}%
-  \let\makelabel\@mklab
-  \@nmbrlistfalse
-  #2\relax
-  \@trivlist
-  \parskip\parsep
-  \parindent\listparindent
-  \advance\linewidth -\rightmargin
-  \advance\linewidth -\leftmargin
-  \advance\@totalleftmargin \leftmargin
-  \parshape \@ne \@totalleftmargin \linewidth
-  \ignorespaces}
 \def\enumerate{%
-  \ifnum \@enumdepth >9\@toodeep\else
+  \ifnum \@enumdepth >\thr@@\@toodeep\else
     \advance\@enumdepth\@ne
     \edef\@enumctr{enum\romannumeral\the\@enumdepth}%
     \expandafter
@@ -91,7 +77,7 @@
   \fi}
 \def\endenumerate{\ifnum\@listdepth=\@ne\global\@nobotseplisttrue\fi\endlist}
 \def\itemize{%
-  \ifnum \@itemdepth >9\@toodeep\else
+  \ifnum \@itemdepth >\thr@@\@toodeep\else
     \advance\@itemdepth\@ne
     \edef\@itemitem{labelitem\romannumeral\the\@itemdepth}%
     \expandafter
@@ -111,6 +97,10 @@
       \def\makelabel##1{\hss\llap{##1}}}%
   \fi}
 \def\enditemize{\ifnum\@listdepth=\@ne\global\@nobotseplisttrue\fi\endlist}
+\def\@title{\textcolor{red}{Author: Please provide a title}}
+\let\@subtitle\@empty
+\def\subtitle#1{\gdef\@subtitle{#1}}
+\def\subtitleseperator{: }
 \def\@sect#1#2#3#4#5#6[#7]#8{%
   \ifnum #2>\c@secnumdepth
     \let\@svsec\@empty
@@ -124,7 +114,7 @@
       #6{%
         \@hangfrom{\hskip #3\relax
           \ifnum #2=1
-            \colorbox[rgb]{0.99,0.78,0.07}{\kern0.15em\@svsec\kern0.15em}\quad
+            \colorbox{dagpubYellow}{\kern0.15em\@svsec\kern0.15em}\quad
           \else
             \@svsec\quad
           \fi}%
@@ -149,52 +139,71 @@
   \fi
   \@xsect{#5}}
 \def\@seccntformat#1{\csname the#1\endcsname}
-\def\@biblabel#1{\textcolor{darkgray}{\sffamily\bfseries#1}}
+\def\@biblabel#1{\textcolor{dagpubGray}{\sffamily\bfseries#1}}
 \def\three@digits#1{\ifnum#1>99\else\ifnum#1>9 0\else00\fi\fi\number#1}
+\def\EventLogoHeight{25}
 \def\copyrightline{%
-  \scriptsize
-  \vtop{\hsize\textwidth
-    \nobreakspace\\
-    \@Copyright
-    \textit{Leibniz Transactions on Embedded Systems}%
-    \ifx\@Volume\@empty,\space Vol.\nobreakspace\textcolor{blue}{VOL}\else,\space Vol.\nobreakspace\@Volume\fi
-    \ifx\@Issue\@empty,\space Issue\nobreakspace\textcolor{blue}{ISS}\else,\space Issue\nobreakspace\@Issue\fi
-    \ifx\@Article\@empty,\space Article\nobreakspace{}No.\nobreakspace\textcolor{blue}{ART NO.}\else,\space Article\nobreakspace{}No.\nobreakspace\@Article\fi
-    ,\space \ifx\@Article\@empty pp.\nobreakspace{}\textcolor{blue}{ART}:\thepage--\textcolor{blue}{ART}:\number\numexpr\getpagerefnumber{TotPages}\else pp.\nobreakspace{}\two@digits{\@Article}:\thepage--\two@digits{\@Article}:\number\numexpr\getpagerefnumber{TotPages}\fi\\
-    \setbox\@tempboxa\hbox{\includegraphics[height=14\p@,trim=0 15 0 0]{lites-logo}}%
+  \ifx\@hideDagpub\@undefined
+    \ifx\@EventLogo\@empty
+    \else
+      \setbox\@tempboxa\hbox{%
+        \ifx\@EventLogoURL\@empty%
+          \includegraphics[height=\EventLogoHeight\p@]{\@EventLogo}%
+        \else%
+          \href{\@EventLogoURL}{\includegraphics[height=\EventLogoHeight\p@]{\@EventLogo}}%
+        \fi%
+      }\rlap{\hspace\textwidth\hspace{-\wd\@tempboxa}\hspace{\z@}%
+        \vtop to\z@{\vskip-0mm\unhbox\@tempboxa\vss}}%
+    \fi
+    \scriptsize
+    \vtop{\hsize\textwidth
+      \nobreakspace\par
+      \@Copyright
+      \ifx\@EventLongTitle\@empty\else\@EventLongTitle.\\\fi
+      \ifx\@EventEditors\@empty\else
+        \@Eds: \@EventEditors
+        \\
+      \fi
+    \href{\@DagPubSeriesURL}{\textit{\@DagPubSeriesName}},\space Vol.\nobreakspace\@SeriesVolume,\space Issue\nobreakspace\@SeriesIssue,\space Article\nobreakspace{}No.\nobreakspace\@ArticleNo,\space pp.\nobreakspace{}\@ArticleNo:\thepage--\@ArticleNo:\getpagerefnumber{TotPages}\\
+      \setbox\@tempboxa\hbox{\IfFileExists{\@DagPubSeriesLogo.pdf}{\includegraphics[height=14\p@,trim=0 15 0 0]{\@DagPubSeriesLogo}}{\includegraphics[height=14\p@, width=62pt]{example-image-plain}}}%
     \hspace*{\wd\@tempboxa}\enskip
-    \href{https://www.dagstuhl.de/lites}%
-         {Leibniz Transactions on Embedded Systems}\\
-    \smash{\unhbox\@tempboxa}\enskip
-    \href{https://www.dagstuhl.de}%
-         {Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik, Dagstuhl Publishing, Germany}}}
+      \href{\@DagPubSeriesURL}%
+           {\@DagPubSeriesName}\\
+      \smash{\unhbox\@tempboxa}\enskip
+      \href{https://www.dagstuhl.de}%
+           {Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik, Dagstuhl Publishing, Germany}}%
+  \fi}
 \def\ps@plain{\let\@mkboth\@gobbletwo
   \let\@oddhead\@empty
   \let\@evenhead\@empty
   \let\@evenfoot\copyrightline
   \let\@oddfoot\copyrightline}
-\def\lites@opterrshort{Option  "\CurrentOption" not supported}
-\def\lites@opterrlong{The option "\CurrentOption" from article.cls is not supported by lites.cls.}
-\DeclareOption{a5paper}{\@latexerr{\lites@opterrshort}{\lites@opterrlong}}
-\DeclareOption{b5paper}{\@latexerr{\lites@opterrshort}{\lites@opterrlong}}
-\DeclareOption{legalpaper}{\@latexerr{\lites@opterrshort}{\lites@opterrlong}}
-\DeclareOption{executivepaper}{\@latexerr{\lites@opterrshort}{\lites@opterrlong}}
-\DeclareOption{landscape}{\@latexerr{\lites@opterrshort}{\lites@opterrlong}}
-\DeclareOption{10pt}{\@latexerr{\lites@opterrshort}{\lites@opterrlong}}
-\DeclareOption{11pt}{\@latexerr{\lites@opterrshort}{\lites@opterrlong}}
-\DeclareOption{12pt}{\@latexerr{\lites@opterrshort}{\lites@opterrlong}}
-\DeclareOption{oneside}{\@latexerr{\lites@opterrshort}{\lites@opterrlong}}
-\DeclareOption{twoside}{\@latexerr{\lites@opterrshort}{\lites@opterrlong}}
-\DeclareOption{titlepage}{\@latexerr{\lites@opterrshort}{\lites@opterrlong}}
-\DeclareOption{notitlepage}{\@latexerr{\lites@opterrshort}{\lites@opterrlong}}
-\DeclareOption{onecolumn}{\@latexerr{\lites@opterrshort}{\lites@opterrlong}}
-\DeclareOption{twocolumn}{\@latexerr{\lites@opterrshort}{\lites@opterrlong}}
-\DeclareOption{fleqn}{\@latexerr{\lites@opterrshort}{\lites@opterrlong}}
-\DeclareOption{openbib}{\@latexerr{\lites@opterrshort}{\lites@opterrlong}}
+\def\dagpub@opterrshort{Option  "\CurrentOption" not supported}
+\def\dagpub@opterrlong{The option "\CurrentOption" from article.cls is not supported by lites.cls.}
+\DeclareOption{a5paper}{\@latexerr{\dagpub@opterrshort}{\dagpub@opterrlong}}
+\DeclareOption{b5paper}{\@latexerr{\dagpub@opterrshort}{\dagpub@opterrlong}}
+\DeclareOption{legalpaper}{\@latexerr{\dagpub@opterrshort}{\dagpub@opterrlong}}
+\DeclareOption{executivepaper}{\@latexerr{\dagpub@opterrshort}{\dagpub@opterrlong}}
+\DeclareOption{landscape}{\@latexerr{\dagpub@opterrshort}{\dagpub@opterrlong}}
+\DeclareOption{10pt}{\@latexerr{\dagpub@opterrshort}{\dagpub@opterrlong}}
+\DeclareOption{11pt}{\@latexerr{\dagpub@opterrshort}{\dagpub@opterrlong}}
+\DeclareOption{12pt}{\@latexerr{\dagpub@opterrshort}{\dagpub@opterrlong}}
+\DeclareOption{oneside}{\@latexerr{\dagpub@opterrshort}{\dagpub@opterrlong}}
+\DeclareOption{twoside}{\@latexerr{\dagpub@opterrshort}{\dagpub@opterrlong}}
+\DeclareOption{titlepage}{\@latexerr{\dagpub@opterrshort}{\dagpub@opterrlong}}
+\DeclareOption{notitlepage}{\@latexerr{\dagpub@opterrshort}{\dagpub@opterrlong}}
+\DeclareOption{onecolumn}{\@latexerr{\dagpub@opterrshort}{\dagpub@opterrlong}}
+\DeclareOption{twocolumn}{\@latexerr{\dagpub@opterrshort}{\dagpub@opterrlong}}
+\DeclareOption{fleqn}{\@latexerr{\dagpub@opterrshort}{\dagpub@opterrlong}}
+\DeclareOption{openbib}{\@latexerr{\dagpub@opterrshort}{\dagpub@opterrlong}}
 \DeclareOption{a4paper}{\PassOptionsToClass{\CurrentOption}{article}
                         \advance\hoffset-2.95mm
                         \advance\voffset8.8mm}
 \DeclareOption{numberwithinsect}{\let\numberwithinsect\relax}
+\DeclareOption{cleveref}{\let\usecleveref\relax}
+\DeclareOption{autoref}{\let\useautoref\relax}
+\DeclareOption{anonymous}{\let\authoranonymous\relax}
+\DeclareOption{thm-restate}{\let\usethmrestate\relax}
 \DeclareOption{authorcolumns}{\let\authorcolumns\relax}
 \let\compactauthor\relax
 \DeclareOption{oldauthorstyle}{\let\compactauthor\@empty}
@@ -239,10 +248,10 @@
 \setlength\headheight{3mm}
 \setlength\headsep   {10mm}
 \setlength\footskip{3mm}
-\setlength\textwidth{148mm}%was 140
+\setlength\textwidth{148mm}
 \setlength\textheight{222mm}
-\setlength\oddsidemargin{28mm}%was 32
-\setlength\evensidemargin{34mm}%was 38
+\setlength\oddsidemargin{28mm}
+\setlength\evensidemargin{34mm}
 \setlength\marginparwidth{25mm}
 \setlength\topmargin{13mm}
 \setlength{\skip\footins}{2\baselineskip \@plus 4\p@ \@minus 2\p@}
@@ -267,22 +276,24 @@
               \itemsep   \z@ \@plus\p@}
 \def\ps@headings{%
     \def\@evenhead{\large\sffamily\bfseries
-                   \llap{\hbox to0.5\oddsidemargin{\ifx\@Article\@empty\textcolor{blue}{XX}\else\two@digits{\@Article}\fi:\thepage\hss}}\leftmark\hfil}%
+                   \llap{\hbox to0.5\oddsidemargin{  \ifx\@hideDagpub\@undefined\ifx\@ArticleNo\@empty\textcolor{red}{XX}\else\@ArticleNo\fi:\fi\thepage\hss}}\leftmark\hfil}%
     \def\@oddhead{\large\sffamily\bfseries\rightmark\hfil
-                  \rlap{\hbox to0.5\oddsidemargin{\hss\ifx\@Article\@empty\textcolor{blue}{XX}\else\two@digits{\@Article}\fi:\thepage}}}%
+                  \rlap{\hbox to0.5\oddsidemargin{\hss  \ifx\@hideDagpub\@undefined\ifx\@ArticleNo\@empty\textcolor{red}{XX}\else\@ArticleNo\fi:\fi\thepage}}}%
     \def\@oddfoot{\hfil
                   \rlap{%
                     \vtop{%
                       \vskip10mm
-                      \colorbox[rgb]{0.99,0.78,0.07}
+                      \colorbox{dagpubYellow}
                                     {\@tempdima\evensidemargin
                                      \advance\@tempdima1in
                                      \advance\@tempdima\hoffset
                                      \hb@xt@\@tempdima{%
-                                       \textcolor{darkgray}{\normalsize\sffamily
-                                       \bfseries\quad
-                                       \expandafter\textsolittle
-                                       \expandafter{\@EventShortName}}%
+                                       \ifx\@hideDagpub\@undefined
+                                         \textcolor{dagpubGray}{\normalsize\sffamily
+                                         \bfseries\quad
+                                         \expandafter\textsolittle
+                                         \expandafter{\@EventShortTitle}}%
+                                       \fi
                                      \strut\hss}}}}}
     \let\@evenfoot\@empty
     \let\@mkboth\markboth
@@ -291,6 +302,7 @@
 \pagestyle{headings}
 \renewcommand\maketitle{\par
   \begingroup
+    \thispagestyle{plain}
     \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
     \if@twocolumn
       \ifnum \col@number=\@ne
@@ -305,7 +317,6 @@
     \fi
     \thispagestyle{plain}\@thanks
   \endgroup
-  \setcounter{footnote}{0}%
   \global\let\thanks\relax
   \global\let\maketitle\relax
   \global\let\@maketitle\relax
@@ -313,6 +324,7 @@
   \global\let\@author\@empty
   \global\let\@date\@empty
   \global\let\@title\@empty
+  \global\let\@subtitle\@empty
   \global\let\title\relax
   \global\let\author\relax
   \global\let\date\relax
@@ -323,37 +335,41 @@
   \newpage
   \null\vskip-\baselineskip
   \vskip-\headsep
-  \ifLineNumbers\nolinenumbers\let\linno@n\relax\fi
   \@titlerunning
   \@authorrunning
-  \let \footnote \thanks
   \parindent\z@ \raggedright
-    {\LARGE\sffamily\bfseries\mathversion{bold}\@title \par}%
-    \vskip 1.5em%
+  \if!\@title!\def\@title{\textcolor{red}{Author: Please fill in a title}}\fi
+    {\LARGE\sffamily\bfseries\mathversion{bold}\@title \if!\@subtitle!\else{\\\Large\sffamily\bfseries\mathversion{bold}\@subtitle}\fi \par}%
+    \vskip 1em
     \ifx\@author\orig@author
       \textcolor{red}{Author: Please provide author information}%
     \else
       {\def\thefootnote{\@arabic\c@footnote}%
        \setcounter{footnote}{0}%
-       \fontsize{9.5}{12}\selectfont\@author}%
+       \fontsize{9}{12}\selectfont\@author}%
     \fi
     \bgroup
-      \let\footnote\@gobble
       \immediate\openout\tocfile=\jobname.vtc
-      \protected@write\tocfile{}{%
-        \string\contitem
-        \string\title{\@title}%
-        \string\author{\@authorsfortoc}%
-        \string\page{\@Article:\thepage--\@Article:\number\numexpr\getpagerefnumber{TotPages}}}%
+      \protected@write\tocfile{
+         \let\footnote\@gobble
+         \let\thanks\@gobble
+         \def\footnotemark{}
+         \def\and{and }%
+         \def\,{ }
+         \def\\{ }
+       }{%
+         \string\contitem
+         \string\title{\@title \if!\@subtitle!\else\subtitleseperator \@subtitle\fi}%
+         \string\author{\@authorsfortoc}%
+         \string\page{\@ArticleNo:\thepage--\@ArticleNo:\number\numexpr\getpagerefnumber{TotPages}}}%
       \closeout\tocfile
     \egroup
-  \par%
-  \ifx\linno@n\relax\linenumbers\fi}
+  \par}
 \renewcommand\tableofcontents{%
   \ifLineNumbers\nolinenumbers\let\linno@n\relax\fi
   \section*{\contentsname}%
   \@starttoc{toc}%
-  \ifx\linno@n\relax\linenumbers\fi}
+  \ifx\linno@n\relax\linenumbers\fi}%
 \setcounter{secnumdepth}{4}
 \renewcommand\section{\@startsection {section}{1}{\z@}%
                                    {-3.5ex \@plus -1ex \@minus -.2ex}%
@@ -375,6 +391,10 @@
                                        {3.25ex \@plus1ex \@minus .2ex}%
                                        {-1em}%
                                       {\sffamily\normalsize\bfseries}}
+\newcommand{\proofsubparagraph}{\@startsection{subparagraph}{5}{\z@}%
+                                       {3.25ex \@plus1ex \@minus .2ex}%
+                                       {-1em}%
+                                      {\color{dagpubGray}\sffamily\normalsize\bfseries}}
 \setlength\leftmargini  \parindent
 \setlength\leftmarginii {1.2em}
 \setlength\leftmarginiii{1.2em}
@@ -382,120 +402,135 @@
 \setlength\leftmarginv  {1.2em}
 \setlength\leftmarginvi {1.2em}
 \renewcommand\labelenumi{%
-  \textcolor{darkgray}{\sffamily\bfseries\mathversion{bold}\theenumi.}}
+  \textcolor{dagpubGray}{\sffamily\bfseries\upshape\mathversion{bold}\theenumi.}}
 \renewcommand\labelenumii{%
-  \textcolor{darkgray}{\sffamily\bfseries\mathversion{bold}\theenumii.}}
+  \textcolor{dagpubGray}{\sffamily\bfseries\upshape\mathversion{bold}\theenumii.}}
 \renewcommand\labelenumiii{%
-  \textcolor{darkgray}{\sffamily\bfseries\mathversion{bold}\theenumiii.}}
+  \textcolor{dagpubGray}{\sffamily\bfseries\upshape\mathversion{bold}\theenumiii.}}
 \renewcommand\labelenumiv{%
-  \textcolor{darkgray}{\sffamily\bfseries\mathversion{bold}\theenumiv.}}
+  \textcolor{dagpubGray}{\sffamily\bfseries\upshape\mathversion{bold}\theenumiv.}}
 \renewcommand\labelitemi{%
-  \textcolor[rgb]{0.6,0.6,0.61}{\ifnum\@listdepth=\@ne
+  \textcolor{dagpubBulletGray}{\ifnum\@listdepth=\@ne
                                   \rule{0.67em}{0.33em}%
                                 \else
                                   \rule{0.45em}{0.225em}%
                                 \fi}}
 \renewcommand\labelitemii{%
-  \textcolor[rgb]{0.6,0.6,0.61}{\rule{0.45em}{0.225em}}}
+  \textcolor{dagpubBulletGray}{\rule{0.45em}{0.225em}}}
 \renewcommand\labelitemiii{%
-  \textcolor[rgb]{0.6,0.6,0.61}{\sffamily\bfseries\textasteriskcentered}}
+  \textcolor{dagpubBulletGray}{\sffamily\bfseries\textasteriskcentered}}
 \renewcommand\labelitemiv{%
-  \textcolor[rgb]{0.6,0.6,0.61}{\sffamily\bfseries\textperiodcentered}}
+  \textcolor{dagpubBulletGray}{\sffamily\bfseries\textperiodcentered}}
 \renewenvironment{description}
                {\list{}{\advance\partopsep\topsep\topsep\z@\@plus\p@
                         \labelwidth\z@ \itemindent-\leftmargin
                         \let\makelabel\descriptionlabel}}
                {\ifnum\@listdepth=\@ne\global\@nobotseplisttrue\fi\endlist}
 \renewcommand*\descriptionlabel[1]{%
-  \hspace\labelsep\textcolor{darkgray}{\sffamily\bfseries\mathversion{bold}#1}}
+  \hspace\labelsep\textcolor{dagpubGray}{\sffamily\bfseries\mathversion{bold}#1}}
+\def\topmattervskip{0.2}
 \newsavebox{\metadatabox}
 \newenvironment{colbox}
   {\begin{lrbox}{\metadatabox}%
    \begin{minipage}{\dimexpr\columnwidth-2\fboxsep\relax}}
   {\end{minipage}\end{lrbox}%
    \begin{center}
-   \colorbox[rgb]{0.85,0.85,0.86}{\usebox{\metadatabox}}
+   \colorbox{dagpubLightGray}{\usebox{\metadatabox}}
    \end{center}}
-\renewenvironment{abstract}
-  {\vskip\bigskipamount
-   \ifLineNumbers\nolinenumbers\let\linno@n\relax\fi
-   \multicolsep\z@
-   \columnsep\parindent
-   \begin{multicols}{2}%
-     [\noindent
-      \rlap{\color[rgb]{0.51,0.50,0.52}\vrule\@width\textwidth\@height1\p@}%
-      {\hspace*{4.5mm}\fboxsep1.5mm\colorbox[rgb]{1,1,1}{\raisebox{-0.4ex}{%
-       \large\selectfont\sffamily\bfseries\abstractname}}}%
-      \vskip3\p@]%
-   \fontsize{9}{12}\selectfont
-   \noindent\ignorespaces}
-  {\end{multicols}%
-   \vskip0.3\baselineskip\noindent
-   \begin{colbox}
-     \fontsize{9}{12}\selectfont
-     \vskip0.3\baselineskip\noindent
-     \subjclassHeading
-     \ifx\@ccsdescString\@empty
+\renewenvironment{abstract}{%
+  \vskip\bigskipamount
+  \ifLineNumbers\nolinenumbers\let\linno@n\relax\fi
+  \multicolsep\z@
+  \columnsep\parindent
+  \begin{multicols}{2}%
+    [\noindent
+    \rlap{\color{dagpubLineGray}\vrule\@width\textwidth\@height1\p@}%
+    {\hspace*{4.5mm}\fboxsep1.5mm\colorbox{white}{\raisebox{-0.4ex}{%
+    \large\selectfont\sffamily\bfseries\abstractname}}}%
+    \vskip3\p@]%
+  \fontsize{9}{12}\selectfont
+  \noindent\ignorespaces}
+  {%
+  \end{multicols}%
+  \vskip0.5\baselineskip\noindent
+  \begin{colbox}
+      \fontsize{9}{12}\selectfont
+  \vskip\topmattervskip\baselineskip\noindent
+   \subjclassHeading
+   \ifx\@ccsdescString\@empty
      \textcolor{red}{Author: Please fill in 1 or more \string\ccsdesc\space macro}%
-     \else
+   \else
      \@ccsdescString
+   \fi
+   \vskip\topmattervskip\baselineskip
+   \noindent\keywordsHeading
+   \ifx\@keywords\@empty
+     \textcolor{red}{Author: Please fill in \string\keywords\space macro}%
+   \else
+     \@keywords
+   \fi
+   \ifx\@hideDagpub\@undefined
+     \ifx\@DOIPrefix\@empty\else
+       \vskip\topmattervskip\baselineskip\noindent
+       \doiHeading\href{https://doi.org/\@dagpubdoi}{\@dagpubdoi}%
      \fi
-     \vskip0.1\baselineskip\noindent
-     \keywordsHeading
-     \ifx\@keywords\@empty
-      \textcolor{red}{MANDATORY: Please provide 1--5 keywords as a comma-separated list}
-     \else
-      \@keywords
-     \fi
-     \vskip0.1\baselineskip\noindent
-     \doiHeading\href{https://doi.org/\@DOI}{\@DOI}%
-        \ifx\@relatedversion\@empty\else
-     \vskip0.1\baselineskip\noindent
-     \relatedversionHeading\@relatedversion
+   \fi
+   \ifx\@category\@empty\else
+     \vskip\topmattervskip\baselineskip\noindent
+     \categoryHeading\@category
+   \fi
+   \ifx\@relatedversion\@empty\else
+     \vskip\topmattervskip\baselineskip\noindent
+     \relatedversionHeading\ifx\authoranonymous\relax\textcolor{red}{Anonymous related version(s)}\else\@relatedversion\fi
    \fi
    \ifx\@supplement\@empty\else
-     \vskip0.1\baselineskip\noindent
-     \supplementHeading\@supplement
+     \vskip\topmattervskip\baselineskip\noindent
+     \supplementHeading\ifx\authoranonymous\relax\textcolor{red}{Anonymous supplementary material}\else\@supplement\fi
    \fi
    \ifx\@funding\@empty\else
-     \vskip0.1\baselineskip\noindent
+     \vskip\topmattervskip\baselineskip\noindent
      \fundingHeading\ifx\authoranonymous\relax\textcolor{red}{Anonymous funding}\else\@funding\fi
    \fi
    \ifx\@acknowledgements\@empty\else
-     \vskip0.1\baselineskip\noindent
+     \vskip\topmattervskip\baselineskip\noindent
      \acknowledgementsHeading\ifx\authoranonymous\relax\textcolor{red}{Anonymous acknowledgements} \else\@acknowledgements\fi
    \fi
-     \vskip0.1\baselineskip\noindent
-     \DateSubmissionHeading
-     \ifx\@DateSubmission\@empty
-      \textcolor{blue}{To be completed by Dagstuhl editorial office}
-     \else
-      \@DateSubmission\space
-     \fi
-     \DateAcceptanceHeading
-     \ifx\@DateAcceptance\@empty
-      \textcolor{blue}{To be completed by Dagstuhl editorial office}
-     \else
-      \@DateAcceptance\space
-     \fi
-     \DatePublishedHeading
-     \ifx\@DatePublished\@empty
-      \textcolor{blue}{To be completed by Dagstuhl editorial office}
-     \else
-      \@DatePublished\space
-     \fi
-     \ifx\@SectionAreaEditor\@empty\else
-      \vskip0.1\baselineskip\noindent
-      \@SectionAreaEditorHeading\@SectionAreaEditor
-     \fi
-     \ifx\@SpecialIssue\@empty\else
-      \vskip0.1\baselineskip\noindent
-      \SpecialIssueHeading\@SpecialIssue
-     \fi
-      \vskip0.3\baselineskip\noindent
+  \vskip\topmattervskip\baselineskip\noindent
+  \DateSubmissionHeading
+  \ifx\@DateSubmission\@empty
+    \textcolor{blue}{To be completed by Dagstuhl editorial office}
+  \else
+    \@DateSubmission\space
+  \fi
+  \DateAcceptanceHeading
+  \ifx\@DateAcceptance\@empty
+    \textcolor{blue}{To be completed by Dagstuhl editorial office}
+  \else
+    \@DateAcceptance\space
+  \fi
+    \DatePublishedHeading
+  \ifx\@DatePublished\@empty
+    \textcolor{blue}{To be completed by Dagstuhl editorial office}
+  \else
+    \@DatePublished\space
+  \fi
+  \ifx\@SectionAreaEditor\@empty\else
+    \vskip\topmattervskip\baselineskip\noindent
+    \SectionAreaEditorHeading\@SectionAreaEditor
+  \fi
+  \ifx\@SpecialIssue\@empty\else
+    \vskip\topmattervskip\baselineskip\noindent
+    \SpecialIssueHeading\@SpecialIssue
+  \fi
+   \ifx\@additionalMetadata\@empty\else
+     \@additionalMetadata
+   \fi
+  \vskip0.3\baselineskip\noindent
      \par
    \end{colbox}
-   \ifx\linno@n\relax\linenumbers\fi}
+   \ifx\linno@n\relax\linenumbers\fi
+  \protected@write\@auxout{}{\string\gdef\string\@pageNumberEndAbstract{\thepage}}%
+}% end abstract
 \renewenvironment{thebibliography}[1]
   {\if@noskipsec \leavevmode \fi
    \par
@@ -511,8 +546,8 @@
    \columnsep\parindent
    \begin{multicols}{2}%
      [\noindent
-      \rlap{\color[rgb]{0.51,0.50,0.52}\vrule\@width\textwidth\@height1\p@}%
-      {\hspace*{4.5mm}\fboxsep1.5mm\colorbox[rgb]{1,1,1}{\raisebox{-0.4ex}{%
+      \rlap{\color{dagpubLineGray}\vrule\@width\textwidth\@height1\p@}%
+      {\hspace*{4.5mm}\fboxsep1.5mm\colorbox{white}{\raisebox{-0.4ex}{%
       \normalsize\sffamily\bfseries\refname}}}%
       \@xsect{1ex \@plus.2ex}%
      \vspace{-\multicolsep}]%
@@ -525,70 +560,175 @@
          \let\p@enumiv\@empty
          \renewcommand\theenumiv{\@arabic\c@enumiv}}%
      \fontsize{8}{9.5}\selectfont
-     \sloppy
-     \clubpenalty10000
-     \@clubpenalty \clubpenalty
-     \widowpenalty10000%
-     \sfcode`\.\@m}
+   \sloppy
+   \clubpenalty10000
+   \@clubpenalty \clubpenalty
+   \widowpenalty10000%
+   \sfcode`\.\@m\protected@write\@auxout{}{\string\gdef\string\@pageNumberStartBibliography{\thepage}}}
   {\def\@noitemerr
-       {\@latex@warning{Empty `thebibliography' environment}}%
-     \endlist
-   \end{multicols}%
-   \ifx\linno@n\relax\linenumbers\fi}
+     {\@latex@warning{Empty `thebibliography' environment}}%
+   \protected@write\@auxout{}{\string\gdef\string\@pageNumberEndBibliography{\thepage}}%
+   \endlist
+  \end{multicols}%
+  \ifx\linno@n\relax\linenumbers\fi
+   }
+%%%%%biblatex support%%%%%
+\AtBeginDocument{%
+\@ifpackageloaded{biblatex}{
+\ExecuteBibliographyOptions{sorting=nty, maxnames=99, minnames=1}
+\DeclareFieldFormat[article,inbook,incollection,inproceedings,patent,thesis,unpublished]{citetitle}{#1\isdot}
+\DeclareFieldFormat[article,inbook,incollection,inproceedings,patent,thesis,unpublished]{title}{#1\isdot}
+\renewbibmacro{in:}{}
+\newcommand*{\volnumdelim}{\adddot}
+\renewbibmacro*{volume+number+eid}{%
+  \printfield{volume}%
+  \setunit*{\volnumdelim}%
+  \printfield{number}%
+  \setunit{\addcomma\space}%
+  \printfield{eid}}
+\renewcommand*{\volnumdelim}{}
+\DeclareFieldFormat[article, periodical]{number}{\mkbibparens{#1}}
+\newcommand*{\jourdatedelim}{\addcomma\space}
+\newcommand*{\jourserdelim}{\addcomma\space}
+\newcommand*{\datevolnumdelim}{\newunitpunct}
+\renewbibmacro*{journal+issuetitle}{%
+  \usebibmacro{journal}%
+  \setunit*{\jourdatedelim}%
+  \iffieldundef{series}
+    {}
+    {\setunit*{\jourserdelim}%
+     \printfield{series}%
+     \setunit{\jourdatedelim}}%
+  \usebibmacro{date}%
+  \setunit{\datevolnumdelim}%
+  \usebibmacro{volume+number+eid}%
+  \setunit{\addcolon\space}%
+  \usebibmacro{issue}%
+  \newunit}
+\renewcommand*{\bibpagespunct}{%
+  \ifentrytype{article}
+    {\addcolon}
+    {\addcomma}%
+  \space
+}
+\DefineBibliographyStrings{english}{
+  pages = {p\adddot},
+}
+\defbibheading{bibliography}{%
+\if@noskipsec \leavevmode \fi
+   \par
+   \@tempskipa-3.5ex \@plus -1ex \@minus -.2ex\relax
+   \@afterindenttrue
+   \@tempskipa -\@tempskipa \@afterindentfalse
+   \if@nobreak
+     \everypar{}%
+   \else
+     \addpenalty\@secpenalty\addvspace\@tempskipa
+   \fi
+}
+\defbibenvironment{bibliography}{%
+   \columnsep\parindent
+   \begin{multicols}{2}%
+     [\noindent
+      \rlap{\color{dagpubLineGray}\vrule\@width\textwidth\@height1\p@}%
+      {\hspace*{4.5mm}\fboxsep1.5mm\colorbox{white}{\raisebox{-0.4ex}{%
+      \normalsize\sffamily\bfseries\refname}}}%
+      \@xsect{1ex \@plus.2ex}%
+     \vspace{-\multicolsep}]%
+     \list{\@biblabel{\@arabic\c@enumiv}}%
+       {\setlength{\labelwidth}{\labelnumberwidth}%
+       \setlength{\leftmargin}{6mm}%
+       \setlength{\labelsep}{6mm}%
+       \advance\labelsep-\labelwidth
+       \setlength{\itemsep}{\bibitemsep}%
+       \setlength{\parsep}{\bibparsep}%
+       \usecounter{enumiv}%
+       \let\p@enumiv\@empty
+       \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+     \fontsize{8}{9.5}\selectfont
+   \sloppy
+   \clubpenalty10000
+   \@clubpenalty \clubpenalty
+   \widowpenalty10000%
+   \sfcode`\.\@m\protected@write\@auxout{}{\string\gdef\string\@pageNumberStartBibliography{\thepage}}}
+  {\protected@write\@auxout{}{\string\gdef\string\@pageNumberEndBibliography{\thepage}}%
+   \endlist
+  \end{multicols}%
+  \ifx\linno@n\relax\linenumbers\fi
+   }
+{\item}}{}
+}%
+\g@addto@macro\appendix{\immediate\write\@auxout{\string\gdef\string\@pageNumberStartAppendix{\thepage}}}%
 \renewcommand\footnoterule{%
   \kern-8\p@
-  {\color[rgb]{0.60,0.60,0.61}\hrule\@width40mm\@height1\p@}%
+  {\color{dagpubBulletGray}\hrule\@width40mm\@height1\p@}%
   \kern6.6\p@}
 \renewcommand\@makefntext[1]{%
     \parindent\z@\hangindent1em
     \leavevmode
     \hb@xt@1em{\@makefnmark\hss}#1}
+\usepackage{microtype}
 \usepackage[utf8]{inputenc}
-\IfFileExists{glyphtounicode.tex}{
-\input glyphtounicode
-\pdfgentounicode=1
-}{}%
+\ifx\pdfa\relax%
+  \IfFileExists{glyphtounicode.tex}{
+    \input glyphtounicode
+    \pdfgentounicode=1
+  }{}%
+\fi
 \IfFileExists{lmodern.sty}{\RequirePackage{lmodern}}{}
 \IfFileExists{fontawesome5.sty}{%
 \RequirePackage{fontawesome5}%
 \IfFileExists{orcid.pdf}{%
 \def\orcidsymbol{\includegraphics[height=9\p@]{orcid}}
 }{
-\def\orcidsymbol{\textcolor{dartsGray}{\fontsize{9}{12}\sffamily\bfseries \faOrcid}}%
+\def\orcidsymbol{\textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries \faOrcid}}%
 }
-\def\mailsymbol{\textcolor{dartsGray}{\fontsize{9}{12}\sffamily\bfseries \faIcon[regular]{envelope}}}%
-\def\homesymbol{\textcolor{dartsGray}{\fontsize{9}{12}\sffamily\bfseries \faHome}}%
+\def\mailsymbol{\textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries \faIcon[regular]{envelope}}}%
+\def\homesymbol{\textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries \faHome}}%
 }{%
 \ClassWarning{Package fontawesome5 not installed}{Please install package fontawesome5}
-\def\orcidsymbol{\textcolor{dartsGray}{\fontsize{9}{12}\sffamily\bfseries ORCID}}
-\def\mailsymbol{\textcolor{dartsGray}{\fontsize{9}{12}\sffamily\bfseries @}}%
-\def\homesymbol{\textcolor{dartsGray}{\fontsize{9}{12}\sffamily\bfseries H}}%
+\def\orcidsymbol{\textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries ORCID}}
+\def\mailsymbol{\textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries @}}%
+\def\homesymbol{\textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries H}}%
 }%
-
 \RequirePackage[T1]{fontenc}
 \RequirePackage{textcomp}
 \RequirePackage[mathscr]{eucal}
 \RequirePackage{amssymb}
+\PassOptionsToPackage{retainmissing}{MnSymbol}
+\AtBeginDocument{\@ifpackageloaded{MnSymbol}%
+    {\expandafter\let\csname ver@amssymb.sty\endcsname\relax
+     \let\complement\@undefined
+     \RequirePackage{amssymb}}{}}
 \RequirePackage{soul}
 \sodef\textsolittle{}{.12em}{.5em\@plus.08em\@minus.06em}%
         {.4em\@plus.275em\@minus.183em}
 \RequirePackage{color} %kept for backward compatibility
 \AtBeginDocument{
-	\@ifpackageloaded{xcolor}{
-	}{
-		\RequirePackage{xcolor}
-	}
-	\definecolor{darkgray}{rgb}{0.31,0.31,0.33}
-	\definecolor[named]{dartsGray}{rgb}{0.31,0.31,0.33}
-	\definecolor[named]{dartsBulletGray}{rgb}{0.60,0.60,0.61}
-	\definecolor[named]{dartsLineGray}{rgb}{0.51,0.50,0.52}
-	\definecolor[named]{dartsLightGray}{rgb}{0.85,0.85,0.86}
-	\definecolor[named]{dartsYellow}{rgb}{0.99,0.78,0.07}
+  \@ifpackageloaded{xcolor}{}{
+    \RequirePackage{xcolor}
+  }
+  \definecolor{darkgray}{rgb}{0.31,0.31,0.33}
+  \definecolor[named]{dagpubGray}{rgb}{0.31,0.31,0.33}
+  \definecolor[named]{dagpubBulletGray}{rgb}{0.60,0.60,0.61}
+  \definecolor[named]{dagpubLineGray}{rgb}{0.51,0.50,0.52}
+  \definecolor[named]{dagpubLightGray}{rgb}{0.85,0.85,0.86}
+  \definecolor[named]{dagpubYellow}{rgb}{0.99,0.78,0.07}
+  \definecolor{darkgray}{rgb}{0.31,0.31,0.33}
+  \definecolor[named]{litesGray}{rgb}{0.31,0.31,0.33}
+  \definecolor[named]{litesBulletGray}{rgb}{0.60,0.60,0.61}
+  \definecolor[named]{litesLineGray}{rgb}{0.51,0.50,0.52}
+  \definecolor[named]{litesLightGray}{rgb}{0.85,0.85,0.86}
+  \definecolor[named]{litesYellow}{rgb}{0.99,0.78,0.07}
 }
 \RequirePackage{babel}
 \RequirePackage[tbtags,fleqn]{amsmath}
+\AtBeginDocument{
+  \@ifpackageloaded{enumitem}{\ClassWarning{Package 'enumitem' incompatible}{Don't use package 'enumitem'; Package enumerate preloaded!}}{}
+  \@ifpackageloaded{paralist}{\ClassWarning{Package 'paralist' incompatible}{Don't use package 'paralist'; Package enumerate preloaded!}}{}
+}
 \RequirePackage{enumerate}
-\def\@enum@{\list{\textcolor{darkgray}{\sffamily\bfseries\upshape\mathversion{bold}\csname label\@enumctr\endcsname}}%
+\def\@enum@{\list{\textcolor{dagpubGray}{\sffamily\bfseries\upshape\mathversion{bold}\csname label\@enumctr\endcsname}}%
            {\advance\partopsep\topsep
             \topsep\z@\@plus\p@
             \usecounter{\@enumctr}\def\makelabel##1{\hss\llap{##1}}}}
@@ -598,41 +738,6 @@
 \let\endalphaenumerate\endenumerate
 \def\bracketenumerate{\enumerate[(1)]}
 \let\endbracketenumerate\endenumerate
-\RequirePackage{amsthm}
-\thm@headfont{%
-  \textcolor{darkgray}{$\blacktriangleright$}\nobreakspace\sffamily\bfseries}
-\def\th@remark{%
-  \thm@headfont{%
-    \textcolor{darkgray}{$\blacktriangleright$}\nobreakspace\sffamily}%
-  \normalfont % body font
-  \thm@preskip\topsep \divide\thm@preskip\tw@
-  \thm@postskip\thm@preskip
-}
-\def\@endtheorem{\endtrivlist}%\@endpefalse
-\renewcommand\qedsymbol{\textcolor{darkgray}{\ensuremath{\blacktriangleleft}}}
-\renewenvironment{proof}[1][\proofname]{\par
-  \pushQED{\qed}%
-  \normalfont \topsep6\p@\@plus6\p@\relax
-  \trivlist
-  \item[\hskip\labelsep
-        \color{darkgray}\sffamily\bfseries
-    #1\@addpunct{.}]\ignorespaces
-}{%
-  \popQED\endtrivlist%\@endpefalse
-}
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{corollary}[theorem]{Corollary}
-\theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{example}[theorem]{Example}
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-\ifx\numberwithinsect\relax
-  \@addtoreset{theorem}{section}
-  \edef\thetheorem{\expandafter\noexpand\thesection\@thmcountersep\@thmcounter{theorem}}
-\fi
 \RequirePackage{graphicx}
 \RequirePackage{array}
 \let\@classzold\@classz
@@ -650,11 +755,12 @@
   \@ifnextchar[\TPT@setuptnotes\TPTdoTablenotes} % ]
 \RequirePackage{listings}
 \lstset{basicstyle=\small\ttfamily,%
-        backgroundcolor=\color[rgb]{0.85,0.85,0.86},%
+        backgroundcolor=\color{dagpubLightGray},%
         frame=single,framerule=0pt,xleftmargin=\fboxsep,xrightmargin=\fboxsep}
 \RequirePackage{multicol}[2011/06/27]
 \multicolsep = 13pt plus 4pt minus 3pt
 \RequirePackage[left,mathlines]{lineno}
+\RequirePackage{csquotes}
 \linenumbers
 \renewcommand\linenumberfont{\normalfont\tiny\sffamily}
 %%%% patch to cope with amsmath
@@ -693,62 +799,63 @@
 \IfFileExists{totpages.sty}{
   \RequirePackage{totpages}
 }{
-	\ClassWarning{Package totpages not installed}{Please install package totpages}
-	\newcounter{TotPages}
-	\setcounter{TotPages}{99}
+  \ClassWarning{Package totpages not installed}{Please install package totpages}
+  \newcounter{TotPages}
+  \setcounter{TotPages}{99}
 }
 \let\C\relax%
 \let\G\relax%
 \let\F\relax%
 \let\U\relax%
 \pdfstringdefDisableCommands{%
-	\let\thanks\@gobble%
-	\let\footnote\@gobble%
-	\def\footnotemark{}%
-	\def\cs#1{\textbackslash #1}%
-	\let\normalfont\@empty%
-	\let\scshape\@empty%
-	\def\and{and }%
-	\def\,{ }%
-	\def\textrightarrow{ -> }%
-	\let\mathsf\@empty%
+  \let\thanks\@gobble%
+  \let\footnote\@gobble%
+  \def\footnotemark{}%
+  \def\cs#1{\textbackslash #1}%
+  \let\normalfont\@empty%
+  \let\scshape\@empty%
+  \def\and{and }%
+  \def\,{ }%
+  \def\textrightarrow{ -> }%
+  \let\mathsf\@empty%
 }%
 \hypersetup{
-	breaklinks=true,
-	pdfencoding=unicode,
-	bookmarksnumbered,
-	pdfborder={0 0 0},
-	pdfauthor={ }
+  breaklinks=true,
+  pdfencoding=unicode,
+  bookmarksnumbered,
+  pdfborder={0 0 0},
+  pdfauthor={ }
 }%
 \AtBeginDocument{
 \ifx\usehyperxmp\relax
 \hypersetup{
-pdftitle={\@title},
-pdfauthor={\@authorsforpdf},
-pdfkeywords={\@keywords},
-pdfproducer={LaTeX with lites-v2021.cls},
-pdfsubject={LITES, Vol. \@Volume, Issue \@Issue, Article \@Article},
-pdfcopyright = { Copyright (C) \@authorsforpdf; licensed under Creative Commons License CC-BY 4.0},
-%pdflang={en},
-pdfmetalang={en},
-pdfpublisher={Schloss Dagstuhl -- Leibniz-Zentrum für Informatik, Dagstuhl Publishing, Germany},
-pdflicenseurl={https://creativecommons.org/licenses/by/4.0/},
-pdfpubtype={LITES},
-pdfvolumenum={\@Volume},
-pdfpagerange={\thepage-\theTotPages},
-pdfdoi={\@DOI},
-pdfapart=3,
-pdfaconformance=B
+   pdftitle={\@title \if!\@subtitle!\else\subtitleseperator \@subtitle\fi},
+  pdfauthor={\ifx\authoranonymous\relax Anonymous author(s) \else \@authorsforpdf \fi},
+  pdfkeywords={\@keywords},
+   pdfproducer={LaTeX with \@DagPubSeriesNameShortSmall-v2021.cls},
+  pdfsubject={\@DagPubSeriesNameShort, Vol. \@SeriesVolume, Issue \@SeriesIssue, Article \@ArticleNo},
+  pdfcopyright = {Copyright (C) \ifx\authoranonymous\relax Anonymous author(s) \else \@copyrightholder; \fi licensed under Creative Commons License CC-BY 4.0},
+  pdflang={en},
+  pdfmetalang={en},
+  pdfpublisher={Schloss Dagstuhl -- Leibniz-Zentrum für Informatik, Dagstuhl Publishing, Germany},
+  pdflicenseurl={https://creativecommons.org/licenses/by/4.0/},
+  pdfpubtype={\@DagPubSeriesNameShort},
+  pdfvolumenum={\@SeriesVolume},
+  pdfissuenum={\@SeriesIssue}
+  pdfpagerange={\@ArticleNo:\thepage-\@ArticleNo:\theTotPages},
+  pdfdoi={\@dagpubdoi},
+  pdfapart=3,
+  pdfaconformance=B
 }
 \else%
 \hypersetup{
-pdftitle={\@title},
-pdfauthor={\@authorsforpdf},
-pdfkeywords={\@keywords},
-pdfcreator={LaTeX with lites-v2021.cls},
-pdfsubject={LITES, Vol. \@Volume, Issue \@Issue, Artilce \@Article; Copyright (C) \@authorsforpdf; licensed under Creative Commons License CC-BY 4.0}
+   pdftitle={\@title \if!\@subtitle!\else\subtitleseperator \@subtitle\fi},
+  pdfauthor={\ifx\authoranonymous\relax Anonymous author(s) \else \@authorsforpdf \fi},
+  pdfkeywords={\@keywords},
+   pdfcreator={LaTeX with \@DagPubSeriesNameShortSmall-v2021.cls},
+  pdfsubject={\@DagPubSeriesNameShort, Vol. \@SeriesVolume,  Issue \@SeriesIssue, Article \@ArticleNo; Copyright (C) \ifx\authoranonymous\relax Anonymous author(s) \else \@copyrightholder; \fi licensed under Creative Commons License CC-BY 4.0}
 }%
-\fi	%
+\fi  %
 }
 \ifx\usehyperxmp\relax
 \pdfobjcompresslevel=0
@@ -777,188 +884,325 @@ pdfsubject={LITES, Vol. \@Volume, Issue \@Issue, Artilce \@Article; Copyright (C
   {\captionsetup{compatibility=false}}%cf. http://groups.google.de/group/comp.text.tex/browse_thread/thread/db9310eb540fbbd8/42e30f3b7b3aa17a?lnk=raot
   {}
 \DeclareCaptionLabelFormat{boxed}{%
-  \kern0.05em{\color[rgb]{0.99,0.78,0.07}\rule{0.73em}{0.73em}}%
+  \kern0.05em{\color{dagpubYellow}\rule{0.73em}{0.73em}}%
   \hspace*{0.67em}\bothIfFirst{#1}{~}#2}
 \captionsetup{labelformat=boxed}
 \captionsetup[table]{position=top}
 \RequirePackage[figuresright]{rotating}
-\caption@AtBeginDocument{\@ifpackageloaded{subfig}{\ClassError{lites}{%
+\caption@AtBeginDocument{\@ifpackageloaded{subfig}{\ClassError{dagpub}{%
   Do not load the subfig package}{The more recent subcaption package is already loaded}}{}}
 \RequirePackage{subcaption}
-\usepackage{xstring}
 \def\titlerunning#1{\gdef\@titlerunning{{\let\footnote\@gobble\markboth{#1}{#1}}}}
 \def\authorrunning#1{%
-  \gdef\@authorrunning{\expandafter\def\expandafter\@tempa\expandafter{#1}%
-                       \ifx\@tempa\@empty\else\markright{#1}\fi}}
-\titlerunning{\@title}
-\authorrunning{\AB@authrunning}
-\def\Volume#1{\gdef\@Volume{#1}}
-\Volume{}
-\def\Issue#1{\gdef\@Issue{#1}}
-\Issue{}
-\def\Article#1{\gdef\@Article{#1}}
-\Article{}
-\def\and{\newline}
+  \gdef\@authorrunning{\markright{\ifx\authoranonymous\relax\textcolor{red}{Anonymous author(s)} \else\if!#1!\textcolor{red}{Author: Please fill in the \string\authorrunning\space macro}\else#1\fi\fi}}}
+\titlerunning{\@title \if!\@subtitle!\else\subtitleseperator \@subtitle\fi}
+\authorrunning{\textcolor{red}{Author: Please use the \string\authorrunning\space macro}}
+\def\EventLongTitle#1{\gdef\@EventLongTitle{#1}}
+\EventLongTitle{}
+\def\EventShortTitle#1{\gdef\@EventShortTitle{#1}}
+\EventShortTitle{}
+\def\EventEditors#1{\gdef\@EventEditors{#1}}
+\EventEditors{}
+\def\EventNoEds#1{\gdef\@EventNoEds{#1}\xdef\@Eds{Editor\ifnum#1>1s\fi}}
+\EventNoEds{1}
+\def\EventLogo#1{\gdef\@EventLogo{#1}}
+\EventLogo{}
+\def\EventLogoURL#1{\gdef\@EventLogoURL{#1}}
+\EventLogoURL{}
+\def\EventAcronym#1{\gdef\@EventAcronym{#1}}
+\EventAcronym{}
+\def\EventYear#1{\gdef\@EventYear{#1}}
+\EventYear{}
+\def\EventDate#1{\gdef\@EventDate{#1}}
+\EventDate{}
+\def\EventLocation#1{\gdef\@EventLocation{#1}}
+\EventLocation{}
+\def\SeriesVolume#1{\gdef\@SeriesVolume{#1}}
+\SeriesVolume{}
+\def\Volume#1{%
+   \ClassWarning{\string\Volume\space deprecated: Please don't use}{\string\Volume\space is deprecated in the styles of Dagstuhl Publishing. Please use \string\SeriesVolume\space instead.}%
+   \gdef\@SeriesVolume{#1}}
+\def\Issue#1{%
+  \ClassWarning{\string\Issue\space deprecated: Please don't use}{\string\Issue\space is deprecated in the styles of Dagstuhl Publishing. Please use \string\SeriesIssue\space instead.}%
+  \gdef\@SeriesIssue{#1}}
+\def\SeriesIssue#1{\gdef\@SeriesIssue{#1}}
+\SeriesIssue{}
+\def\ArticleNo#1{\gdef\@ArticleNo{#1}}
+\ArticleNo{}
+\def\Article#1{%
+  \ClassWarning{\string\Article\space deprecated: Please don't use}{\string\Article\space is deprecated in the styles of Dagstuhl Publishing. Please use \string\ArticleNo\space instead.}%
+  \gdef\@ArticleNo{#1}%
+}
 \def\FirstPage#1{\setcounter{page}{#1}}
+\ArticleNo{}
+\def\DagPubSeriesName#1{\gdef\@DagPubSeriesName{#1}}
+\DagPubSeriesName{Leibniz Transactions on Embedded Systems}
+\def\DagPubSeriesNameShort#1{\gdef\@DagPubSeriesNameShort{#1}}
+\DagPubSeriesNameShort{LITES}
+\def\DagPubSeriesNameShortSmall#1{\gdef\@DagPubSeriesNameShortSmall{#1}}
+\DagPubSeriesNameShortSmall{lites}
+\def\DagPubSeriesURL#1{\gdef\@DagPubSeriesURL{#1}}
+\DagPubSeriesURL{https://www.dagstuhl.de/\@DagPubSeriesNameShortSmall}
+\def\DagPubSeriesLogo#1{\gdef\@DagPubSeriesLogo{#1}}
+\DagPubSeriesLogo{lites-logo}
+\def\DOIPrefix#1{\gdef\@DOIPrefix{#1}}
+\DOIPrefix{10.4230/\@DagPubSeriesNameShort}
+\gdef\@dagpubdoi{\@DOIPrefix.\@SeriesVolume.\@SeriesIssue.\@ArticleNo}
+\def\DOI#1{\ClassWarning{\string\DOI\space deprecated: Please don't use}{\string\DOI\space is obsolete in the styles of Dagstuhl Publishing.}}
+\newcommand{\printDOI}{\@dagpubdoi}
+\def\and{\newline}
 \let\orig@author\@author
 \let\@authorsfortoc\@empty
 \let\@authorsforpdf\@empty
-\newcount\c@author
+\newcount\count@author
 \newcounter{currentauthor}
 \def\authorcolumnsMin{6}
 \def\@authornum{0}
 \def\author#1#2#3#4#5{%
   \ifx\@author\orig@author\let\@author\@empty\fi
   \g@addto@macro\@author{%
-	\noexpandarg\StrBehind{#2}{\and \url}[\homepageTemp]\IfSubStr{#2}{\and \url}{\StrBefore{#2}{\and \url}[\affiliation]}{\def\affiliation{#2}}%
-	\expandarg\exploregroups\StrRemoveBraces{\homepageTemp}[\homepage]%
-	\ifx\authorcolumns\relax
-		\ifnum\c@author>\authorcolumnsMin
-			\stepcounter{currentauthor}
-			\ifodd\value{currentauthor}
-				\begin{minipage}[t]{\textwidth}
-				\begin{minipage}[t]{0.49\textwidth}
-			\else
-				\hfill \begin{minipage}[t]{0.49\textwidth}
-			\fi
-		\else
-			\ClassWarning{Option 'authorcolumns' only applicable for > 6 authors}{Option 'authorcolumns' only applicable for >6 authors!}
-			\addvspace{0.5\baselineskip}
-		\fi
-	\else
-		\addvspace{0.5\baselineskip}
-	\fi
-    {\Large\bfseries
-     \if!#1!
-       \textcolor{red}{Author: Please enter author name}%
-     \else
-			#1\,%
-			\ifx\compactauthor\relax\if!#3!\else{\,\href{mailto:#3}{\mailsymbol}}\fi%
-			\ifx\homepage\@empty\else{\,\href{\homepage}{\homesymbol}}\fi\fi%
-			\if!#4!\else{\,\href{#4}{\orcidsymbol}}\fi%
-			\if!#5!\else
-				\ifx\@funding\@empty
-					\expandafter\g@addto@macro\expandafter\@funding{\textit{\expandafter{\let\footnote\@gobble #1}}:\space{#5}}
-				\else
-					\expandafter\g@addto@macro\expandafter\@funding{\\\textit{\expandafter{\let\footnote\@gobble #1}}:\space{#5}}
-				\fi
-			\fi
-	\fi
-     }
-	{\small
-    \if!#2!\textcolor{red}{Author: Please enter affiliation as second parameter of the author macro}\else{\\* \ifx\compactauthor\relax \affiliation \else#2\fi}\fi
-    \ifx\compactauthor\relax\else\if!#3!\else{\\*\href{mailto:#3}{#3}}\fi\fi
-	}\par
-	\ifx\authorcolumns\relax
-		\ifnum\c@author>\authorcolumnsMin
-			\end{minipage}
-			\ifnum\c@author=\value{currentauthor}
-				\end{minipage}
-			\else
-				\ifodd\value{currentauthor}
-				\else
-					\end{minipage}%
-					\medskip
-				\fi
-			\fi
-		\fi
-	\fi}%
-  \global\advance\c@author\@ne
-  \protected@write\@auxout{}{\string\gdef\string\@authornum{\the\c@author}}
-  \ifnum\c@author=\@ne
-    \gdef\@authorsfortoc{#1}%
-    \gdef\@authorsforpdf{#1}
-  \else
-    \expandafter\g@addto@macro\expandafter\@authorsforpdf\expandafter{, #1}
-    \expandafter\g@addto@macro\expandafter\@authorsfortoc\expandafter{\expandafter\csname\the\c@author authand\endcsname#1}%
-    \@namedef{\the\c@author authand}{,\space}%
-    \AtBeginDocument{%
-      \expandafter\ifnum\@authornum=2
-        \@namedef{2authand}{\space and\space}%
+    \noexpandarg\StrBehind{#2}{\and \url}[\homepageTemp]\IfSubStr{#2}{\and \url}{\StrBefore{#2}{\and \url}[\affiliation]}{\def\affiliation{#2}}%
+    \expandarg\exploregroups\StrRemoveBraces{\homepageTemp}[\homepage]%
+    \ifx\authorcolumns\relax
+      \ifnum\count@author>\authorcolumnsMin
+        \stepcounter{currentauthor}
+          \ifodd\value{currentauthor}
+            \begin{minipage}[t]{\textwidth}
+            \begin{minipage}[t]{0.49\textwidth}
+          \else
+            \hfill \begin{minipage}[t]{0.49\textwidth}
+          \fi
+        \else
+          \ClassWarning{Option 'authorcolumns' only applicable for > 6 authors}{Option 'authorcolumns' only applicable for >6 authors!}
+          \addvspace{0.5\baselineskip}
+        \fi
       \else
-        \@namedef{\@authornum authand}{,\space and\space}%
+        \addvspace{0.5\baselineskip}
+      \fi
+      {\Large\bfseries
+      \if!#1!
+        \textcolor{red}{Author: Please enter author name}%
+      \else
+        \ifx\authoranonymous\relax
+          \textcolor{red}{Anonymous author}
+        \else
+          #1\,%
+          \ifx\compactauthor\relax\if!#3!\else{\,\href{mailto:#3}{\mailsymbol}}\fi%
+          \ifx\homepage\@empty\else{\,\href{\homepage}{\homesymbol}}\fi\fi%
+          \if!#4!\else{\,\href{#4}{\orcidsymbol}}\fi%
+          \if!#5!\else
+          \ifx\@funding\@empty
+            \expandafter\g@addto@macro\expandafter\@funding{\textit{\expandafter{\let\footnote\@gobble #1}}:\space{#5}}
+          \else
+            \expandafter\g@addto@macro\expandafter\@funding{\\\textit{\expandafter{\let\footnote\@gobble #1}}:\space{#5}}
+          \fi
+        \fi
+      \fi
+    \fi}
+    {\small
+    \if!#2!\textcolor{red}{Author: Please enter affiliation as second parameter of the author macro}\else{\\* \ifx\authoranonymous\relax\textcolor{red}{Anonymous affiliation}\else\ifx\compactauthor\relax \affiliation \else#2\fi\fi}\fi
+    \ifx\compactauthor\relax\else\if!#3!\else{\ifx\authoranonymous\relax\else\\*\href{mailto:#3}{#3}\fi}\fi\fi
+      }\par
+      \ifx\authorcolumns\relax
+        \ifnum\count@author>\authorcolumnsMin
+          \end{minipage}
+          \ifnum\count@author=\value{currentauthor}
+            \end{minipage}
+          \else
+            \ifodd\value{currentauthor}
+              \else
+                \end{minipage}%
+                \medskip
+              \fi
+            \fi
+          \fi
+        \fi}%
+        \global\advance\count@author\@ne
+        \protected@write\@auxout{}{\string\gdef\string\@authornum{\the\count@author}}
+        \ifnum\count@author=\@ne
+          \gdef\@authorsfortoc{#1}%
+          \gdef\@authorsforpdf{#1}
+        \else
+          \expandafter\g@addto@macro\expandafter\@authorsforpdf\expandafter{, #1}
+          \expandafter\g@addto@macro\expandafter\@authorsfortoc\expandafter{\expandafter\csname\the\count@author authand\endcsname#1}%
+          \@namedef{\the\count@author authand}{,\space}%
+          \AtBeginDocument{%
+            \expandafter\ifnum\@authornum=2
+            \@namedef{2authand}{\space and\space}%
+        \else
+          \@namedef{\@authornum authand}{,\space and\space}%
+        \fi}
       \fi}
-  \fi}
 \newcommand*\affil[2][]{%
-  \ClassError{darts}
-    {Deprecated: Please enter affiliation as second parameter of the author macro}
-    {Since 2018, \string\affil\space is obsolete in lites.}}
+  \ClassError{dagpub}
+    {\string\affil\space deprecated: Please enter affiliation as second parameter of the author macro}
+    {Since 2017, \string\affil\space is obsolete in the styles of Dagstuhl Publishing.}}
 \newcommand*\Copyright[1]{%
+  \def\@copyrightholder{#1}
   \def\@Copyright{%
-      \setbox\@tempboxa\hbox{\includegraphics[height=14\p@,clip]{cc-by}}%
-      \hspace*{\wd\@tempboxa}\enskip\ifx#1\@empty \else \textcopyright\ #1;\fi\\
-      \href{https://creativecommons.org/licenses/by/4.0/}%
-           {\smash{\unhbox\@tempboxa}}\enskip
-            licensed under Creative Commons Attribution 4.0 International (CC BY 4.0) \\}}
-\Copyright{\textcolor{red}{Author: Please fill in Copyright macro}}
+   \ifx#1\empty \else
+    \setbox\@tempboxa\hbox{\IfFileExists{cc-by.pdf}{\includegraphics[height=14\p@,clip]{cc-by}}{\includegraphics[height=14\p@, width=40pt]{example-image-plain}}}%
+    \@rightskip\@flushglue \rightskip\@rightskip
+    \hangindent\dimexpr\wd\@tempboxa+0.5em\relax
+    \href{https://creativecommons.org/licenses/by/4.0/}%
+         {\smash{\lower\baselineskip\hbox{\unhcopy\@tempboxa}}}\enskip
+    \textcopyright\ %
+    \ifx!#1!\textcolor{red}{Author: Please fill in the \string\Copyright\space macro}\else\ifx\authoranonymous\relax\textcolor{red}{Anonymous author(s)}\else#1\fi\fi
+    ;\\%
+    licensed under Creative Commons License CC-BY 4.0\ifx!#1!\\\null\fi\par
+  \fi}}
+\Copyright{\textcolor{red}{Author: Please provide a copyright holder}}
+\let\@copyrightholder\@empty
+\def\hideLITES{\let\@hideDagpub\relax}
+\usepackage{xstring}
+\def\keywords#1{\def\@keywords{#1}}
+\let\@keywords\@empty
+\def\keywordsHeading{%
+  \textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries
+                       Keywords and phrases\enskip}}
+\RequirePackage{comment}
+\excludecomment{CCSXML}
+\global\newcommand\ccsdesc[2][100]{\@ccsdesc#1~#2~~\relax}
+\let\orig@ccsdesc\@ccsdesc
+\let\@ccsdesc\@empty
+\let\@ccsdescString\@empty
+\gdef\@ccsdesc#1~#2~#3~{
+  \ifx\@ccsdesc\orig@ccsdesc\let\@ccsdesc\@empty\fi
+  \ifx!#3!
+    \ifx\@ccsdescString\@empty
+      \g@addto@macro\@ccsdescString{{#2}}
+    \else
+      \g@addto@macro\@ccsdescString{; {#2}}
+    \fi
+  \else
+    \ifx\@ccsdescString\@empty
+      \g@addto@macro\@ccsdescString{{#2} $\rightarrow$ {#3}}
+    \else
+      \g@addto@macro\@ccsdescString{; {#2} $\rightarrow$ {#3}}
+    \fi
+  \fi
+  \ccsdescEnd
+}
+\def\ccsdescEnd#1\relax{}
+\def\subjclass#1{
+  \ClassError{dagpub}
+    {\string\subjclass\space deprecated: Please enter subject classification in 1 or more ccsdesc macros}
+    {Since 2019, \string\subjclass\space is obsolete in the styles of Dagstuhl Publishing.}}
+\let\@subjclass\@empty
+\def\subjclassHeading{%
+  \textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries
+                       2012 ACM Subject Classification\enskip}}
+\def\doiHeading{%
+  \textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries
+                       Digital Object Identifier\enskip}}
+\def\RelatedConference#1{\gdef\@RelatedConference{#1}}
+\def\RelatedConferenceHeading{%
+  \textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries
+                      Related Conference\enskip}}
+\let\@RelatedConference\@empty
+\def\RelatedArticle#1{\gdef\@RelatedArticle{#1}}
+\def\RelatedArticleHeading{%
+  \textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries
+                      Related Article\enskip}}
+\let\@RelatedArticle\@empty
+\def\EventShortName#1{%
+  \ClassWarning{\string\EventShortName\space deprecated: Please don't use}{\string\EventShortName\space is deprecated in the styles of Dagstuhl Publishing. Please use \string\EventShortTitle\space instead.}%
+  \gdef\@EventShortTitle{#1}}
+\EventShortTitle{\@DagPubSeriesNameShort}
+\def\category#1{\def\@category{#1}}
+\let\@category\@empty
+\def\categoryHeading{%
+  \textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries
+                       Category\enskip}}
 \def\relatedversion#1{\def\@relatedversion{#1}}
 \let\@relatedversion\@empty
 \define@key{relatedversiondetails}{linktext}{\def\relatedversiondetails@linktext{#1}}
 \define@key{relatedversiondetails}{cite}{\def\relatedversiondetails@cite{#1}}
 \newcommand*\addtorelatedversionmacro[2]{%
-		\ifx\@relatedversion\@empty%
-				\g@addto@macro\@relatedversion{#1}%
-			\else%
-				\g@addto@macro\@relatedversion{\\#1}%
-			\fi%
+  \ifx\@relatedversion\@empty%
+    \g@addto@macro\@relatedversion{#1}%
+  \else%
+    \g@addto@macro\@relatedversion{\\#1}%
+  \fi%
 }%
 \newcommand{\relatedversiondetails}[3][]{%
-	\begingroup%
-	\let\relatedversiondetails@linktext\@empty
-	\let\relatedversiondetails@cite\@empty
-	\setkeys{relatedversiondetails}{#1}%
-	\ifx\relatedversiondetails@linktext\@empty%
-		\protected@edef\tmp{\textit{#2}:\space{\url{#3}}}%
-	\else%
-		\protected@edef\tmp{\textit{#2}:\space{\href{#3}{\texttt{\relatedversiondetails@linktext}}}}%
-	\fi%
-	\ifx\relatedversiondetails@cite\@empty%
-	\else%
-		\protected@edef\tmp{\tmp\space\cite{\relatedversiondetails@cite}}%
-	\fi%
-	\expandafter\addtorelatedversionmacro\expandafter{\tmp}{#1}%
-	\endgroup%
+  \begingroup%
+    \let\relatedversiondetails@linktext\@empty
+    \let\relatedversiondetails@cite\@empty
+    \setkeys{relatedversiondetails}{#1}%
+    \ifx\relatedversiondetails@linktext\@empty%
+      \protected@edef\tmp{\textit{#2}:\space{\url{#3}}}%
+    \else%
+      \protected@edef\tmp{\textit{#2}:\space{\href{#3}{\texttt{\relatedversiondetails@linktext}}}}%
+    \fi%
+    \ifx\relatedversiondetails@cite\@empty%
+    \else%
+      \protected@edef\tmp{\tmp\nobreakspace\cite{\relatedversiondetails@cite}}%
+    \fi%
+    \expandafter\addtorelatedversionmacro\expandafter{\tmp}{#1}%
+  \endgroup%
 }%
 \def\relatedversionHeading{%
-  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
+  \textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries
                        Related Version\enskip}}
 \def\supplement#1{\def\@supplement{#1}}
 \let\@supplement\@empty
 \define@key{supplementdetails}{linktext}{\def\supplementdetails@linktext{#1}}
 \define@key{supplementdetails}{cite}{\def\supplementdetails@cite{#1}}
 \define@key{supplementdetails}{subcategory}{\def\supplementdetails@subcategory{#1}}
+\define@key{supplementdetails}{swhlinktext}{\def\supplementdetails@swhlinktext{#1}}
+\let\supplementdetails@swhlinktext\@empty
+\define@key{supplementdetails}{swhid}{
+  \ifx\supplementdetails@swhlinktext\@empty%
+    \StrBefore{#1}{;}[\supplementdetails@swhlinktext]%
+  \fi%
+  \def\supplementdetails@swhid{#1}%
+}
+\define@key{supplementdetails}{swhdelimiter}{\def\supplementdetails@swhdelimiter{#1}}
+\def\supplementdetails@swhdelimiter{\\ \hspace*{1.2em}}
 \newcommand*\addtosupplementmacro[2]{%
-		\ifx\@supplement\@empty%
-				\g@addto@macro\@supplement{#1}%
-			\else%
-				\g@addto@macro\@supplement{\\#1}%
-			\fi%
+  \ifx\@supplement\@empty%
+    \g@addto@macro\@supplement{#1}%
+  \else%
+    \g@addto@macro\@supplement{\\#1}%
+  \fi%
 }%
 \newcommand{\supplementdetails}[3][]{%
-	\begingroup%
-	\let\supplementdetails@linktext\@empty
-	\let\supplementdetails@cite\@empty
-	\let\supplementdetails@subcategory\@empty
-	\setkeys{supplementdetails}{#1}%
-	\ifx\supplementdetails@subcategory\@empty%
-		\protected@edef\tmp{\textit{#2}}
-	\else
-		\protected@edef\tmp{\textit{#2\,\,(\supplementdetails@subcategory)}}%
-	\fi
-	\ifx\supplementdetails@linktext\@empty%
-		\protected@edef\tmp{\tmp:\space{\url{#3}}}%
-	\else%
-		\protected@edef\tmp{\tmp:\space{\href{#3}{\texttt{\supplementdetails@linktext}}}}%
-	\fi%
-	\ifx\supplementdetails@cite\@empty%
-	\else%
-		\protected@edef\tmp{\tmp\space\cite{\supplementdetails@cite}}%
-	\fi%
-	\expandafter\addtosupplementmacro\expandafter{\tmp}{#1}%
-	\endgroup%
+  \begingroup%
+    \let\supplementdetails@linktext\@empty
+    \let\supplementdetails@cite\@empty
+    \let\supplementdetails@subcategory\@empty
+    \let\supplementdetails@swhid\@empty
+    \setkeys{supplementdetails}{#1}%
+    \ifx\supplementdetails@subcategory\@empty%
+      \protected@edef\tmp{\textit{#2}}
+    \else
+      \protected@edef\tmp{\textit{#2\,\,(\supplementdetails@subcategory)}}%
+    \fi
+    \ifx\supplementdetails@linktext\@empty%
+      \protected@edef\tmp{\tmp:\space{\url{#3}}}%
+    \else%
+      \protected@edef\tmp{\tmp:\space{\href{#3}{\texttt{\supplementdetails@linktext}}}}%
+    \fi%
+    \ifx\supplementdetails@cite\@empty%
+    \else%
+      \protected@edef\tmp{\tmp\nobreakspace\cite{\supplementdetails@cite}}%
+    \fi
+    \ifx\supplementdetails@swhid\@empty%
+    \else%
+      \ifx\supplementdetails@swhlinktext\@empty%
+        \protected@edef\tmp{\tmp \supplementdetails@swhdelimiter{} archived at %
+        \href{https://archive.softwareheritage.org/\supplementdetails@swhid}{\nolinkurl{\supplementdetails@swhid}}}%
+      \else%
+        \protected@edef\tmp{\tmp \supplementdetails@swhdelimiter{} archived at %
+        \href{https://archive.softwareheritage.org/\supplementdetails@swhid}{\nolinkurl{\supplementdetails@swhlinktext}}}%
+      \fi%
+    \fi%
+    \expandafter\addtosupplementmacro\expandafter{\tmp}{#1}%
+  \endgroup%
 }%
 \def\supplementHeading{%
-  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
+  \textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries
                        Supplementary Material\enskip}}
 \newcommand\flag[2][0.9cm]{%
     \leavevmode\marginpar{%
@@ -968,85 +1212,295 @@ pdfsubject={LITES, Vol. \@Volume, Issue \@Issue, Artilce \@Article; Copyright (C
 \def\funding#1{\def\@funding{#1}}
 \let\@funding\@empty
 \def\fundingHeading{%
- \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
+ \textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries
                       Funding\enskip}}
 \def\acknowledgements#1{\def\@acknowledgements{#1}}
 \let\@acknowledgements\@empty
 \def\acknowledgementsHeading{%
- \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
+ \textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries
                       Acknowledgements\enskip}}
-\def\keywords#1{\def\@keywords{#1}}
-\let\@keywords\@empty
-\def\keywordsHeading{%
-  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
-                       Keywords and Phrases\enskip}}
-\RequirePackage{comment}
-\excludecomment{CCSXML}
-% inspired by https://tex.stackexchange.com/questions/12810/how-do-i-split-a-string
-\global\newcommand\ccsdesc[2][100]{\@ccsdesc#1~#2~~\relax}
-\let\orig@ccsdesc\@ccsdesc
-\let\@ccsdesc\@empty
-\let\@ccsdescString\@empty
-\gdef\@ccsdesc#1~#2~#3~{
-	\ifx\@ccsdesc\orig@ccsdesc\let\@ccsdesc\@empty\fi
-	\ifx!#3!
-		\ifx\@ccsdescString\@empty
-			\g@addto@macro\@ccsdescString{{#2}}
-		\else
-			\g@addto@macro\@ccsdescString{; {#2}}
-		\fi
-	\else
-		\ifx\@ccsdescString\@empty
-			\g@addto@macro\@ccsdescString{{#2} $\rightarrow$ {#3}}
-		\else
-			\g@addto@macro\@ccsdescString{; {#2} $\rightarrow$ {#3}}
-		\fi
-	\fi
-\ccsdescEnd
-}
-\def\ccsdescEnd#1\relax{}
-\def\subjclass#1{
-  \ClassError{lites}
-    {\string\subjclass\space deprecated: Please enter subject classification in 1 or more ccsdesc macros}
-    {Since 2020, \string\subjclass\space is obsolete in lites.}}
-\let\@subjclass\@empty
-\def\subjclassHeading{%
-  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
-                       2012 ACM Subject Classification\enskip}}
-\def\doiHeading{%
-  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
-                       Digital Object Identifier\enskip}}
+\let\@additionalMetadata\@empty
+\def\additionalMetadata#1#2{%
+  \g@addto@macro\@additionalMetadata{%
+    \vskip\topmattervskip\baselineskip\noindent%
+    \textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries #1\enskip}%
+    #2}%
+}%
+\def\SectionAreaEditor#1{\gdef\@SectionAreaEditor{#1}}
+\def\SectionAreaEditorHeading{%
+  \textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries
+                      Editor\enskip}}
+\let\@SectionAreaEditor\@empty
+\def\SpecialIssue#1{\gdef\@SpecialIssue{#1}}
+\def\SpecialIssueHeading{%
+  \textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries
+                      Special issue\enskip}}
+\let\@SpecialIssue\@empty
 \def\DateSubmission#1{\gdef\@DateSubmission{#1}}
 \def\DateSubmissionHeading{%
-  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
+  \textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries
                        Received\enskip}}
 \let\@DateSubmission\@empty
 \def\DateAcceptance#1{\gdef\@DateAcceptance{#1}}
 \def\DateAcceptanceHeading{%
-  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
+  \textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries
                        Accepted\enskip}}
 \let\@DateAcceptance\@empty
 \def\DatePublished#1{\gdef\@DatePublished{#1}}
 \def\DatePublishedHeading{%
-  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
+  \textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries
                        Published\enskip}}
 \let\@DatePublished\@empty
-\def\SectionAreaEditor#1{\gdef\@SectionAreaEditor{#1}}
-\let\@SectionAreaEditor\@empty
-\def\SectionAreaEditorHeading#1{\gdef\@SectionAreaEditorHeading{\textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries#1\enskip}}}
-\SectionAreaEditorHeading{Editor}
-\def\SpecialIssue#1{\gdef\@SpecialIssue{#1}}
-\def\SpecialIssueHeading{%
-  \textcolor{darkgray}{\fontsize{9}{12}\sffamily\bfseries
-                      Special Issue\enskip}}
-\let\@SpecialIssue\@empty
-\def\EventShortName#1{\gdef\@EventShortName{#1}}
-\EventShortName{LITES}
-\def\DOI#1{\gdef\@DOI{#1}}
-\DOI{10.4230/LITES-v\three@digits{\@Volume}-i\three@digits{\@Issue}-a\three@digits{\@Article}}
-\g@addto@macro{\UrlBreaks}{%
-  \do\/\do\-}
-
+\newcommand{\printDatePublished}{
+  \@\ifx\@DatePublished\@empty
+     \textcolor{red}{Publication date will be entered by Dagstuhl Publishing.}%
+   \else
+     \@DatePublished
+   \fi
+}
+\RequirePackage{amsthm}
+\ifx\usethmrestate\relax
+\RequirePackage{thm-restate}
+\fi
+\thm@headfont{%
+  \textcolor{dagpubGray}{$\blacktriangleright$}\nobreakspace\sffamily\bfseries}
+\def\th@remark{%
+  \thm@headfont{%
+    \textcolor{dagpubGray}{$\blacktriangleright$}\nobreakspace\sffamily}%
+  \normalfont % body font
+  \thm@preskip\topsep \divide\thm@preskip\tw@
+  \thm@postskip\thm@preskip
+}
+\def\@endtheorem{\endtrivlist}%\@endpefalse
+\renewcommand\qedsymbol{\textcolor{dagpubGray}{\ensuremath{\blacktriangleleft}}}
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist
+  \item[\hskip\labelsep
+        \color{dagpubGray}\sffamily\bfseries
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endtrivlist%\@endpefalse
+}
+\newcommand{\claimqedhere}{\renewcommand\qedsymbol{\textcolor{dagpubGray}{\ensuremath{\vartriangleleft}}}%
+\qedhere%
+\renewcommand\qedsymbol{\textcolor{dagpubGray}{\ensuremath{\blacktriangleleft}}}}
+\newenvironment{claimproof}[1][\proofname]{
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist
+  \item[\hskip\labelsep
+        \color{dagpubGray}\sffamily
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \renewcommand\qedsymbol{\textcolor{dagpubGray}{\ensuremath{\vartriangleleft}}}
+  \popQED\endtrivlist%\@endpefalse
+  \renewcommand\qedsymbol{\textcolor{dagpubGray}{\ensuremath{\blacktriangleleft}}}
+}
+\DeclareRobustCommand{\litesEnd}{%
+  \leavevmode\unskip\penalty9999 \hbox{}\nobreak\hfill
+  \quad\hbox{$\lrcorner$}%
+}
+\AtBeginDocument{
+  \@ifpackageloaded{algorithm2e}{
+    \@ifpackagelater{algorithm2e}{2009/11/17}{
+      \renewcommand{\algorithmcfname}{\sffamily\bfseries{}Algorithm}%
+      \renewcommand{\@algocf@procname}{\sffamily\bfseries{}Procedure}%
+      \SetAlgoCaptionSeparator{~}
+      \SetAlCapHSkip{0pt}
+      \renewcommand{\algocf@captiontext}[2]{%
+        \kern0.05em{\color{dagpubYellow}\rule{0.73em}{0.73em}}%
+        \hspace*{0.67em}\small #1\algocf@capseparator\nobreakspace#2}
+      \renewcommand{\algocf@makecaption}[2]{%
+        \parbox[t]{\textwidth}{\algocf@captiontext{#1}{#2}}%
+      }%
+      \renewcommand{\algocf@captionproctext}[2]{%
+        {%
+        \kern0.05em{\color{dagpubYellow}\rule{0.73em}{0.73em}}%
+        \hspace*{0.67em}\small%
+        \ProcSty{\ProcFnt\algocf@procname\ifthenelse{\boolean{algocf@procnumbered}}{\nobreakspace\thealgocf\algocf@typo\algocf@capseparator}{\relax}}%
+        \nobreakspace\ProcNameSty{\ProcNameFnt\algocf@captname #2@}% Name of the procedure in ProcName Style.
+        \ifthenelse{\equal{\algocf@captparam #2@}{\arg@e}}{}{% if no argument, write nothing
+        \ProcNameSty{\ProcNameFnt(}\ProcArgSty{\ProcArgFnt\algocf@captparam #2@}\ProcNameSty{\ProcNameFnt)}%else put arguments in ProcArgSty:
+        }% endif
+        \algocf@captother #2@%
+        }%
+      }%
+      \renewcommand{\@algocf@capt@boxed}{above}
+      \renewcommand{\@algocf@capt@ruled}{above}
+      \setlength\algotitleheightrule{0pt}
+    }{\ClassWarning{%
+      Package algorithm2e outdated}{You are using an outdated version of the package algorithm2e. Please update!}%
+      }
+  }{}
+  \@ifpackageloaded{algorithm}{
+    \captionsetup[algorithm]{name=Algorithm, labelformat=boxed, position=top}
+    \newcommand\fs@ruled@notop{\def\@fs@cfont{\bfseries}\let\@fs@capt\floatc@ruled
+    \def\@fs@pre{}%
+    \def\@fs@post{\kern2pt\hrule\relax}%
+    \def\@fs@mid{\kern2pt\hrule\kern2pt}%
+    \let\@fs@iftopcapt\iftrue}
+    \@ifundefined{fst@algorithm}{}{
+      \renewcommand\fst@algorithm{\fs@ruled@notop}
+    }
+  }{}
+  \ifx\usecleveref\relax\else
+    \@ifpackageloaded{cleveref}{\ClassWarning{Use document option 'cleveref' instead}{Use document option 'cleveref' instead directly loading package 'cleveref'}}{}
+  \fi
+  \ifx\usethmrestate\relax\else
+    \@ifpackageloaded{thm-restate}{\ClassWarning{Use document option 'thm-restate' instead}{Use document option 'thm-restate' instead directly loading package 'thm-restate'}}{}
+  \fi
+  \ifx\useautoref\relax
+    \@ifundefined{algorithmautorefname}{\newcommand{\algorithmautorefname}{Algorithm}}{\renewcommand{\algorithmautorefname}{Algorithm}}%
+  \fi
+}
+\ifx\usecleveref\relax
+  \RequirePackage[capitalise, noabbrev]{cleveref}
+  \crefname{algocf}{Algorithm}{Algorithms}
+  \Crefname{algocf}{Algorithm}{Algorithms}
+  \newcommand{\crefrangeconjunction}{--}
+  \newcommand{\creflastconjunction}{, and\nobreakspace}
+\fi
+\ifx\useautoref\relax
+  \RequirePackage{aliascnt}
+\fi
+\newtheoremstyle{claimstyle}{\topsep}{\topsep}{}{0pt}{\sffamily}{. }{5pt plus 1pt minus 1pt}%
+  {$\vartriangleright$ \thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\ifx\numberwithinsect\relax
+  \numberwithin{theorem}{section}
+\fi
+\ifx\useautoref\relax
+  \addto\extrasenglish{%
+    \def\chapterautorefname{Chapter}%
+    \def\sectionautorefname{Section}%
+    \def\subsectionautorefname{Subsection}%
+    \def\subsubsectionautorefname{Subsubsection}%
+    \def\paragraphautorefname{Paragraph}%
+    \def\subparagraphautorefname{Subparagraph}%
+  }
+  \addto\extrasUKenglish{%
+    \def\chapterautorefname{Chapter}%
+    \def\sectionautorefname{Section}%
+    \def\subsectionautorefname{Subsection}%
+    \def\subsubsectionautorefname{Subsubsection}%
+    \def\paragraphautorefname{Paragraph}%
+    \def\subparagraphautorefname{Subparagraph}%
+  }
+  \addto\extrasUSenglish{%
+  \def\chapterautorefname{Chapter}%
+    \def\sectionautorefname{Section}%
+    \def\subsectionautorefname{Subsection}%
+    \def\subsubsectionautorefname{Subsubsection}%
+    \def\paragraphautorefname{Paragraph}%
+    \def\subparagraphautorefname{Subparagraph}%
+  }
+  \ifx\usethmrestate\relax
+    \newtheorem{lemma}[theorem]{Lemma}
+    \newtheorem{corollary}[theorem]{Corollary}
+    \newtheorem{proposition}[theorem]{Proposition}
+    \newtheorem{exercise}[theorem]{Exercise}
+    \newtheorem{definition}[theorem]{Definition}
+    \newtheorem{conjecture}[theorem]{Conjecture}
+    \newtheorem{observation}[theorem]{Observation}
+    \theoremstyle{definition}
+    \newtheorem{example}[theorem]{Example}
+    \theoremstyle{remark}
+    \newtheorem{note}[theorem]{Note}
+    \newtheorem*{note*}{Note}
+    \newtheorem{remark}[theorem]{Remark}
+    \newtheorem*{remark*}{Remark}
+    \theoremstyle{claimstyle}
+    \newtheorem{claim}[theorem]{Claim}
+    \newtheorem*{claim*}{Claim}
+  \else
+    \newaliascnt{lemma}{theorem}
+    \newtheorem{lemma}[lemma]{Lemma}
+    \aliascntresetthe{lemma}
+    \newcommand{\lemmaautorefname}{Lemma}
+    \newaliascnt{corollary}{theorem}
+    \newtheorem{corollary}[corollary]{Corollary}
+    \aliascntresetthe{corollary}
+    \newcommand{\corollaryautorefname}{Corollary}
+    \newaliascnt{proposition}{theorem}
+    \newtheorem{proposition}[proposition]{Proposition}
+    \aliascntresetthe{proposition}
+    \newcommand{\propositionautorefname}{Proposition}
+    \newaliascnt{exercise}{theorem}
+    \newtheorem{exercise}[exercise]{Exercise}
+    \aliascntresetthe{exercise}
+    \newcommand{\exerciseautorefname}{Exercise}
+    \newaliascnt{definition}{theorem}
+    \newtheorem{definition}[definition]{Definition}
+    \aliascntresetthe{definition}
+    \newcommand{\definitionautorefname}{Definition}
+    \newaliascnt{conjecture}{theorem}
+    \newtheorem{conjecture}[conjecture]{Conjecture}
+    \aliascntresetthe{conjecture}
+    \newcommand{\conjectureautorefname}{Conjecture}
+    \newaliascnt{observation}{theorem}
+    \newtheorem{observation}[observation]{Observation}
+    \aliascntresetthe{observation}
+    \newcommand{\observationautorefname}{Observation}
+    \theoremstyle{definition}
+    \newaliascnt{example}{theorem}
+    \newtheorem{example}[example]{Example}
+    \aliascntresetthe{example}
+    \newcommand{\exampleautorefname}{Example}
+    \theoremstyle{remark}
+    \newaliascnt{note}{theorem}
+    \newtheorem{note}[note]{Note}
+    \aliascntresetthe{note}
+    \newcommand{\noteautorefname}{Note}
+    \newtheorem*{note*}{Note}
+    \newaliascnt{remark}{theorem}
+    \newtheorem{remark}[remark]{Remark}
+    \aliascntresetthe{remark}
+    \newcommand{\remarkautorefname}{Remark}
+    \newtheorem*{remark*}{Remark}
+    \theoremstyle{claimstyle}
+    \newaliascnt{claim}{theorem}
+    \newtheorem{claim}[claim]{Claim}
+    \aliascntresetthe{claim}
+    \newcommand{\claimautorefname}{Claim}
+    \newtheorem*{claim*}{Claim}
+    \ifx\numberwithinsect\relax
+       \numberwithin{theorem}{section}
+       \numberwithin{lemma}{section}
+       \numberwithin{corollary}{section}
+       \numberwithin{proposition}{section}
+       \numberwithin{exercise}{section}
+       \numberwithin{definition}{section}
+       \numberwithin{conjecture}{section}
+       \numberwithin{observation}{section}
+       \numberwithin{example}{section}
+       \numberwithin{note}{section}
+       \numberwithin{remark}{section}
+       \numberwithin{claim}{section}
+    \fi
+  \fi
+\else
+  \newtheorem{lemma}[theorem]{Lemma}
+  \newtheorem{corollary}[theorem]{Corollary}
+  \newtheorem{proposition}[theorem]{Proposition}
+  \newtheorem{exercise}[theorem]{Exercise}
+  \newtheorem{definition}[theorem]{Definition}
+  \newtheorem{conjecture}[theorem]{Conjecture}
+  \newtheorem{observation}[theorem]{Observation}
+  \theoremstyle{definition}
+  \newtheorem{example}[theorem]{Example}
+  \theoremstyle{remark}
+  \newtheorem{note}[theorem]{Note}
+  \newtheorem*{note*}{Note}
+  \newtheorem{remark}[theorem]{Remark}
+  \newtheorem*{remark*}{Remark}
+  \theoremstyle{claimstyle}
+  \newtheorem{claim}[theorem]{Claim}
+  \newtheorem*{claim*}{Claim}
+\fi
+\theoremstyle{plain}
 \endinput
 %%
-%% End of file `lites.cls'.
+%% End of file `lites-v2021.cls'.

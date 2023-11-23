@@ -941,12 +941,12 @@ TGDK issue front matters]
     {\string\subjclass\space deprecated: Please enter subject classification in 1 or more ccsdesc macros}
     {Since 2019, \string\subjclass\space is obsolete in the styles of Dagstuhl Publishing.}}
 \let\@subjclass\@empty
-\newcommand{\printSubjclass}{
-  \@\ifx\@ccsdescString\@empty
-    \textcolor{red}{Editor: Please fill in 1 or more \string\ccsdesc\space macro}%
-  \else
-    \@ccsdescString
-  \fi
+\newcommand{\printSubjclass}{%
+  \ifx\@ccsdescString\@empty%
+  \else%
+    \par\emph{ACM Classification 2012}\\%
+    \@ccsdescString%
+  \fi%
 }
 \def\subjclassHeading{%
   \textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries
@@ -1378,6 +1378,7 @@ TGDK issue front matters]
 \subtitleIssue{}
 \let\orig@editor\@editor
 \let\orig@editorLong\@editorLong
+\let\@editorLong\@empty
 \newcount\c@editor
 \newcounter{currenteditor}
 \def\@editornum{0}
@@ -1430,7 +1431,13 @@ TGDK issue front matters]
     \fi}%
     \global\advance\c@editor\@ne
 }
-\newcommand{\printEditorLong}{\@editorLong}
+\newcommand{\printEditorLong}{%
+  \ifx\@editorLong\@empty%
+  \else%
+  \par\emph{\@DagPubSeriesNameShort{} Special Issue Editors}%
+    \@editorLong%
+  \fi%
+}
 \def\titlepagebottomline#1{\gdef\@titlepagebottomline{#1}}
 \titlepagebottomline{\mbox{\@DagPubSeriesNameShort, \ifx\@SeriesVolume\@empty Vol.\nobreakspace\textcolor{blue}{VOL}\else Vol.\nobreakspace\@SeriesVolume\fi
 \ifx\@SeriesIssue\@empty,\space Issue\nobreakspace\textcolor{blue}{ISS}\else,\space Issue\nobreakspace\@SeriesIssue\fi

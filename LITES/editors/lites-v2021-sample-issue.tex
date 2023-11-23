@@ -1,6 +1,6 @@
 
-%This is a template for producing LIPIcs conference volumes.
-%The usage of this file together with lipicsmaster.cls should be
+%This is a template for producing a frontmatter of a LITES issue.
+%The usage of this file together with litesmaster-v2021.cls should be
 %straightforward. There is no separate documentation.
 %Feel free to adapt this file or lipicsmaster.cls if required.
 
@@ -15,14 +15,34 @@
 
 %\graphicspath{{./graphics/}}%helpful if your graphic files are in another directory
 
-\bibliographystyle{plain}% the recommnded bibstyle
 
-\Volume{00}
-\Issue{00}
-\DatePublished{June 2010}
-\Copyright{Editor} % copyright owner for foreword
+%%%%%%%
+% following macro block is one applicable for special issues
+%
+% only applicable if editors are responsible for complete issue, e.g. in case of a special issue
+%\editor{John Q. Public}{Dummy University Computing Laboratory, [Address], Country}{johnqpublic@dummyuni.org}{https://orcid.org/0000-0002-1825-0097}%TODO in case of special issue, please use full name; only 1 editor per \editor macro; first two parameters are mandatory, other parameters can be empty.
+
+%\editor{Joan R. Access}{School of Computer Science, University City, Country2}{beditor@uni-city.edu}{}
+
+%\ccsdesc[100]{\textcolor{red}{Replace ccsdesc macro with valid one}}%TODO in case of special issue: Please choose ACM 2012 classifications from https://dl.acm.org/ccs/ccs_flat.cfm . 
+
+%\EventEditors{John Q. Open and Joan R. Access} %editors of special issue
+%\EventNoEds{2}
+%\EventLongTitle{30th Conference on Very Important Topics (CVIT 2016)} %topic of special issue
+%\EventShortTitle{CVIT 2016}
+%\EventAcronym{CVIT}
+%\EventYear{2016}
+%\EventDate{December 24--27, 2016}
+%\EventLocation{Little Whinging, United Kingdom}
+%\EventLogo{}
+%%%%%%%
 
 
+\SeriesVolume{3}
+\SeriesIssue{2}
+\ArticleNo{0} % the frontmatter is always the first paper and has always the article number 0 (zero).
+
+\DatePublished{November 2016}
 
 \begin{document}
 
@@ -38,8 +58,17 @@
 
 \bigskip
 
+
+
+\printEditorLong
+
+\bigskip
+
+\printSubjclass
+
+\bigskip
+
 \emph{Published online and open access by}\newline
-the European Design and Automation Association (EDAA) /\ EMbedded Systems Special Interest Group (EMSIG) and
 Schloss Dagstuhl -- Leibniz-Zentrum f\"ur Informatik GmbH, Dagstuhl Publishing, Saarbr\"ucken/Wadern, Germany. 
 
 Online available at \\ \url{https://www.dagstuhl.de/dagpub/\printISSN}.
@@ -76,7 +105,7 @@ The copyright is retained by the corresponding authors.
 %\bigskip
 \vfill
 \emph{Digital Object Identifier}\newline
-\printIssueDOI
+\printForewordDOI
 
 \newpage
 
@@ -93,36 +122,13 @@ LITES publishes original articles on all aspects of embedded computer systems, i
 
 \bigskip
 
-\emph{Editorial Board}
+\emph{Editor in Chief}
 \begin{itemize}
-\item Alan Burns (Editor-in-Chief)%, University of York)
-\item Bashir Al Hashimi %(University of Southampton)
-\item Karl-Erik Arzen %(Lund University)
-\item Neil Audsley %(University of York)
-\item Sanjoy Baruah %(University of North Carolina at Chapel Hill)
-\item Samarjit Chakraborty %(Technical University Munich)
-\item Marco di Natale %(Scuola Superiore Sant'Anna)
-\item Martin Fr\"anzle %(Carl von Ossietzky University Oldenburg)
-\item Steve Goddard %(University of Nebraska-Lincoln) 
-\item Gernot Heiser% (University of New South Wales)
-\item Axel Jantsch %(Royal Institute of Technology Stockholm)
-\item Florence Maraninchi %(VERIMAG)
-\item Sang Lyul Min %(Seoul National University)
-\item Lothar Thiele %(ETH Z\"urich)
-\item Mateo Valero %(Technical University of Catalonia)
-\item Virginie Wiels %(ONERA)
+\item Bj\"orn B.\ Brandenburg
 \end{itemize}
 
 \bigskip
 \emph{Editorial Office}\newline
-Michael Wagner \emph{(Managing Editor)}\\
-Michael Didas \emph{(Managing Editor)}\\
-Jutka Gasiorowski \emph{(Editorial Assistance)}\\
-Dagmar Glaser \emph{(Editorial Assistance)}\\
-Thomas Schillo \emph{(Technical Assistance)}
-
-\bigskip
-\emph{Contact}\newline
 Schloss Dagstuhl -- Leibniz-Zentrum f\"ur Informatik\\
 LITES, Editorial Office\\
 Oktavie-Allee, 66687 Wadern, Germany\\ 
@@ -155,5 +161,43 @@ lites@dagstuhl.de
 %\part{} %use if volume is divided in parts
 \end{contentslist}
 
+\chapter{Preface} %please fill or comment out
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut mattis
+elementum fermentum. Pellentesque habitant morbi tristique senectus et
+netus et malesuada fames ac turpis egestas. Nulla sapien magna,
+bibendum in dictum sed, egestas vel purus. Pellentesque id ornare
+lacus. Pellentesque justo elit, sodales a fringilla vitae, gravida sed
+elit. Etiam turpis eros, tincidunt sit amet tempor sed, gravida quis
+eros. Mauris et nunc enim. Ut congue rhoncus odio vitae lacinia. Nunc
+placerat est eu eros dignissim ac tristique nisi placerat. Fusce et
+hendrerit justo. Nunc feugiat pulvinar nunc ac tincidunt. Donec eu
+pharetra metus. Cras malesuada ante accumsan purus dignissim
+euismod. Curabitur risus ante, aliquet ut suscipit eget, vulputate non
+ligula. Nullam eleifend malesuada est, nec adipiscing sapien eleifend
+eget. Vestibulum fringilla diam id felis sagittis aliquet. Maecenas
+sed metus vel dui vulputate pretium et id lacus. Ut eget libero augue,
+ut aliquet orci. Integer sed nunc id massa interdum imperdiet. Nunc ut
+consequat eros.
+
+Morbi hendrerit dapibus augue. Proin sed adipiscing ipsum. Ut
+vulputate ultricies diam id dictum. Nunc pharetra imperdiet
+sodales. Morbi convallis massa vitae justo adipiscing nec congue nunc
+fringilla. Pellentesque eu rhoncus ligula. Nam eros neque, hendrerit a
+rhoncus vel, molestie nec nulla. Ut iaculis vulputate mauris, non
+scelerisque dolor fringilla sit amet. Pellentesque habitant morbi
+tristique senectus et netus et malesuada fames ac turpis
+egestas. Quisque vitae accumsan risus. Sed molestie dictum
+venenatis. Sed odio justo, gravida et vulputate eu, congue et lorem. 
+
+\begin{participants}
+\chapter[Authors]{List of Authors}
+%use \participant for every author, eg.:
+\participant John Q. Public\\ 
+  Dummy University Computing Laboratory\\
+  Address, Country\\
+  johnqpublic@dummyuni.org
+
+\end{participants} 
 
 \end{document}
