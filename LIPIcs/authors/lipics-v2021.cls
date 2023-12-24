@@ -266,7 +266,7 @@
                    \llap{\hbox to0.5\oddsidemargin{  \ifx\@hideLIPIcs\@undefined\ifx\@ArticleNo\@empty\textcolor{red}{XX}\else\@ArticleNo\fi:\fi\thepage\hss}}\leftmark\hfil}%
     \def\@oddhead{\large\sffamily\bfseries\rightmark\hfil
                   \rlap{\hbox to0.5\oddsidemargin{\hss  \ifx\@hideLIPIcs\@undefined\ifx\@ArticleNo\@empty\textcolor{red}{XX}\else\@ArticleNo\fi:\fi\thepage}}}%
-    \def\@oddfoot{\hfil
+    \def\@oddfoot{\ifx\@hideLIPIcs\@undefined\hfil
                   \rlap{%
                     \vtop{%
                       \vskip10mm
@@ -275,13 +275,11 @@
                                      \advance\@tempdima1in
                                      \advance\@tempdima\hoffset
                                      \hb@xt@\@tempdima{%
-                                       \ifx\@hideLIPIcs\@undefined
-                                         \textcolor{lipicsGray}{\normalsize\sffamily
-                                         \bfseries\quad
-                                         \expandafter\textsolittle
-                                         \expandafter{\@EventShortTitle}}%
-                                       \fi
-                                     \strut\hss}}}}}
+                                       \textcolor{lipicsGray}{\normalsize\sffamily
+                                       \bfseries\quad
+                                       \expandafter\textsolittle
+                                       \expandafter{\@EventShortTitle}}%
+                                     \strut\hss}}}}\fi}
     \let\@evenfoot\@empty
     \let\@mkboth\markboth
   \let\sectionmark\@gobble
