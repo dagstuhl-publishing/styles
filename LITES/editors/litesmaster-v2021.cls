@@ -30,7 +30,7 @@
 %% Schloss Dagstuhl (publishing@dagstuhl.de).
 %% -----------------------------------------------------------------
 \ProvidesClass{litesmaster-v2021}
-[2023/11/08 v3.2.0
+[2023/12/05 v3.2.1
 LITES issue front matters]
 
 \emergencystretch1em
@@ -169,7 +169,9 @@ LITES issue front matters]
         \\
       \fi
     \href{\@DagPubSeriesURL}{\textit{\@DagPubSeriesName}},\space Vol.\nobreakspace\@SeriesVolume,\space Issue\nobreakspace\@SeriesIssue,\space Article\nobreakspace{}No.\nobreakspace\@ArticleNo,\space pp.\nobreakspace{}\@ArticleNo:\thepage--\@ArticleNo:\getpagerefnumber{TotPages}\\
-      \setbox\@tempboxa\hbox{\IfFileExists{\@DagPubSeriesLogo.pdf}{\includegraphics[height=14\p@,trim=0 15 0 0]{\@DagPubSeriesLogo}}{\includegraphics[height=14\p@, width=62pt]{example-image-plain}}}%
+    \ifx\@SpecialIssue\@empty\else Special Issue: \@SpecialIssue.\\\fi
+    \ifx\@SectionAreaEditor\@empty\else\@SectionAreaEds: \@SectionAreaEditor\\\fi
+    \setbox\@tempboxa\hbox{\IfFileExists{\@DagPubSeriesLogo.pdf}{\includegraphics[height=14\p@,trim=0 15 0 0]{\@DagPubSeriesLogo}}{\includegraphics[height=14\p@, width=62pt]{example-image-plain}}}%
     \hspace*{\wd\@tempboxa}\enskip
       \href{\@DagPubSeriesURL}%
            {\@DagPubSeriesName}\\
@@ -355,14 +357,7 @@ LITES issue front matters]
 \renewcommand*\descriptionlabel[1]{%
   \hspace\labelsep\textcolor{dagpubGray}{\sffamily\bfseries\mathversion{bold}#1}}
 \def\topmattervskip{0.2}
-\newsavebox{\metadatabox}
-\newenvironment{colbox}
-  {\begin{lrbox}{\metadatabox}%
-   \begin{minipage}{\dimexpr\columnwidth-2\fboxsep\relax}}
-  {\end{minipage}\end{lrbox}%
-   \begin{center}
-   \colorbox{dagpubLightGray}{\usebox{\metadatabox}}
-   \end{center}}
+\RequirePackage{mdframed}
 \newenvironment{abstract}{%
   \vskip\bigskipamount
   \ifLineNumbers\nolinenumbers\let\linno@n\relax\fi
@@ -379,7 +374,7 @@ LITES issue front matters]
   {%
   \end{multicols}%
   \vskip0.5\baselineskip\noindent
-  \begin{colbox}
+  \begin{mdframed}[backgroundcolor=dagpubLightGray,linewidth=0,innertopmargin=5,innerleftmargin=5, innerrightmargin=5, innerbottommargin=5, skipabove=0, skipbelow=0]
       \fontsize{9}{12}\selectfont
   \vskip\topmattervskip\baselineskip\noindent
    \subjclassHeading
@@ -422,17 +417,21 @@ LITES issue front matters]
      \acknowledgementsHeading\ifx\authoranonymous\relax\textcolor{red}{Anonymous acknowledgements} \else\@acknowledgements\fi
    \fi
   \vskip\topmattervskip\baselineskip\noindent
-  \DateSubmissionHeading
-  \ifx\@DateSubmission\@empty
-    \textcolor{blue}{To be completed by Dagstuhl editorial office}
-  \else
-    \@DateSubmission\space
+  \ifx\@hideDateSubmission\@undefined
+    \DateSubmissionHeading
+    \ifx\@DateSubmission\@empty
+      \textcolor{blue}{To be completed by Dagstuhl editorial office}
+    \else
+      \@DateSubmission\space
+    \fi
   \fi
-  \DateAcceptanceHeading
-  \ifx\@DateAcceptance\@empty
-    \textcolor{blue}{To be completed by Dagstuhl editorial office}
-  \else
-    \@DateAcceptance\space
+  \ifx\@hideDateAcceptance\@undefined
+    \DateAcceptanceHeading
+    \ifx\@DateAcceptance\@empty
+      \textcolor{blue}{To be completed by Dagstuhl editorial office}
+    \else
+      \@DateAcceptance\space
+    \fi
   \fi
     \DatePublishedHeading
   \ifx\@DatePublished\@empty
@@ -453,7 +452,7 @@ LITES issue front matters]
    \fi
   \vskip0.3\baselineskip\noindent
      \par
-   \end{colbox}
+   \end{mdframed}
    \ifx\linno@n\relax\linenumbers\fi
   \protected@write\@auxout{}{\string\gdef\string\@pageNumberEndAbstract{\thepage}}%
 }% end abstract
@@ -478,7 +477,7 @@ LITES issue front matters]
       \@xsect{1ex \@plus.2ex}%
      \vspace{-\multicolsep}]%
      \list{\@biblabel{\@arabic\c@enumiv}}%
-        {\leftmargin6mm
+        {\leftmargin7mm
          \labelsep\leftmargin
          \settowidth\labelwidth{\@biblabel{#1}}%
          \advance\labelsep-\labelwidth
@@ -755,10 +754,10 @@ LITES issue front matters]
 \ifx\usehyperxmp\relax
 \hypersetup{
   pdftitle={\@DagPubSeriesNameShort, Vol. \@SeriesVolume, Issue \@SeriesIssue, \@DatePublished},
-  pdfauthor={\@EventEditors},
+  pdfauthor={\ifx\@SectionAreaEditor\@empty \ifx\@EventEditors\@empty \@DagPubSeriesNameShort{} Editorial Board \else\@EventEditors\fi \else \@SectionAreaEditor\fi},
   pdfkeywords={\@keywords},
   pdfsubject={\@DagPubSeriesNameShort, Vol. \@SeriesVolume, Issue \@SeriesIssue, Article \@ArticleNo},
-  pdfcopyright = {Copyright (C) \ifx\authoranonymous\relax Anonymous author(s) \else \@EventEditors; \fi licensed under Creative Commons License CC-BY 4.0},
+  pdfcopyright = {Copyright (C) \ifx\authoranonymous\relax Anonymous author(s) \else \ifx\@SectionAreaEditor\@empty \ifx\@EventEditors\@empty \@DagPubSeriesNameShort{} Editorial Board \else\@EventEditors\fi \else \@SectionAreaEditor\fi; \fi licensed under Creative Commons License CC-BY 4.0},
   pdflang={en},
   pdfmetalang={en},
   pdfpublisher={Schloss Dagstuhl -- Leibniz-Zentrum für Informatik, Dagstuhl Publishing, Germany},
@@ -774,9 +773,9 @@ LITES issue front matters]
 \else%
 \hypersetup{
   pdftitle={\@DagPubSeriesNameShort, Vol. \@SeriesVolume, Issue \@SeriesIssue, \@DatePublished},
- pdfauthor={\@EventEditors},
+  pdfauthor={\ifx\@SectionAreaEditor\@empty \ifx\@EventEditors\@empty \@DagPubSeriesNameShort{} Editorial Board \else\@EventEditors\fi \else \@SectionAreaEditor\fi},
   pdfkeywords={\@keywords},
-  pdfsubject={\@DagPubSeriesNameShort, Vol.\@SeriesVolume,  Issue \@SeriesIssue; Copyright (C) \ifx\authoranonymous\relax Anonymous author(s) \else \@EventEditors; \fi licensed under Creative Commons License CC-BY 4.0}
+  pdfsubject={\@DagPubSeriesNameShort, Vol.\@SeriesVolume,  Issue \@SeriesIssue; Copyright (C) \ifx\authoranonymous\relax Anonymous author(s) \else \ifx\@SectionAreaEditor\@empty \ifx\@EventEditors\@empty \@DagPubSeriesNameShort{} Editorial Board \else\@EventEditors\fi \else \@SectionAreaEditor\fi; \fi licensed under Creative Commons License CC-BY 4.0}
 }%
 \fi  %
 }
@@ -903,7 +902,10 @@ LITES issue front matters]
   \fi}}
 \Copyright{\@empty}
 \let\@copyrightholder\@empty
+\def\hideDagpub{\let\@hideDagpub\relax}
 \def\hideLITES{\let\@hideDagpub\relax}
+\def\hideDateSubmission{\let\@hideDateSubmission\relax}
+\def\hideDateAcceptance{\let\@hideDateAcceptance\relax}
 \usepackage{xstring}
 \def\keywords#1{\def\@keywords{#1}}
 \let\@keywords\@empty
@@ -1086,14 +1088,16 @@ LITES issue front matters]
     #2}%
 }%
 \def\SectionAreaEditor#1{\gdef\@SectionAreaEditor{#1}}
+\def\SectionAreaNoEds#1{\gdef\@SectionAreaNoEds{#1}\xdef\@SectionAreaEds{Editor\ifnum#1>1s\fi}}
+\SectionAreaNoEds{1}
 \def\SectionAreaEditorHeading{%
   \textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries
-                      Editor\enskip}}
+                      \@SectionAreaEds\enskip}}
 \let\@SectionAreaEditor\@empty
 \def\SpecialIssue#1{\gdef\@SpecialIssue{#1}}
 \def\SpecialIssueHeading{%
   \textcolor{dagpubGray}{\fontsize{9}{12}\sffamily\bfseries
-                      Special issue\enskip}}
+                      Special Issue\enskip}}
 \let\@SpecialIssue\@empty
 \def\DateSubmission#1{\gdef\@DateSubmission{#1}}
 \def\DateSubmissionHeading{%
@@ -1163,10 +1167,11 @@ LITES issue front matters]
   \popQED\endtrivlist%\@endpefalse
   \renewcommand\qedsymbol{\textcolor{dagpubGray}{\ensuremath{\blacktriangleleft}}}
 }
-\DeclareRobustCommand{\litesEnd}{%
+\DeclareRobustCommand{\dagpubEnd}{%
   \leavevmode\unskip\penalty9999 \hbox{}\nobreak\hfill
   \quad\hbox{$\lrcorner$}%
 }
+\DeclareRobustCommand{\litesEnd}{\dagpubEnd}
 \AtBeginDocument{
   \@ifpackageloaded{algorithm2e}{
     \@ifpackagelater{algorithm2e}{2009/11/17}{
