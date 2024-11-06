@@ -1,4 +1,4 @@
-[![SWH](https://archive.softwareheritage.org/badge/swh:1:dir:1b66fc29b44e371e68a77879c0fbebefe3cd34f8/)](https://archive.softwareheritage.org/swh:1:dir:1b66fc29b44e371e68a77879c0fbebefe3cd34f8/)
+[![SWH](https://archive.softwareheritage.org/badge/swh:1:dir:5f597200723004f91aba991b1fdf797f83d4c0f9/)](https://archive.softwareheritage.org/swh:1:dir:5f597200723004f91aba991b1fdf797f83d4c0f9;origin=https://github.com/dagstuhl-publishing/styles;visit=swh:1:snp:ce920335a57e318aa529036d2a81ef91eda495da;anchor=swh:1:rev:ad64c2123b38e8b23dbd20e1b8e866ffe57300bd)
 
 # DagPub Styles
 
